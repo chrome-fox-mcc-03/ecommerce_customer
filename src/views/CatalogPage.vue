@@ -9,7 +9,8 @@
       <div class="row d-flex">
         <!--  -->
         <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mb-2 rounded-0 mr-2 shadow-sm" style="max-width: 18rem;">
-          <img src="https://www.webitrs5.net/images/comingsoon-square.png" class="card-img-top" alt="...">
+          <div class="add-btn"><i class="fas fa-plus"></i></div>
+          <img src="https://www.webitrs5.net/images/comingsoon-square.png" class="card-img-top" alt="Shoes-Img">
           <div class="shoe-desc">
             <p class="">Onitsuka Tiger Black</p>
             <p class="">929.900</p>
@@ -89,7 +90,7 @@ export default {
 <style lang="scss">
 .ads {
   height: 500px;
-  background-image: url("https://images.squarespace-cdn.com/content/v1/551b99dce4b0ae1f4a728b25/1479907152929-W18109XPM0H2KZYJ1086/ke17ZwdGBToddI8pDm48kFdj1LU3QXNrC7XCDJRXSjl7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1US_GH6w34F4AbXQYP1mTMh6WZrJMPe9RIQ00FIMO_YvQxJ-BQGo94klLBA8TVf45lA/NikeTown_10536.jpg?format=1500w");
+  background-image: url("../assets/newbal.jpg");
   background-position: center;
   background-size: cover;
   display: flex;
@@ -97,12 +98,11 @@ export default {
   justify-content: center;
   padding: 0 10rem;
   align-items: flex-end;
-  background-color: teal;
-  font-family: 'Cabin', sans-serif;
-  color: white;
+  // font-family: 'Cabin', sans-serif;
+  color: rgb(0, 0, 0);
   text-align: right;
   h1 {
-    font-weight: 800;
+    font-weight: 900;
     font-size: 4rem;
     font-style: italic;
   }
@@ -124,6 +124,26 @@ export default {
   /* object-fit: cover;
   width: 250px;
   height: 250px; */
+}
+.add-btn{
+  height: 30px;
+  width: 30px;
+  background-color: teal;
+  border-radius: 50%;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  transition: .3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+.fa-plus {
+  color: white;
 }
 .shoe-desc {
   display: flex;
