@@ -7,11 +7,15 @@ const url = 'http://localhost:3000'
 
 export default new Vuex.Store({
   state: {
-    products: []
+    products: [],
+    carts: []
   },
   mutations: {
     SET_PRODUCTS (state, payload) {
       state.products = payload
+    },
+    SET_CARTS (state, payload) {
+      state.carts = payload
     }
   },
   actions: {
@@ -36,6 +40,22 @@ export default new Vuex.Store({
         .then(({ data }) => {
           console.log(data)
           context.commit('SET_PRODUCTS', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    fetchCarts (context, payload) {
+      axios({
+        method: 'get',
+        url: `${url}/carts`,
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+        .then(({ data }) => {
+          console.log(data)
+          context.commit('SET_CARTS', data)
         })
         .catch(err => {
           console.log(err)

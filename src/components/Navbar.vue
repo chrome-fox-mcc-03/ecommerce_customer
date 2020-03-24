@@ -1,10 +1,12 @@
 <template>
   <div class="nav">
-    <p class="my-nav-btn">catalog</p>
+    <p @click="redirToCatalogPage" class="my-nav-btn">catalog</p>
     <p> | </p>
     <p @click="signout" class="my-nav-btn">sign out</p>
     <p> | </p>
-    <i class="fas fa-shopping-cart"></i>
+    <div @click="redirToCartPage">
+      <i class="fas fa-shopping-cart"></i>
+    </div>
   </div>
 </template>
 
@@ -15,6 +17,12 @@ export default {
     signout () {
       localStorage.clear()
       this.$router.push('/')
+    },
+    redirToCartPage () {
+      this.$router.push('/cart')
+    },
+    redirToCatalogPage () {
+      this.$router.push('/catalog')
     }
   }
 }

@@ -8,25 +8,23 @@
     <div class="catalog-space">
       <h3>NEW COLLECTION</h3>
       <div class="row d-flex">
-        <!--  -->
         <ShoeCard v-for="shoe in products" :key="shoe.id" :shoe="shoe"/>
-        <!--  -->
       </div>
     </div>
-    <div class="footer">
-      <h2>footer</h2>
-    </div>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import ShoeCard from '../components/ShoeCard.vue'
 import Navbar from '../components/Navbar.vue'
+import Footer from '../components/Footer.vue'
 export default {
   name: 'CatalogPage',
   components: {
     Navbar,
-    ShoeCard
+    ShoeCard,
+    Footer
   },
   created () {
     this.$store.dispatch('fetchProducts')
@@ -65,10 +63,6 @@ export default {
 .catalog-space {
   background-color: rgb(241, 241, 241);
   padding: .5rem 7.5rem;
-}
-.footer {
-  height: 150px;
-  background-color: rgb(109, 187, 187);
 }
 .shoes-img {
   max-width: 100%;

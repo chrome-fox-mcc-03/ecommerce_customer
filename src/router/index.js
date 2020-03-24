@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import LandingPage from '../views/LandingPage.vue'
 import CatalogPage from '../views/CatalogPage.vue'
 import SigninPage from '../views/SigninPage.vue'
+import CartPage from '../views/CartPage.vue'
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/catalog',
     name: 'CatalogPage',
     component: CatalogPage
+  },
+  {
+    path: '/cart',
+    name: 'CartPage',
+    component: CartPage
   }
 ]
 
