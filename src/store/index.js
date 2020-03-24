@@ -8,7 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     vuex: 'Vue available',
-    serverUrl: 'http://localhost:3000/customer',
+    serverUrl: 'http://localhost:3000',
     pageLoading: false,
     userLogin: false,
     cred: {
@@ -22,7 +22,8 @@ export default new Vuex.Store({
       msg: '',
       color: 'danger',
       show: false
-    }
+    },
+    products: []
   },
   mutations: {
     startLoading (state) {
@@ -56,6 +57,14 @@ export default new Vuex.Store({
     removeError (state) {
       state.errorMsg.msg = ''
       state.errorMsg.show = false
+    },
+    emptyProduct (state) {
+      state.products = []
+    },
+    fillProduct (state, payload) {
+      payload.forEach(item => {
+        state.products.push(item)
+      })
     }
   },
   actions: {
@@ -63,7 +72,7 @@ export default new Vuex.Store({
       // console.log(payload)
       commit('startLoading')
       axios({
-        url: `${state.serverUrl}/register`,
+        url: `${state.serverUrl}/customer/register`,
         method: 'POST',
         data: payload
       })
@@ -83,7 +92,7 @@ export default new Vuex.Store({
       // console.log(payload)
       commit('startLoading')
       axios({
-        url: `${state.serverUrl}/login`,
+        url: `${state.serverUrl}/customer/login`,
         method: 'POST',
         data: payload
       })
@@ -93,6 +102,28 @@ export default new Vuex.Store({
         })
         .catch(err => {
           // console.log(err.response)
+          commit('showError', err.response.data.error)
+        })
+        .finally(_ => {
+          commit('stopLoading')
+        })
+    },
+    fetchFromShop ({ state, commit }) {
+      commit('startLoading')
+      commit('emptyProduct')
+      commit('removeError')
+      axios({
+        url: `${state.serverUrl}/customer/shop`,
+        method: 'GET',
+        headers: {
+          token: state.cred.token
+        }
+      })
+        .then(result => {
+          commit('fillProduct', result.data.products)
+        })
+        .catch(err => {
+          console.log(err.response.data)
           commit('showError', err.response.data.error)
         })
         .finally(_ => {

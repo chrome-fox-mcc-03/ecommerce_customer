@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="bg-light container-fluid vw-100 vh-100 overflow-hidden">
+  <div id="app" class="bg-light container-fluid vw-100">
     <navbar></navbar>
     <router-view></router-view>
   </div>
