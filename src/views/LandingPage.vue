@@ -5,7 +5,7 @@
         <h1>Kick up</h1>
         <p>Find literally any shoes on Shoesify</p>
         <div class="btn-space">
-          <button class="my-btn my-btn-teal">Login</button>
+          <button @click="redirToSignIn" class="my-btn my-btn-teal">Sign in</button>
           <button class="my-btn my-btn-maroon">Join Us</button>
         </div>
       </div>
@@ -15,7 +15,12 @@
 
 <script>
 export default {
-  name: 'LandingPage'
+  name: 'LandingPage',
+  methods: {
+    redirToSignIn () {
+      this.$router.push('/signin')
+    }
+  }
 }
 </script>
 

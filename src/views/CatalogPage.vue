@@ -1,5 +1,6 @@
 <template>
   <div class="catalog-page">
+    <Navbar/>
     <div class="ads">
       <h1>New Arrival</h1>
       <p>check out our latest collection</p>
@@ -8,71 +9,8 @@
       <h3>NEW COLLECTION</h3>
       <div class="row d-flex">
         <!--  -->
-        <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mb-2 rounded-0 mr-2 shadow-sm" style="max-width: 18rem;">
-          <div class="add-btn"><i class="fas fa-plus"></i></div>
-          <img src="https://www.webitrs5.net/images/comingsoon-square.png" class="card-img-top" alt="Shoes-Img">
-          <div class="shoe-desc">
-            <p class="">Onitsuka Tiger Black</p>
-            <p class="">929.900</p>
-          </div>
-        </div>
+        <ShoeCard v-for="shoe in products" :key="shoe.id" :shoe="shoe"/>
         <!--  -->
-        <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mb-2 rounded-0 mr-2 shadow-sm" style="max-width: 18rem;">
-          <img src="https://www.webitrs5.net/images/comingsoon-square.png" class="card-img-top" alt="...">
-          <div class="shoe-desc">
-            <p class="">Adidas Ultraboost</p>
-            <p class="">799.900</p>
-          </div>
-        </div>
-        <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mb-2 rounded-0 mr-2 shadow-sm" style="max-width: 18rem;">
-          <img src="https://www.webitrs5.net/images/comingsoon-square.png" class="card-img-top" alt="...">
-          <div class="shoe-desc">
-            <p class="">Nike Flyknit</p>
-            <p class="">799.900</p>
-          </div>
-        </div>
-        <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mb-2 rounded-0 mr-2 shadow-sm" style="max-width: 18rem;">
-          <img src="https://www.webitrs5.net/images/comingsoon-square.png" class="card-img-top" alt="...">
-          <div class="shoe-desc">
-            <p class="">Nike Cortez G</p>
-            <p class="">799.900</p>
-          </div>
-        </div>
-        <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mb-2 rounded-0 mr-2 shadow-sm" style="max-width: 18rem;">
-          <img src="https://www.webitrs5.net/images/comingsoon-square.png" class="card-img-top" alt="...">
-          <div class="shoe-desc">
-            <p class="">Nike Cortez G</p>
-            <p class="">799.900</p>
-          </div>
-        </div>
-        <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mb-2 rounded-0 mr-2 shadow-sm" style="max-width: 18rem;">
-          <img src="https://www.webitrs5.net/images/comingsoon-square.png" class="card-img-top" alt="...">
-          <div class="shoe-desc">
-            <p class="">Nike Cortez G</p>
-            <p class="">799.900</p>
-          </div>
-        </div>
-        <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mb-2 rounded-0 mr-2 shadow-sm" style="max-width: 18rem;">
-          <img src="https://www.webitrs5.net/images/comingsoon-square.png" class="card-img-top" alt="...">
-          <div class="shoe-desc">
-            <p class="">Nike Cortez G</p>
-            <p class="">799.900</p>
-          </div>
-        </div>
-        <!-- <div class="col-12 col-sm-6 col-md-4 col-lg-3 shoes-card mb-3" style="max-width: 275px; min-width: 275px;">
-          <img class="shoes-img" src="https://www.webitrs5.net/images/comingsoon-square.png" alt="">
-          <p>Nike Flyknit</p>
-          <small>250.000</small>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 shoes-card mb-3" style="max-width: 275px; min-width: 275px;">
-          <h2>Shoes</h2>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 shoes-card mb-3" style="max-width: 275px; min-width: 275px;">
-          <h2>Shoes</h2>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 shoes-card mb-3" style="max-width: 275px; min-width: 275px;">
-          <h2>Shoes</h2>
-        </div> -->
       </div>
     </div>
     <div class="footer">
@@ -82,8 +20,22 @@
 </template>
 
 <script>
+import ShoeCard from '../components/ShoeCard.vue'
+import Navbar from '../components/Navbar.vue'
 export default {
-  name: 'CatalogPage'
+  name: 'CatalogPage',
+  components: {
+    Navbar,
+    ShoeCard
+  },
+  created () {
+    this.$store.dispatch('fetchProducts')
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
+  }
 }
 </script>
 
