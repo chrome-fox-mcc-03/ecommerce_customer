@@ -90,6 +90,15 @@ export default new Vuex.Store({
           token: localStorage.getItem('token')
         }
       })
+    },
+    deleteCart (context, cartId) {
+      return axios({
+        method: 'delete',
+        url: `${url}/carts/${cartId}`,
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
     }
   },
   modules: {

@@ -19,6 +19,9 @@
     <div class="cart-price">
       <h2>IDR {{ subtotal }}</h2>
     </div>
+    <div class="add-btn">
+      <img @click="deleteCart(cart.id)" src="../assets/dlt-x.svg">
+    </div>
   </div>
 </template>
 
@@ -39,6 +42,16 @@ export default {
     },
     decrease (cartId) {
       this.$store.dispatch('decrease', cartId)
+        .then(({ data }) => {
+          console.log(data)
+          this.$router.push('/cart')
+        })
+        .catch(err => {
+          console.log(err.response.data)
+        })
+    },
+    deleteCart (cartId) {
+      this.$store.dispatch('deleteCart', cartId)
         .then(({ data }) => {
           console.log(data)
           this.$router.push('/cart')
@@ -68,6 +81,7 @@ export default {
   p {
     margin: 0;
   }
+  position: relative;
 }
 .cart-img {
   @include flexCenterCol();
@@ -119,6 +133,12 @@ export default {
   &:hover {
     transform: scale(1.25);
     color: rgb(255, 105, 5);
+  }
+}
+.add-btn {
+  img {
+    width: 30px;
+    height: 30px;
   }
 }
 </style>
