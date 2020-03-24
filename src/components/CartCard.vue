@@ -8,9 +8,13 @@
       <p>{{ cart.Product.category }}</p>
     </div>
     <div class="cart-qty">
-      <i class="fas fa-caret-square-up"></i>
+      <div @click="increase(cart.id)">
+        <i class="fas fa-caret-square-up"></i>
+      </div>
       <h2>{{ cart.product_qty }}</h2>
-      <i class="fas fa-caret-square-down"></i>
+      <div @click="decrease(cart.id)">
+        <i class="fas fa-caret-square-down"></i>
+      </div>
     </div>
     <div class="cart-price">
       <h2>IDR {{ subtotal }}</h2>
@@ -22,6 +26,28 @@
 export default {
   name: 'CartCard',
   props: ['cart'],
+  methods: {
+    increase (cartId) {
+      this.$store.dispatch('increase', cartId)
+        .then(({ data }) => {
+          console.log(data)
+          this.$router.push('/cart')
+        })
+        .catch(err => {
+          console.log(err.response.data)
+        })
+    },
+    decrease (cartId) {
+      this.$store.dispatch('decrease', cartId)
+        .then(({ data }) => {
+          console.log(data)
+          this.$router.push('/cart')
+        })
+        .catch(err => {
+          console.log(err.response.data)
+        })
+    }
+  },
   computed: {
     subtotal () {
       return this.cart.Product.price * this.cart.product_qty

@@ -72,6 +72,24 @@ export default new Vuex.Store({
           ProductId: id
         }
       })
+    },
+    increase (context, cartId) {
+      return axios({
+        method: 'patch',
+        url: `${url}/carts/increase/${cartId}`,
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+    },
+    decrease (context, cartId) {
+      return axios({
+        method: 'patch',
+        url: `${url}/carts/decrease/${cartId}`,
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
     }
   },
   modules: {
