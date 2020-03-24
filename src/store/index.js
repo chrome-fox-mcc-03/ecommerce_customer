@@ -8,7 +8,8 @@ const url = 'http://localhost:3000'
 export default new Vuex.Store({
   state: {
     products: [],
-    carts: []
+    carts: [],
+    total: 0
   },
   mutations: {
     SET_PRODUCTS (state, payload) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     SET_CARTS (state, payload) {
       state.carts = payload
+    },
+    SET_TOTAL (state, payload) {
+      state.total = payload
     }
   },
   actions: {

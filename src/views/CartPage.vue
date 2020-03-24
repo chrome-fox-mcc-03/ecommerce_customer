@@ -5,7 +5,12 @@
       <CartCard v-for="cart in carts" :key="cart.id" :cart="cart"/>
     </div>
     <div class="checkout-space">
-      <h2>checkout</h2>
+      <div></div>
+      <div class="d-flex flex-column align-items-end">
+        <h3>total: {{ carts.length }} items</h3>
+        <h2 style="font-weight: 600;">IDR</h2>
+      </div>
+      <button class="my-btn my-btn-teal">Checkout</button>
     </div>
     <!-- <Footer/> -->
   </div>
@@ -47,7 +52,12 @@ export default {
 .checkout-space {
   background-color: #2E4756;
   width: 30%;
-  padding: 5rem 1vh;
+  padding: 5rem 5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  color: white;
 }
 /* width */
 ::-webkit-scrollbar {

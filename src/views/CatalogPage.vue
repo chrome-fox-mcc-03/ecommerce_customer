@@ -62,7 +62,7 @@ export default {
 }
 .catalog-space {
   background-color: rgb(241, 241, 241);
-  padding: .5rem 7.5rem;
+  padding: .5rem 7.5rem 35vh 7.5rem;
 }
 .shoes-img {
   max-width: 100%;

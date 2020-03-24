@@ -35,6 +35,7 @@ export default {
         .then(({ data }) => {
           console.log(data)
           this.$router.push('/cart')
+          this.$store.dispatch('fetchCarts')
         })
         .catch(err => {
           console.log(err.response.data)
@@ -45,6 +46,7 @@ export default {
         .then(({ data }) => {
           console.log(data)
           this.$router.push('/cart')
+          this.$store.dispatch('fetchCarts')
         })
         .catch(err => {
           console.log(err.response.data)
@@ -55,6 +57,7 @@ export default {
         .then(({ data }) => {
           console.log(data)
           this.$router.push('/cart')
+          this.$store.dispatch('fetchCarts')
         })
         .catch(err => {
           console.log(err.response.data)
@@ -65,6 +68,9 @@ export default {
     subtotal () {
       return this.cart.Product.price * this.cart.product_qty
     }
+  },
+  created () {
+    this.$store.commit('SET_TOTAL', this.subtotal)
   }
 }
 </script>
