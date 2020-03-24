@@ -60,6 +60,18 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err)
         })
+    },
+    addToCart (context, id) {
+      return axios({
+        method: 'post',
+        url: `${url}/carts`,
+        headers: {
+          token: localStorage.getItem('token')
+        },
+        data: {
+          ProductId: id
+        }
+      })
     }
   },
   modules: {

@@ -6,7 +6,7 @@
       <p>check out our latest collection</p>
     </div>
     <div class="catalog-space">
-      <h3>NEW COLLECTION</h3>
+      <h3 class="mt-2 mb-3">collection</h3>
       <div class="row d-flex">
         <ShoeCard v-for="shoe in products" :key="shoe.id" :shoe="shoe"/>
       </div>
