@@ -6,23 +6,8 @@
   <div class="column"></div>
   <div class="column is-four-fifths">
 <div class="columns is-multiline is-mobile">
-  <div class="column is-one-quarter">
-    <ProductCard/>
-  </div>
-    <div class="column is-one-quarter">
-    <ProductCard/>
-  </div>
-    <div class="column is-one-quarter">
-    <ProductCard/>
-  </div>
-    <div class="column is-one-quarter">
-    <ProductCard/>
-  </div>
-    <div class="column is-one-quarter">
-    <ProductCard/>
-  </div>
-    <div class="column is-one-quarter">
-    <ProductCard/>
+  <div v-for="product in products" :key="product.id" class="column is-one-quarter">
+    <ProductCard :product="product" />
   </div>
 </div>
 
@@ -38,6 +23,11 @@ export default {
   name: 'ProductList',
   components: {
     ProductCard
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
   }
 }
 </script>

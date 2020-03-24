@@ -16,10 +16,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th>1</th>
-                            <td>Hat</td>
-                            <th>
+                        <tr v-for="(item, index) in cart" :key="index" >
+                            <th>{{ index+1 }}</th>
+                            <td>{{ item.Product.name }}</td>
+                            <td>
                                 <div class="columns">
                                     <div class="column is-4">
                                         <a class="button is-warning is-small">
@@ -27,29 +27,29 @@
                                         </a>
                                     </div>
                                     <div class="column is-4">
-                                        2
+                                        {{ item.quantity }}
                                     </div>
                                     <div class="column is-4">
-                                        <a class="button is-success is-small">
+                                        <a @click="addToCart(item.Product.id)" class="button is-success is-small">
                                             <i class="fas fa-plus"></i>
                                         </a>
                                     </div>
                                 </div>
-                            </th>
-                            <th>Rp 10.000</th>
-                            <th>Rp 20.000</th>
-                            <th style="text-align: center">
+                            </td>
+                            <td>{{ item.Product.price }}</td>
+                            <td>{{ item.totalPrice }}</td>
+                            <td style="text-align: center">
                                 <a class="button is-danger is-small">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
-                            </th>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="column"></div>
         </div>
-        <div class="columns">
+        <div v-if="!isCartEmpty" class="columns">
             <div class="column"></div>
             <div class="column is-three-quarters">
                 <div style="text-align: right" class="column is-4 is-offset-8">
@@ -67,7 +67,24 @@
 
 <script>
 export default {
-  name: 'Cart'
+  name: 'Cart',
+  computed: {
+    cart () {
+      return this.$store.state.cart
+    },
+    isCartEmpty () {
+      if (this.$store.state.cart.length === 0) {
+        return true
+      } else {
+        return false
+      }
+    }
+  },
+  methods: {
+    addToCart (id) {
+      this.$store.dispatch('addToCart', id)
+    }
+  }
 }
 </script>
 

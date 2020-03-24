@@ -11,7 +11,7 @@
                 <router-link to="/" class="navbar-item">
                     Home
                 </router-link>
-                <router-link to="/products" class="navbar-item">
+                <router-link v-if="isLogin" to="/products" class="navbar-item">
                     Products
                 </router-link>
                 <router-link to="/blogs"  class="navbar-item">
@@ -22,18 +22,18 @@
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                         <router-link to='/cart' class="button is-link">
+                        <a v-if="isLogin" @click="viewCart" class="button is-link">
                             <i class="fas fa-shopping-cart"></i>
                             <p class="has-text-link">...</p>
                             View Cart
+                        </a>
+                        <router-link  v-if="!isLogin" to='/register' class="button is-primary">
+                            Register
                         </router-link>
-                        <router-link to='/register' class="button is-primary">
-                            <strong>Register</strong>
-                        </router-link>
-                        <router-link to='/login' class="button is-light">
+                        <router-link v-if="!isLogin" to='/login' class="button is-light">
                             Login
                         </router-link>
-                        <a class="button is-light">
+                        <a v-if="isLogin" @click="logout" class="button is-light">
                             Logout
                         </a>
                     </div>
@@ -45,6 +45,19 @@
 
 <script>
 export default {
-  name: 'Navbar'
+  name: 'Navbar',
+  computed: {
+    isLogin () {
+      return this.$store.state.isLogin
+    }
+  },
+  methods: {
+    logout () {
+      this.$store.dispatch('logout')
+    },
+    viewCart () {
+      this.$router.push('/cart')
+    }
+  }
 }
 </script>

@@ -2,7 +2,7 @@
     <div>
         <div class="field">
             <p class="control has-icons-left has-icons-right">
-                <input class="input is-hovered is-rounded" type="email" placeholder="Email">
+                <input v-model="userEmail" class="input is-hovered is-rounded" type="email" placeholder="Email">
                 <span class="icon is-small is-left">
                     <i class="fas fa-envelope"></i>
                 </span>
@@ -10,7 +10,7 @@
         </div>
         <div class="field">
             <p class="control has-icons-left">
-                <input class="input is-hovered is-rounded" type="password" placeholder="Password">
+                <input v-model="userPassword" class="input is-hovered is-rounded" type="password" placeholder="Password">
                 <span class="icon is-small is-left">
                 <i class="fas fa-lock"></i>
                 </span>
@@ -21,7 +21,21 @@
 
 <script>
 export default {
-  name: 'UserForm'
+  name: 'UserForm',
+  data () {
+    return {
+      userEmail: '',
+      userPassword: ''
+    }
+  },
+  watch: {
+    userEmail (value) {
+      this.$emit('userEmail', value)
+    },
+    userPassword (value) {
+      this.$emit('userPassword', value)
+    }
+  }
 }
 </script>
 
