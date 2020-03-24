@@ -2,7 +2,7 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <router-link class="navbar-item" to="/">
-                <img src="../assets/logo2.png" width="150" height="50">
+                <p class="is-size-2 has-text-black-bis has-text-weight-semibold is-family-monospace" >8-COM</p>
             </router-link>
         </div>
 
@@ -11,17 +11,22 @@
                 <router-link to="/" class="navbar-item">
                     Home
                 </router-link>
-                <a class="navbar-item">
+                <router-link to="/products" class="navbar-item">
                     Products
-                </a>
-                <a class="navbar-item">
+                </router-link>
+                <router-link to="/blogs"  class="navbar-item">
                     Blogs
-                </a>
+                </router-link>
             </div>
 
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
+                         <router-link to='/cart' class="button is-link">
+                            <i class="fas fa-shopping-cart"></i>
+                            <p class="has-text-link">...</p>
+                            View Cart
+                        </router-link>
                         <router-link to='/register' class="button is-primary">
                             <strong>Register</strong>
                         </router-link>

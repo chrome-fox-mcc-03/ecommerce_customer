@@ -3,7 +3,7 @@
         <div class="columns">
             <div class="column"></div>
             <div class="column is-four-third">
-                <p class="is-size-2 has-text-black-ter is-family-secondary has-text-centered">Login</p>
+                <h1 class="title is-2 has-text-black-ter is-family-secondary has-text-centered">Login</h1><br>
                 <form>
                     <UserForm/><br>
                     <div class="field">
@@ -23,10 +23,10 @@
 <script>
 import UserForm from '../components/UserForm'
 export default {
-    name: 'Login',
-    components: {
-        UserForm
-    }   
+  name: 'Login',
+  components: {
+    UserForm
+  }
 }
 </script>
 

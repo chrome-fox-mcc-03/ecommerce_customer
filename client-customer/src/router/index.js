@@ -3,7 +3,10 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home'
 import UserLogin from '../views/UserLogin'
 import UserRegister from '../views/UserRegister'
-
+import ProductList from '../views/ProductList'
+import Blogs from '../views/Blogs'
+import ProductDetail from '../views/ProductDetail'
+import Cart from '../views/Cart'
 
 Vue.use(VueRouter)
 
@@ -22,6 +25,26 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: UserRegister
+  },
+  {
+    path: '/products',
+    name: 'Products',
+    component: ProductList
+  },
+  {
+    path: '/products/:id',
+    name: 'ProductDetail',
+    component: ProductDetail
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: Cart
+  },
+  {
+    path: '/blogs',
+    name: 'Blogs',
+    component: Blogs
   }
   // {
   //   path: '/about',
