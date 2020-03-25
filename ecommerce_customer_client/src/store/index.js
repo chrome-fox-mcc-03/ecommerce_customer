@@ -69,7 +69,6 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          // console.log(data)
           Vue.notify({
             group: 'auth',
             type: 'success',
@@ -96,7 +95,7 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          console.log(data)
+          
           localStorage.setItem('access_token', data.access_token)
           dispatch('createCart')
           commit('SET_LOGIN_STATUS', true)
@@ -118,7 +117,7 @@ export default new Vuex.Store({
 
     addProductToCart ({ commit }, { product, quantity }) {
       const accessToken = localStorage.getItem('access_token')
-      console.log(accessToken)
+      
       if (accessToken) {
         if (quantity) {
           commit('ADD_TO_CART', { product, quantity })
@@ -135,7 +134,6 @@ export default new Vuex.Store({
             }
           })
             .then(({ data }) => {
-              console.log(data, 'inserted')
               Vue.notify({
                 group: 'auth',
                 type: 'success',
@@ -169,7 +167,6 @@ export default new Vuex.Store({
     },
 
     createCart ({ commit }) {
-      // console.log('calling ouut cart')
       Axios({
         method: 'POST',
         url: 'https://whispering-cliffs-09196.herokuapp.com/cart',
@@ -178,10 +175,8 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          console.log(data, 'data')
           localStorage.setItem('cart', data.cartId)
         }).catch((err) => {
-          console.log(err.name)
           Vue.notify({
             group: 'auth',
             type: 'error',
@@ -192,7 +187,6 @@ export default new Vuex.Store({
     },
 
     fetchCart ({ commit }) {
-      console.log('remove item in cart')
       Axios({
         method: 'GET',
         url: 'https://whispering-cliffs-09196.herokuapp.com/cartitem',
@@ -202,15 +196,18 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          console.log(data.result, 'cart fetched')
           commit('SET_CART', { cart: data.result })
         }).catch((err) => {
-          console.log(err)
+          Vue.notify({
+            group: 'auth',
+            type: 'error',
+            title: 'fetching cart error',
+            text: 'Internal server error'
+          })
         })
     },
 
     removeProduct ({ commit }, { product }) {
-      console.log(product, 'removed item <<')
       commit('REMOVE_PRODUCT_IN_CART', { product })
       Axios({
         method: 'DELETE',
@@ -228,12 +225,16 @@ export default new Vuex.Store({
             text: 'Your item has been successfully removed from cart'
           })
         }).catch((err) => {
-          console.log(err)
+          Vue.notify({
+            group: 'auth',
+            type: 'error',
+            title: 'Remove product Failed',
+            text: err.message
+          })
         })
     },
 
     removeAllProduct ({ commit }) {
-      console.log('remove all')
       commit('REMOVE_ALL_PRODUCT_IN_CART')
       Axios({
         method: 'DELETE',
@@ -251,12 +252,16 @@ export default new Vuex.Store({
             text: 'Your cart has been successfully cleared'
           })
         }).catch((err) => {
-          console.log(err)
+          Vue.notify({
+            group: 'auth',
+            type: 'error',
+            title: 'Remove product Failed',
+            text: err.message
+          })
         })
     },
 
     removeCart ({ commit }) {
-      console.log('remove cart')
       Axios({
         method: 'DELETE',
         url: 'https://whispering-cliffs-09196.herokuapp.com/cart',
@@ -266,9 +271,19 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          console.log('logged out')
+          Vue.notify({
+            group: 'auth',
+            type: 'success',
+            title: 'Cart cleared!',
+            text: 'Your cart has been successfully cleared'
+          })
         }).catch((err) => {
-          console.log(err)
+          Vue.notify({
+            group: 'auth',
+            type: 'error',
+            title: 'Removing cart Failed',
+            text: err.message
+          })
         })
     },
 
