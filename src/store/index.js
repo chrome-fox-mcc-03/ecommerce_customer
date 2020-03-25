@@ -20,6 +20,12 @@ export default new Vuex.Store({
     },
     SET_TOTAL (state, payload) {
       state.total = payload
+    },
+    ADD_TOTAL (state, payload) {
+      state.total += payload
+    },
+    SUBSTRACT_TOTAL (state, payload) {
+      state.total -= payload
     }
   },
   actions: {
@@ -115,6 +121,8 @@ export default new Vuex.Store({
         }
       })
     }
+  },
+  getters: {
   },
   modules: {
   }

@@ -8,24 +8,21 @@
       <div></div>
       <div class="d-flex flex-column align-items-end">
         <h3>total: {{ carts.length }} items</h3>
-        <h2 style="font-weight: 600;">IDR</h2>
+        <h2 style="font-weight: 600;">IDR {{ total }}</h2>
       </div>
       <button class="my-btn my-btn-teal">Checkout</button>
     </div>
-    <!-- <Footer/> -->
   </div>
 </template>
 
 <script>
 import Navbar from '../components/Navbar.vue'
-// import Footer from '../components/Footer.vue'
 import CartCard from '../components/CartCard.vue'
 export default {
   name: 'CartPage',
   components: {
     Navbar,
     CartCard
-    // Footer
   },
   created () {
     this.$store.dispatch('fetchCarts')
@@ -33,6 +30,13 @@ export default {
   computed: {
     carts () {
       return this.$store.state.carts
+    },
+    total () {
+      let totalPrice = 0
+      for (let i = 0; i < this.carts.length; i++) {
+        totalPrice += +this.carts[i].product_qty * +this.carts[i].Product.price
+      }
+      return totalPrice
     }
   }
 }
