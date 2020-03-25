@@ -11,9 +11,9 @@
                 <p class="subtitle is-6">{{ product.price }}</p>
                 <div class="columns">
                     <div class="column is-4">
-                        <a class="button is-primary">
+                        <router-link :to="`/products/${product.id}`" class="button is-primary">
                             Detail
-                        </a>
+                        </router-link>
                     </div>
                     <div class="column"></div>
                     <div class="column is-4">

@@ -8,22 +8,22 @@
                     <div class="column">
                         <div class="box">
                             <figure class="image">
-                                <img src="https://images.pexels.com/photos/89783/belts-belt-buckle-leather-metal-89783.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
+                                <img :src="product.image_url" :alt="product.name">
                             </figure>
                         </div>
                     </div>
                     <div class="column">
                         <div class="box">
                             <br>
-                            <p class="title is-3">Nama Barang</p>
-                            <p class="subtitle is-4">Harga</p>
-                            <p class="subtitle is-5">Stock</p>
-                            <p class="subtitle is-5">Category</p>
-                            <router-link to='/' class="button is-link">
+                            <p class="title is-3">{{ product.name }}</p>
+                            <p class="subtitle is-4">{{ product.price }}</p>
+                            <p class="subtitle is-5">Stock: {{ product.stock }}</p>
+                            <p class="subtitle is-5">Category: {{ product.category }}</p>
+                            <a @click="addToCart(product.id)" class="button is-link">
                                 <i class="fas fa-cart-plus"></i>
                                 <p class="has-text-link">...</p>
                                 Add to Cart
-                            </router-link><br><br>
+                            </a><br><br>
                         </div>
                     </div>
                 </div>
@@ -35,6 +35,33 @@
 
 <script>
 export default {
-  name: 'ProductDetail'
+  name: 'ProductDetail',
+  methods: {
+    getDetailProduct () {
+      const id = this.$route.params.id
+      this.$store.dispatch('getDetailProduct', id)
+    },
+    deleteProduct (id) {
+      this.$store.dispatch('deleteProduct', id)
+    },
+    addToCart (id) {
+      this.$store.dispatch('addToCart', id)
+    }
+  },
+  computed: {
+    getImage () {
+      if (!this.product.image_url) {
+        return require('../assets/empty.svg')
+      } else {
+        return this.product.image_url
+      }
+    },
+    product () {
+      return this.$store.state.product
+    }
+  },
+  created () {
+    this.getDetailProduct()
+  }
 }
 </script>
