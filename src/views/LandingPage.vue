@@ -6,7 +6,7 @@
         <p>Find literally any shoes on Shoesify</p>
         <div class="btn-space">
           <button @click="redirToSignIn" class="my-btn my-btn-teal">Sign in</button>
-          <button class="my-btn my-btn-maroon">Join Us</button>
+          <button @click="redirToSignUp" class="my-btn my-btn-maroon">Join Us</button>
         </div>
       </div>
     </div>
@@ -19,6 +19,9 @@ export default {
   methods: {
     redirToSignIn () {
       this.$router.push('/signin')
+    },
+    redirToSignUp () {
+      this.$router.push('/signup')
     }
   }
 }

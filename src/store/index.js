@@ -33,6 +33,17 @@ export default new Vuex.Store({
         }
       })
     },
+    signup (context, payload) {
+      return axios({
+        method: 'post',
+        url: `${url}/signup`,
+        data: {
+          name: payload.name,
+          email: payload.email,
+          password: payload.password
+        }
+      })
+    },
     fetchProducts (context, payload) {
       axios({
         method: 'get',

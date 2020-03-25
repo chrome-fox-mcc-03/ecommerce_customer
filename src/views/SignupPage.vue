@@ -1,9 +1,13 @@
 <template>
   <div class="big-space">
-    <div class="overlaytron" style="background-color: rgba(0, 128, 128, 0.5)">
+    <div class="overlaytron" style="background-color: rgba(46, 71, 86, 0.5)">
       <div class="for-form">
-        <form @submit.prevent="signin">
-          <h2 class="label-form">Sign in</h2>
+        <form @submit.prevent="signup">
+          <h2 class="label-form">Sign up</h2>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" v-model="name" class="form-control rounded-0" id="name">
+          </div>
           <div class="form-group">
             <label for="email">Email address</label>
             <input type="email" v-model="email" class="form-control rounded-0" id="email">
@@ -13,7 +17,7 @@
             <input type="password" v-model="password" class="form-control rounded-0" id="passowrd">
           </div>
           <div class="btn-space-form">
-            <button type="submit" class="my-btn my-btn-teal mt-2 special" style="margin-left: 0; font-size: 1rem;">Sign in</button>
+            <button type="submit" class="my-btn my-btn-teal mt-2 special" style="margin-left: 0; font-size: 1rem;">Sign up</button>
             <button @click="redirToLandingPage" class="my-btn my-btn-maroon mt-2 special" style="margin-left: 0; font-size: 1rem;">Back</button>
           </div>
         </form>
@@ -24,16 +28,17 @@
 
 <script>
 export default {
-  name: 'SigninPage',
+  name: 'SignupPage',
   data () {
     return {
+      name: '',
       email: '',
       password: ''
     }
   },
   methods: {
-    signin () {
-      this.$store.dispatch('signin', { email: this.email, password: this.password })
+    signup () {
+      this.$store.dispatch('signup', { name: this.name, email: this.email, password: this.password })
         .then(({ data }) => {
           localStorage.setItem('token', data.token)
           this.$router.push('/catalog')
@@ -50,20 +55,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.btn-space-form {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-.special:hover {
-  background-color: $primary;
-  color: rgb(255, 255, 255);
-  transform: scale(1.1);
-}
-.label-form {
-  font-weight: 600;
-  margin-bottom: 1rem;
-  text-align: center;
-}
+<style>
+
 </style>
