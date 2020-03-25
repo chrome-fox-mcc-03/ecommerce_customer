@@ -39,17 +39,42 @@
         </a>
       </div>
     </div>
+    <div id="promotion" class="continer row">
+        <div class="card col-md-4 col-sm-12 apparels">
+          <img src="../assets/apparels.jpg">
+        </div>
+        <div class="card col-md-4 col-sm-12 bikes">
+          <img src="../assets/bike.jpg">
+        </div>
+        <div class="card col-md-4 col-sm-12 bikes">
+          <img src="../assets/custom.jpg">
+        </div>
+    </div>
+    <Footerpage/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Navbarhome from '../components/NavBarHome'
-
+import Footerpage from '../components/Footer'
 export default {
   name: 'Home',
   components: {
-    Navbarhome
+    Navbarhome,
+    Footerpage
   }
 }
 </script>
+
+<style scoped>
+#promotion{
+  width: 100vw;
+}
+
+.card{
+  border: none;
+  padding: 0;
+}
+
+</style>

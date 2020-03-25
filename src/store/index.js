@@ -8,7 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     notification: '',
-    product: [],
+    products: [],
     cart: []
   },
   mutations: {
@@ -61,12 +61,20 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          console.log(data[0].id)
           context.commit('SET_PRODUCT', data)
         })
         .catch(err => {
           console.log(err)
         })
+    },
+    getProduct (context, id) {
+      return axios({
+        method: 'GET',
+        url: `http://localhost:3000/product/${id}`,
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
     }
   },
   modules: {

@@ -5,6 +5,7 @@ import Login from '../views/loginPage.vue'
 import Register from '../views/registerPage.vue'
 import Dashboard from '../views/Dashboard.vue'
 import ListProduct from '../views/ListProduct.vue'
+import DetailProduct from '../views/detailProduct.vue'
 
 Vue.use(VueRouter)
 
@@ -45,8 +46,13 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'productList',
+        name: 'listProduct',
         component: ListProduct
+      },
+      {
+        path:':id',
+        name: 'detailProduct',
+        component: DetailProduct
       }
     ],
     meta: {
@@ -75,7 +81,7 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       next({
-        path: '/'
+        path: '/product'
       })
     }
   } else {

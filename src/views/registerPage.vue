@@ -20,7 +20,7 @@
             type="password"
             class="form-control"
             id="password-register"
-            placeholder="Password"
+            placeholder="Min Password 6 characters"
             required
           />
         </div>
