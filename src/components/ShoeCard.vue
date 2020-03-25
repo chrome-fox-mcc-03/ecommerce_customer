@@ -5,8 +5,8 @@
       <img :src="`${shoe.image_url}`" class="card-img-top" alt="Shoes-Img">
     </div>
     <div class="shoe-desc">
-      <p @click="addToCart(shoe.id)" class="">{{ shoe.name }}</p>
-      <p @click="addToCart(shoe.id)" class="">{{ shoe.price }}</p>
+      <p class="shoe-name" @click="addToCart(shoe.id)">{{ shoe.name }}</p>
+      <p @click="addToCart(shoe.id)">{{ shoe.price }}</p>
     </div>
   </div>
 </template>
@@ -43,10 +43,14 @@ export default {
   text-align: center;
   p {
     margin: 0;
-    cursor: pointer;
-    &:hover {
-      transform: scale(1.1);
-    }
+    color: black;
+    transition: .3s;
+  }
+}
+.shoe-name {
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.05);
   }
 }
 .img-shoes {
