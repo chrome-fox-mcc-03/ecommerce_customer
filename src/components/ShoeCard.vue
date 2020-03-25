@@ -18,6 +18,7 @@ export default {
       this.$store.dispatch('addToCart', id)
         .then(({ data }) => {
           console.log(data)
+          this.$store.dispatch('fetchCarts')
         })
         .catch(err => {
           console.log(err.response.data)

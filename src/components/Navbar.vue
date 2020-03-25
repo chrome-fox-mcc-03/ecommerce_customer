@@ -4,8 +4,9 @@
     <p> | </p>
     <p @click="signout" class="my-nav-btn">sign out</p>
     <p> | </p>
-    <div @click="redirToCartPage">
+    <div id="cart-icon-space" @click="redirToCartPage">
       <i class="fas fa-shopping-cart"></i>
+      <div class="current-cart-qty"><small>{{ carts.length }}</small></div>
     </div>
   </div>
 </template>
@@ -24,6 +25,14 @@ export default {
     redirToCatalogPage () {
       this.$router.push('/catalog')
     }
+  },
+  computed: {
+    carts () {
+      return this.$store.state.carts
+    }
+  },
+  created () {
+    this.$store.dispatch('fetchCarts')
   }
 }
 </script>
@@ -60,5 +69,19 @@ export default {
     color: $primary;
     transform: scale(1.2);
   }
+}
+#cart-icon-space {
+  position: relative;
+}
+.current-cart-qty {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: $secondary;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(0, -10px);
+  @include flexCenter();
 }
 </style>
