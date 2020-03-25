@@ -29,11 +29,14 @@ import ProductCard from '../components/ProductCard.vue'
 export default {
   methods: {
     ...mapActions({
-      fetchProduct: 'fetchFromShop'
+      fetchProduct: 'fetchFromShop',
+      fetchCart: 'fetchCart'
     })
   },
   created () {
     this.fetchProduct()
+    this.fetchCart()
+    // console.log(this.$store.state.products)
   },
   components: {
     BCardGroup,

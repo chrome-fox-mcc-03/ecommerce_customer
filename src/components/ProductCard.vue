@@ -2,7 +2,7 @@
   <b-card
     :title="item.name"
     :img-src="item.image_url"
-    v-if="item.stock > 0"
+    v-if="(item.stock - onCart) > 0"
     img-alt="Image"
     img-top
   >
@@ -15,13 +15,16 @@
     <b-card-text>
       Seller: {{ item.seller }}
     </b-card-text>
+    <b-card-text>
+      On Cart: {{ onCart }}
+    </b-card-text>
     <b-card-body>
       <div class="row align-items-center">
         <div class="col-6">
-          <b-form-input type="number" min="0" :max="item.stock" v-model="amount" id="input-small" size="sm" placeholder=""></b-form-input>
+          <b-form-input type="number" min="0" :max="(item.stock - onCart)" v-model="amount" id="input-small" size="sm" placeholder=""></b-form-input>
         </div>
         <div class="col-6">
-          <b-button :disabled="amount === 0 || item.stock === 0" @click="submitToCart(item.id)" variant="success" size="sm">Add To My Cart</b-button>
+          <b-button :disabled="amount === 0 || item.stock === 0 || onCart === item.stock" @click="submitToCart(item.id)" variant="success" size="sm">Add To My Cart</b-button>
         </div>
       </div>
     </b-card-body>
@@ -47,7 +50,8 @@ export default {
   data () {
     return {
       amount: 0,
-      toastCount: 0
+      toastCount: 0,
+      onCart: 0
     }
   },
   methods: {
@@ -64,11 +68,16 @@ export default {
   },
   computed: {
     ...mapState({
-      product: state => state.products[this.idx]
+      customerCart: state => state.customerCart
     })
   },
   created () {
     // console.log(this.idx)
+    this.customerCart.forEach(cartItem => {
+      if (cartItem.itemId === this.item.id) {
+        this.onCart = cartItem.quantity
+      }
+    })
   },
   components: {
     BCard,

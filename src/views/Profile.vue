@@ -45,6 +45,9 @@ export default {
       name: state => state.cred.name,
       avaurl: state => state.cred.avaurl
     })
+  },
+  created () {
+    this.$store.dispatch('fetchCart')
   }
 }
 </script>
