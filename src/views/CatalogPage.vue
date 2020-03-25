@@ -5,34 +5,22 @@
       <h1>New Arrival</h1>
       <p>check out our latest collection</p>
     </div>
-    <div class="catalog-space">
-      <h3 class="mt-2 mb-3">collection</h3>
-      <div class="row d-flex">
-        <ShoeCard v-for="shoe in products" :key="shoe.id" :shoe="shoe"/>
-      </div>
-    </div>
+    <router-view/>
     <Footer/>
   </div>
 </template>
 
 <script>
-import ShoeCard from '../components/ShoeCard.vue'
 import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
 export default {
   name: 'CatalogPage',
   components: {
     Navbar,
-    ShoeCard,
     Footer
   },
   created () {
     this.$store.dispatch('fetchProducts')
-  },
-  computed: {
-    products () {
-      return this.$store.state.products
-    }
   }
 }
 </script>

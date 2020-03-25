@@ -5,6 +5,7 @@ import CatalogPage from '../views/CatalogPage.vue'
 import SigninPage from '../views/SigninPage.vue'
 import SignupPage from '../views/SignupPage.vue'
 import CartPage from '../views/CartPage.vue'
+import Catalog from '../components/Catalog.vue'
 
 Vue.use(VueRouter)
 
@@ -30,7 +31,14 @@ const routes = [
     component: CatalogPage,
     meta: {
       requiresAuth: true
-    }
+    },
+    children: [
+      {
+        path: '',
+        name: 'Catalog',
+        component: Catalog
+      }
+    ]
   },
   {
     path: '/cart',
