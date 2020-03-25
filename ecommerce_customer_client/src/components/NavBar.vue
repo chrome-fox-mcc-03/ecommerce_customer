@@ -65,5 +65,6 @@ export default {
 <style>
 .nav-title {
   font-family: 'Caveat', cursive;
+  position: fixed;
 }
 </style>

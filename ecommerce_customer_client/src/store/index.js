@@ -117,35 +117,46 @@ export default new Vuex.Store({
     },
 
     addProductToCart ({ commit }, { product, quantity }) {
-      commit('ADD_TO_CART', { product, quantity })
-      Axios({
-        method: 'POST',
-        url: 'http://localhost:3000/addtocart',
-        headers: {
-          access_token: localStorage.getItem('access_token'),
-          cartId: localStorage.getItem('cart')
-        },
-        data: {
-          product,
-          quantity
-        }
-      })
-        .then(({ data }) => {
-          console.log(data, 'inserted')
-          Vue.notify({
-            group: 'auth',
-            type: 'success',
-            title: 'Added to cart!',
-            text: 'Your item has been successfully added to cart'
-          })
-        }).catch((err) => {
-          Vue.notify({
-            group: 'auth',
-            type: 'error',
-            title: 'Add to cart Failed',
-            text: 'Failed to add item! ' + err.message
-          })
+      const accessToken = localStorage.getItem('access_token')
+      console.log(accessToken)
+      if (accessToken) {
+        commit('ADD_TO_CART', { product, quantity })
+        Axios({
+          method: 'POST',
+          url: 'http://localhost:3000/addtocart',
+          headers: {
+            access_token: localStorage.getItem('access_token'),
+            cartId: localStorage.getItem('cart')
+          },
+          data: {
+            product,
+            quantity
+          }
         })
+          .then(({ data }) => {
+            console.log(data, 'inserted')
+            Vue.notify({
+              group: 'auth',
+              type: 'success',
+              title: 'Added to cart!',
+              text: 'Your item has been successfully added to cart'
+            })
+          }).catch((err) => {
+            Vue.notify({
+              group: 'auth',
+              type: 'error',
+              title: 'Add to cart Failed',
+              text: 'Failed to add item! ' + err.message
+            })
+          })
+      } else {
+        Vue.notify({
+          group: 'auth',
+          type: 'error',
+          title: 'Add to cart Failed',
+          text: 'Please Login first'
+        })
+      }
     },
 
     createCart ({ commit }) {
@@ -256,6 +267,12 @@ export default new Vuex.Store({
       commit('SET_LOGIN_STATUS', false)
       dispatch('removeCart')
       localStorage.clear()
+      Vue.notify({
+        group: 'auth',
+        type: 'success',
+        title: 'User Logged Out!',
+        text: 'successfully logged out'
+      })
     }
 
   },
