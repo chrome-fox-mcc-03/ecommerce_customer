@@ -4,6 +4,10 @@ import router from './router'
 import store from './store'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import Snotify from 'vue-snotify'
+import 'vue-snotify/styles/material.css'
+
+Vue.use(Snotify)
 
 Vue.config.productionTip = false
 

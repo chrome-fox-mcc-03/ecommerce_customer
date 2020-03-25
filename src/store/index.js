@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
+import { SnotifyPosition } from 'vue-snotify'
 
 Vue.use(Vuex)
 
@@ -11,6 +12,9 @@ export default new Vuex.Store({
     serverUrl: 'http://localhost:3000',
     pageLoading: false,
     userLogin: false,
+    pageNum: 1,
+    pageSize: 20,
+    notifTimeout: 4000,
     cred: {
       id: 0,
       email: '',
@@ -65,6 +69,14 @@ export default new Vuex.Store({
       payload.forEach(item => {
         state.products.push(item)
       })
+    },
+    removeAmountItemId (state, payload) {
+      const { itemId, amount } = payload
+      state.products.forEach(item => {
+        if (item.id === itemId) {
+          item.stock -= amount
+        }
+      })
     }
   },
   actions: {
@@ -113,7 +125,7 @@ export default new Vuex.Store({
       commit('emptyProduct')
       commit('removeError')
       axios({
-        url: `${state.serverUrl}/customer/shop`,
+        url: `${state.serverUrl}/customer/shop?page=${state.pageNum}&size=${state.pageSize}`,
         method: 'GET',
         headers: {
           token: state.cred.token
@@ -129,6 +141,50 @@ export default new Vuex.Store({
         .finally(_ => {
           commit('stopLoading')
         })
+    },
+    appendItemToCart ({ state, commit, dispatch }, payload) {
+      const { itemId, itemName, amount } = payload
+      commit('startLoading')
+      // append amount of itemId
+      // add to CartProduct, axios
+      // if success update product locally
+      // if fail, fetch product, showError, update product locally
+      setTimeout(() => {
+        console.log(payload)
+        commit('removeAmountItemId', payload)
+        commit('stopLoading')
+        dispatch('notifSuccess', `${amount} pc${amount > 1 ? 's' : ''} of "${itemName}" added to cart`)
+        // dispatch('notifError', `test error too`)
+      }, 1000)
+    },
+    notifSuccess ({ state }, message) {
+      // console.log(this._vm.$snotify)
+      this._vm.$snotify.success(message, {
+        timeout: state.notifTimeout,
+        showProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        position: SnotifyPosition.rightTop
+      })
+    },
+    notifError ({ state }, message) {
+      // console.log(this._vm.$snotify)
+      this._vm.$snotify.error(message, {
+        timeout: state.notifTimeout,
+        showProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        position: SnotifyPosition.rightTop
+      })
+    },
+    notifSimple ({ state }, message) {
+      this._vm.$snotify.simple(message, {
+        timeout: state.notifTimeout,
+        showProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        position: SnotifyPosition.rightTop
+      })
     }
   }
 })

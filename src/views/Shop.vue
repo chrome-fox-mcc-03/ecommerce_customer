@@ -1,68 +1,45 @@
 <template>
-  <div class="shop container-fluid">
-    <b-overlay :show="$store.state.pageLoading" rounded="sm">
-      <b-card-group columns>
-        <b-card
-          v-for="(item, i) in products"
-          :key="i"
-          :title="item.name"
-          :img-src="item.image_url"
-          img-alt="Image"
-          img-top
-        >
-          <b-card-text>
-            Price: {{ item.price }}
-          </b-card-text>
-          <b-card-text>
-            Stock: {{ item.stock }}
-          </b-card-text>
-          <b-card-text>
-            Seller: {{ item.seller }}
-          </b-card-text>
-          <b-card-body>
-            <b-button @click="submitToCart(item.id)" variant="success" size="sm">Add To My Cart</b-button>
-          </b-card-body>
-        </b-card>
-      </b-card-group>
-    </b-overlay>
+  <div>
+    <b-alert class="mt-4 text-wrap text-break" variant="success" :show="false">
+      Test
+    </b-alert>
+    <div class="shop container-fluid">
+      <b-overlay :show="$store.state.pageLoading" rounded="sm">
+        <b-card-group columns>
+          <product-card
+            v-for="(item, i) in $store.state.products"
+            :key="i"
+            :item="item"
+            :idx="i"
+          ></product-card>
+        </b-card-group>
+      </b-overlay>
+    </div>
   </div>
 </template>
 
 <script>
 import {
   BCardGroup,
-  BCard,
-  BCardText,
-  BCardBody,
-  BButton,
-  BOverlay
+  BOverlay,
+  BAlert
 } from 'bootstrap-vue'
-import { mapState, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
+import ProductCard from '../components/ProductCard.vue'
 export default {
-  computed: {
-    ...mapState({
-      products: state => state.products
-    })
-  },
   methods: {
-    submitToCart (id) {
-      console.log(id)
-    },
     ...mapActions({
       fetchProduct: 'fetchFromShop'
     })
   },
   created () {
     this.fetchProduct()
-    console.log(this.products)
   },
   components: {
     BCardGroup,
-    BCard,
-    BCardText,
-    BCardBody,
-    BButton,
-    BOverlay
+    BOverlay,
+    BAlert,
+    ProductCard
   }
 }
 </script>
