@@ -45,7 +45,7 @@ export default new Vuex.Store({
       state.cred.name = payload.name
       state.cred.avaurl = payload.avaurl
       state.userLogin = true
-      localStorage.setItem(state.appName, JSON.stringify({token: state.cred.token}))
+      localStorage.setItem(state.appName, JSON.stringify({ token: state.cred.token }))
       router.push({ name: 'Profile' })
     },
     userLogout (state, payload) {
