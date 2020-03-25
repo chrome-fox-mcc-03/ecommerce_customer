@@ -69,7 +69,6 @@ export default {
             this.$store.commit('SET_LOADING', false)
             this.$store.commit('SET_ERROR', response.data)
             this.$store.commit('STOP_SUCCESS')
-            console.log(response)
           })
       } else {
         const payload = {
@@ -89,7 +88,6 @@ export default {
             this.$store.commit('SET_LOADING', false)
             this.$store.commit('SET_ERROR', response.data)
             this.$store.commit('STOP_SUCCESS')
-            console.log(response)
           })
       }
     }
