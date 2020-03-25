@@ -27,12 +27,18 @@ const routes = [
   {
     path: '/catalog',
     name: 'CatalogPage',
-    component: CatalogPage
+    component: CatalogPage,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/cart',
     name: 'CartPage',
-    component: CartPage
+    component: CartPage,
+    meta: {
+      requiresAuth: true
+    }
   }
 ]
 
@@ -40,6 +46,21 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    const token = localStorage.getItem('token')
+    if (token) {
+      next()
+    } else {
+      next({
+        path: '/'
+      })
+    }
+  } else {
+    next()
+  }
 })
 
 export default router
