@@ -79,14 +79,4 @@ export default {
 .fa-plus {
   color: white;
 }
-.shoe-desc {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: .5rem .5rem;
-  text-align: center;
-  p {
-    margin: 0;
-  }
-}
 </style>

@@ -1,10 +1,12 @@
 <template>
   <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mb-2 rounded-0 mr-2 shadow-sm" style="max-width: 18rem;">
     <div @click="addToCart(shoe.id)" class="add-btn"><i class="fas fa-plus"></i></div>
-    <img :src="`${shoe.image_url}`" class="card-img-top" alt="Shoes-Img">
+    <div class="img-shoes" @click="redirToDetail(shoe.id)">
+      <img :src="`${shoe.image_url}`" class="card-img-top" alt="Shoes-Img">
+    </div>
     <div class="shoe-desc">
-      <p class="">{{ shoe.name }}</p>
-      <p class="">{{ shoe.price }}</p>
+      <p @click="addToCart(shoe.id)" class="">{{ shoe.name }}</p>
+      <p @click="addToCart(shoe.id)" class="">{{ shoe.price }}</p>
     </div>
   </div>
 </template>
@@ -23,11 +25,31 @@ export default {
         .catch(err => {
           console.log(err.response.data)
         })
+    },
+    redirToDetail (id) {
+      console.log('detail!', id)
+      this.$router.push(`/catalog/detail/${id}`)
     }
   }
 }
 </script>
 
-<style>
-
+<style lang="scss">
+.shoe-desc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: .5rem .5rem;
+  text-align: center;
+  p {
+    margin: 0;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+.img-shoes {
+  cursor: pointer;
+}
 </style>

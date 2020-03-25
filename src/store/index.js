@@ -120,6 +120,15 @@ export default new Vuex.Store({
           token: localStorage.getItem('token')
         }
       })
+    },
+    findOneShoes (context, id) {
+      return axios({
+        method: 'get',
+        url: `${url}/products/${id}`,
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
     }
   },
   getters: {

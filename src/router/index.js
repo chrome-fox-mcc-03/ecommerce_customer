@@ -6,6 +6,7 @@ import SigninPage from '../views/SigninPage.vue'
 import SignupPage from '../views/SignupPage.vue'
 import CartPage from '../views/CartPage.vue'
 import Catalog from '../components/Catalog.vue'
+import ShoesDetail from '../components/ShoesDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -37,6 +38,11 @@ const routes = [
         path: '',
         name: 'Catalog',
         component: Catalog
+      },
+      {
+        path: 'detail/:id',
+        name: 'ShoesDetail',
+        component: ShoesDetail
       }
     ]
   },
