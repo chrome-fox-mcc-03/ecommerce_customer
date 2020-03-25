@@ -1,23 +1,35 @@
 <template>
   <b-modal id="registerModal" hide-footer=true hide-header=true :title="title">
-      <form @submit.prevent="registerProcess" class="form-group">
-        <div class="container d-flex flex-column justify-content-center align-items-baseline">
-            <h1>Register</h1>
+      <form @submit.prevent="registerProcess" class="form-group d-flex flex-column justify-content-center align-items-start">
+        <!-- <div class="container d-flex flex-column justify-content-center align-items-baseline"> -->
+            <h1 class="modal-header w-100">Register</h1>
             <p>Please fill in this form to create an account.</p>
-            <hr>
-            <div class="d-flex flex-row flex-wrap justify-content-start align-items-baseline mb-2">
-              <label for="email"><b>Email :</b></label>
-              <input v-model="email" type="text" placeholder="Enter email" name="email" required><br>
+            <div class="align-self-start d-flex flex-row align-items-baseline mb-2">
+              <div>
+                <label for="email"><b>Email :</b></label>
+              </div>
+              <div style="margin-left: 50px">
+                <input v-model="email" type="text" placeholder="Enter email" name="email" required><br>
+              </div>
             </div>
-            <div class="d-flex flex-row flex-wrap justify-content-start align-items-baseline mt-2">
-              <label for="password"><b>Password :</b></label>
-              <input v-model="password" type="password" placeholder="Enter Password" name="password" required>
+            <div class="align-self-start d-flex flex-row align-items-baseline mt-2">
+              <div>
+                <label for="password"><b>Password :</b></label>
+              </div>
+              <div style="margin-left: 20px">
+                <input v-model="password" type="password" placeholder="Enter Password" name="password" required><br>
+              </div>
             </div>
+              <div style="margin-left: 100px">
+                <small>at least 5 character</small>
+              </div>
               <hr>
             <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-
-            <button type="submit" class="registerbtn btn btn-primary align-self-end">Register</button>
-        </div>
+            <div class="align-self-end modal-footer w-100">
+              <input type="button" class="btn btn-secondary" value="cancel" @click.prevent="$bvModal.hide('registerModal')">
+              <button type="submit" class="registerbtn btn btn-primary">Register</button>
+            </div>
+        <!-- </div> -->
     </form>
   </b-modal>
 </template>
@@ -40,7 +52,8 @@ export default {
     registerProcess () {
       const { email, password } = this
       this.onRegisterUser({ email, password })
-      console.log('Register', this.email, this.password)
+      this.$bvModal.hide('registerModal')
+      // console.log('Register', this.email, this.password)
     }
   }
 }

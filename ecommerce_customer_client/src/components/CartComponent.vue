@@ -7,7 +7,7 @@
                 <div>
                     <strong>{{item.product.name}}</strong>
                     <br>
-                    {{item.quantity}} x {{item.product.price}}
+                    {{item.quantity}} x {{item.product.price | currency}}
                     <hr>
                 </div>
                 <div>
@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-between px-2">
-            <span>Total Price : {{countTotalPrice}}</span>
+            <span>Total Price : {{countTotalPrice | currency}}</span>
             <a href="#" @click.prevent="removeAllProduct()">Clear Cart</a>
         </div>
     </div>
@@ -40,7 +40,7 @@ export default {
   },
   mounted () {
     this.$store.dispatch('fetchCart')
-    console.log(this.cart, 'cart component')
+    // console.log(this.cart, 'cart component')
   }
 
 }
