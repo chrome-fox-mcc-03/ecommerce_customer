@@ -13,7 +13,7 @@
         :style="i"
       >
         <p style="line-height: 280px; font-size: 5rem; text-align: center;">
-          Promo {{ index + 1 }}
+
         </p>
       </SliderItem>
     </Slider>
@@ -45,22 +45,22 @@ export default {
       () =>
         (this.list = [
           {
-            backgroundColor: '#3f51b5',
+            backgroundImage: `url(${require('../assets/c1.png')})`,
             width: '100%',
             height: '100%'
           },
           {
-            backgroundColor: '#eee',
+            backgroundImage: `url(${require('../assets/c2.png')})`,
             width: '100%',
             height: '100%'
           },
           {
-            backgroundColor: '#f44336',
+            backgroundImage: `url(${require('../assets/c3.png')})`,
             width: '100%',
             height: '100%'
           },
           {
-            backgroundColor: '#eee',
+            backgroundImage: `url(${require('../assets/c4.png')})`,
             width: '100%',
             height: '100%'
           }

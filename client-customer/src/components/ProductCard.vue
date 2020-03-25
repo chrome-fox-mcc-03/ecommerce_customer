@@ -8,16 +8,16 @@
             </div>
             <div class="card-content">
                 <p class="title is-4">{{ product.name }}</p>
-                <p class="subtitle is-6">{{ product.price }}</p>
+                <p class="subtitle is-6">{{ product.price | currency }}</p>
                 <div class="columns">
                     <div class="column is-4">
-                        <router-link :to="`/products/${product.id}`" class="button is-primary">
+                        <router-link :to="`/products/${product.id}`" class="button is-primary is-rounded">
                             Detail
                         </router-link>
                     </div>
                     <div class="column"></div>
                     <div class="column is-4">
-                        <a @click="addToCart(product.id)" class="button is-link">
+                        <a @click="addToCart(product.id)" class="button is-link is-rounded">
                             <i class="fas fa-cart-plus"></i>
                         </a>
                     </div>

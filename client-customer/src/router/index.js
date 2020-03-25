@@ -19,27 +19,67 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: UserLogin
+    component: UserLogin,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem('token')
+      if (!token) {
+        next()
+      } else {
+        next({ path: '/' })
+      }
+    }
   },
   {
     path: '/register',
     name: 'Register',
-    component: UserRegister
+    component: UserRegister,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem('token')
+      if (!token) {
+        next()
+      } else {
+        next({ path: '/' })
+      }
+    }
   },
   {
     path: '/products',
     name: 'Products',
-    component: ProductList
+    component: ProductList,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem('token')
+      if (token) {
+        next()
+      } else {
+        next({ path: '/login' })
+      }
+    }
   },
   {
     path: '/products/:id',
     name: 'ProductDetail',
-    component: ProductDetail
+    component: ProductDetail,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem('token')
+      if (token) {
+        next()
+      } else {
+        next({ path: '/login' })
+      }
+    }
   },
   {
     path: '/cart',
     name: 'Cart',
-    component: Cart
+    component: Cart,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem('token')
+      if (token) {
+        next()
+      } else {
+        next({ path: '/login' })
+      }
+    }
   },
   {
     path: '/blogs',

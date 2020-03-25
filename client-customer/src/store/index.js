@@ -283,6 +283,30 @@ export default new Vuex.Store({
         })
     }
   },
-  modules: {
+  getters: {
+    getUnpaidCart: state => {
+      return state.cart.filter(el => el.isPaid === false)
+    },
+    getPaidCart: state => {
+      return state.cart.filter(el => el.isPaid === true)
+    },
+    getProductsCategory1: state => {
+      return state.products.filter(el => el.category === 'food and beverages')
+    },
+    getProductsCategory2: state => {
+      return state.products.filter(el => el.category === 'electronic')
+    },
+    getProductsCategory3: state => {
+      return state.products.filter(el => el.category === 'fashion')
+    },
+    getProductsCategory4: state => {
+      return state.products.filter(el => el.category === 'hobby')
+    },
+    getProductsCategory5: state => {
+      return state.products.filter(el => el.category === 'automotive')
+    },
+    getProductsCategory6: state => {
+      return state.products.filter(el => el.category === 'others')
+    }
   }
 })

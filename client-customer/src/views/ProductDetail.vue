@@ -16,10 +16,10 @@
                         <div class="box">
                             <br>
                             <p class="title is-3">{{ product.name }}</p>
-                            <p class="subtitle is-4">{{ product.price }}</p>
+                            <p class="subtitle is-4">{{ product.price | currency }}</p>
                             <p class="subtitle is-5">Stock: {{ product.stock }}</p>
-                            <p class="subtitle is-5">Category: {{ product.category }}</p>
-                            <a @click="addToCart(product.id)" class="button is-link">
+                            <p class="subtitle is-5">Category: <span class="tag is-dark is-rounded is-medium">{{ category }}</span></p>
+                            <a @click="addToCart(product.id)" class="button is-link is-rounded">
                                 <i class="fas fa-cart-plus"></i>
                                 <p class="has-text-link">...</p>
                                 Add to Cart
@@ -58,6 +58,22 @@ export default {
     },
     product () {
       return this.$store.state.product
+    },
+    category () {
+      if (this.product.category === 'food and beverages') {
+        return 'Food and Beverages'
+      } else if (this.product.category === 'electronic') {
+        return 'Electronic'
+      } else if (this.product.category === 'fashion') {
+        return 'Fashion'
+      } else if (this.product.category === 'hobby') {
+        return 'Hobby'
+      } else if (this.product.category === 'automotive') {
+        return 'Automotive'
+      } else if (this.product.category === 'others') {
+        return 'Others'
+      }
+      return ''
     }
   },
   created () {

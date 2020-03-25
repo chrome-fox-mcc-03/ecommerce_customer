@@ -16,7 +16,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(item, index) in cart" :key="index" >
+                        <tr v-for="(item, index) in unpaidCart" :key="index" >
                             <th>{{ index+1 }}</th>
                             <td>
                                 <router-link :to="`/products/${item.Product.id}`">{{ item.Product.name }}
@@ -25,7 +25,7 @@
                             <td>
                                 <div class="columns">
                                     <div class="column is-4">
-                                        <a @click="reduceFromCart(item.id)" class="button is-warning is-small">
+                                        <a @click="reduceFromCart(item.id)" class="button is-warning is-small is-rounded">
                                             <i class="fas fa-minus"></i>
                                         </a>
                                     </div>
@@ -33,16 +33,16 @@
                                         {{ item.quantity }}
                                     </div>
                                     <div class="column is-4">
-                                        <a @click="addToCart(item.Product.id)" class="button is-success is-small">
+                                        <a @click="addToCart(item.Product.id)" class="button is-success is-small is-rounded">
                                             <i class="fas fa-plus"></i>
                                         </a>
                                     </div>
                                 </div>
                             </td>
-                            <td>{{ item.Product.price }}</td>
-                            <td>{{ item.totalPrice }}</td>
+                            <td style="text-align: right">{{ item.Product.price | currency }}</td>
+                            <td style="text-align: right">{{ item.totalPrice | currency }}</td>
                             <td style="text-align: center">
-                                <a @click="deleteItem(item.id)" class="button is-danger is-small">
+                                <a @click="deleteItem(item.id)" class="button is-danger is-small is-rounded">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>
@@ -55,12 +55,23 @@
         <div v-if="!isCartEmpty" class="columns">
             <div class="column"></div>
             <div class="column is-three-quarters">
-                <div style="text-align: right" class="column is-4 is-offset-8">
-                    <router-link to='/cart' class="button is-link">
-                        <i class="fas fa-money-check"></i>
-                        <p class="has-text-link">...</p>
-                        Pay Now
-                    </router-link>
+                <div class="columns">
+                    <div class="column is-3"></div>
+                    <div class="column is-3">
+                        <p class="is-size-4" style="text-align: right">Total:</p>
+                    </div>
+                    <div class="column is-3" style="text-align: right">
+                        <p class="is-size-4 has-text-weight-semibold">
+                            {{ totalUnpaid | currency }}
+                        </p>
+                    </div>
+                    <div class="column is-3" style="text-align: right">
+                        <router-link to='/cart' class="button is-link is-rounded">
+                            <i class="fas fa-money-check"></i>
+                            <p class="has-text-link">...</p>
+                            Pay Now
+                        </router-link>
+                    </div>
                 </div>
             </div>
             <div class="column"></div>
@@ -86,15 +97,21 @@
 export default {
   name: 'Cart',
   computed: {
-    cart () {
-      return this.$store.state.cart
+    unpaidCart () {
+      return this.$store.getters.getUnpaidCart
     },
     isCartEmpty () {
-      if (this.$store.state.cart.length === 0) {
+      if (this.unpaidCart.length === 0) {
         return true
       } else {
         return false
       }
+    },
+    totalUnpaid () {
+      const arrTotalPrice = this.unpaidCart.map((el) => {
+        return el.totalPrice
+      })
+      return arrTotalPrice.reduce((a, b) => a + b, 0)
     }
   },
   methods: {

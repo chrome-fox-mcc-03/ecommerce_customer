@@ -7,13 +7,21 @@
                 <form @submit.prevent="login">
                     <UserForm @userEmail="getEmail" @userPassword="getPassword"/><br>
                     <div class="field">
-                        <p class="control">
-                            <button class="button is-success">
+                        <p class="control has-text-centered">
+                            <button class="button is-success is-rounded">
                                 Login
                             </button>
                         </p>
                     </div>
                 </form>
+                <p class="has-text-centered" >
+                  or
+                </p>
+                <p class="has-text-centered">
+                  <router-link to="/register" class="button is-primary is-outlined is-rounded">
+                    Register
+                  </router-link>
+                </p>
             </div>
             <div class="column"></div>
         </div>
