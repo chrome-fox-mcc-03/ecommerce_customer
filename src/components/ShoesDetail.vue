@@ -15,7 +15,7 @@
           <input type="number" min="1" class="qty-input" v-model="qtyInput">
         </form>
       </div>
-      <button @click="addToCart(shoe.id)" class="my-btn my-btn-teal special" style="margin-left: 0; font-size: 1rem;">add to cart</button>
+      <button @click="addToCartWithBody(shoe.id)" class="my-btn my-btn-teal special" style="margin-left: 0; font-size: 1rem;">add to cart</button>
     </div>
   </div>
 </template>
@@ -40,8 +40,8 @@ export default {
       })
   },
   methods: {
-    addToCart (id) {
-      this.$store.dispatch('addToCart', id)
+    addToCartWithBody (id) {
+      this.$store.dispatch('addToCartWithBody', { id, product_qty: this.qtyInput })
         .then(({ data }) => {
           console.log(data)
           this.$store.dispatch('fetchCarts')

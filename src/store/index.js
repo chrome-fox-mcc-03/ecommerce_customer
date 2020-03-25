@@ -94,6 +94,19 @@ export default new Vuex.Store({
         }
       })
     },
+    addToCartWithBody (context, payload) {
+      return axios({
+        method: 'post',
+        url: `${url}/carts/alt`,
+        headers: {
+          token: localStorage.getItem('token')
+        },
+        data: {
+          ProductId: payload.id,
+          product_qty: payload.product_qty
+        }
+      })
+    },
     increase (context, cartId) {
       return axios({
         method: 'patch',
