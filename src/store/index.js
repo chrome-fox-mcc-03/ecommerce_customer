@@ -16,9 +16,31 @@ export default new Vuex.Store({
     },
     SET_ISLOADING (state, payload) {
       state.isLoading = payload
+    },
+    SET_USER (state, payload) {
+      state.user = payload
     }
   },
   actions: {
+    getProducts (state) {
+      state.commit('SET_ISLOADING', true)
+      return axios({
+        method: 'GET',
+        url: 'http://localhost:3000/products',
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+    },
+    getProductData (_, id) {
+      return axios({
+        method: 'GET',
+        url: `http://localhost:3000/products/${id}`,
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+    },
     register (_, payload) {
       return axios({
         url: 'http://localhost:3000/register',
@@ -37,8 +59,30 @@ export default new Vuex.Store({
       state.commit('SET_ISLOGIN', false)
       localStorage.clear()
       router.replace({ path: '/' })
+    },
+    getCart (_) {
+      return axios({
+        url: 'http://localhost:3000/carts',
+        method: 'GET',
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+    },
+    addToCart (state, payload) {
+      const { id, quantity } = payload
+      return axios({
+        url: `http://localhost:3000/products/${id}`,
+        method: 'POST',
+        headers: {
+          token: localStorage.getItem('token')
+        },
+        data: {
+          quantity
+        }
+      })
     }
   },
-  modules: {
+  getters: {
   }
 })

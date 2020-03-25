@@ -3,7 +3,7 @@
     <div v-if="loading" class="loading-screen">
       <loading>Please Wait</loading>
     </div>
-    <div class="uk-card-header">
+    <div class="uk-card-header" :href="`#product-detail-${product.id}`" uk-toggle>
         <div class="uk-grid-small uk-flex-middle">
             <div class="uk-width-auto product-image-container">
               <img v-show="!picLoading" @load="picLoaded()" :src="product.image_url" width="140" height="140" :alt="product.name">
@@ -11,18 +11,19 @@
             </div>
         </div>
     </div>
-    <div class="uk-card-body">
+    <div class="uk-card-body" :href="`#product-detail-${product.id}`" uk-toggle>
         <h3 class="uk-overflow-hidden">{{ product.name }}</h3>
         <p style="cursor: default;">{{ getRupiah }}</p>
         <p style="cursor: default;">Stock: {{ product.stock }}</p>
     </div>
     <div class="uk-card-footer">
         <div class="footer-nav">
-        <router-link class="uk-button uk-button-text btn-update" :to="`/products/edit/${product.id}`">Edit</router-link>
+        <a class="uk-button uk-button-text btn-detail" :href="`#product-detail-${product.id}`" uk-toggle>Detail</a>
           |
-        <button @click.prevent="deleteProduct" class="uk-button uk-button-text btn-delete">Delete</button>
+        <button @click.prevent="addToCart" class="uk-button uk-button-text btn-add">Add to Cart</button>
         </div>
     </div>
+    <product-detail :product="product" :id="'product-detail-'+product.id"></product-detail>
   </div>
 </template>
 
@@ -30,10 +31,11 @@
 import LoadingPic from '../components/LoadingPic'
 import UIkit from 'uikit'
 import Loading from '../components/Loading'
-// import VueLoadImage from 'vue-load-image'
+import ProductDetail from '../components/ProductDetail'
 export default {
   data () {
     return {
+      addQuantity: 1,
       priceRupiah: '',
       picLoading: true,
       loading: false
@@ -75,7 +77,8 @@ export default {
   props: ['product'],
   components: {
     LoadingPic,
-    Loading
+    Loading,
+    ProductDetail
   },
   computed: {
     getRupiah () {
@@ -106,15 +109,15 @@ export default {
   min-height: 35%;
   padding-bottom: 15%;
 }
-.btn-delete:hover{
+.btn-detail:hover{
   background-color: rgba(255, 15, 15, 0.2);
   border-radius: 5px;
-  transform: scale(1.5, 1.5);
+  transform: scale(1.2, 1.2);
 }
-.btn-update:hover{
+.btn-add:hover{
   background-color: rgba(15, 135, 255, 0.2);
   border-radius: 5px;
-  transform: scale(1.5, 1.5);
+  transform: scale(1.2, 1.2);
 }
 .product-image-container{
   display: flex;

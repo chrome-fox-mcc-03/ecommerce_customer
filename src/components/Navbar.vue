@@ -3,8 +3,9 @@
       <div class="uk-navbar-center">
           <div class="uk-navbar-center-left">
             <div>
-              <ul class="uk-navbar-nav">
-                  <li v-if="isLogin"><router-link :to="'/profile'" class="uk-navbar-item">Profile</router-link></li>
+              <ul v-if="isLogin" class="uk-navbar-nav">
+                  <li><router-link :to="'/dashboard'" class="uk-navbar-item">Home</router-link></li>
+                  <li><router-link :to="'/profile'" class="uk-navbar-item">Profile</router-link></li>
                   <li></li>
               </ul>
             </div>
@@ -13,7 +14,7 @@
           <div class="uk-navbar-center-right">
             <div>
               <ul class="uk-navbar-nav">
-                <li v-if="isLogin" @click.prevent="logout" ><a>Logout</a></li>
+                <li v-if="isLogin" @click.prevent="logout"><a>Logout</a></li>
                 <li></li>
               </ul>
             </div>
@@ -39,6 +40,7 @@ export default {
     }
   },
   created () {
+    if (localStorage.token) this.$store.commit('SET_ISLOGIN', true)
   }
 }
 </script>

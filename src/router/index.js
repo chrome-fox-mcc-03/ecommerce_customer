@@ -32,6 +32,22 @@ const routes = [
     meta: {
       authentication: true
     }
+  },
+  {
+    path: '/profile',
+    component: () => import('../views/Profile.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Carts',
+        component: () => import('../components/ProfileCart.vue')
+      },
+      {
+        path: '/history',
+        name: 'History',
+        component: () => import('../components/ProfileHistory.vue')
+      }
+    ]
   }
 ]
 

@@ -100,9 +100,6 @@ form{
 input{
   width: 100%;
 }
-.uk-form-icon{
-  color: black;
-}
 form .uk-button{
   margin-right: 5px;
   border-radius: 10px;
