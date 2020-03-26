@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button class="btn btn-primary" data-toggle="modal" data-target="#shoppingCart">Cart <i class="fa fa-shopping-cart"></i> ({{ numInCart }})</button>
+    <button class="btn btn-outline-dark ml-5" data-toggle="modal" data-target="#shoppingCart">Cart <i class="fa fa-shopping-cart"></i> ({{ numInCart }})</button>
 
     <div id="shoppingCart" class="modal fade">
       <div class="modal-dialog">
@@ -124,7 +124,6 @@ export default {
   },
   computed: {
     numInCart () {
-      this.fetchCart()
       let quantity = 0
       this.$store.state.cart.forEach(el => {
         quantity += el.quantity
@@ -132,7 +131,6 @@ export default {
       return quantity
     },
     totalCart () {
-      this.fetchCart()
       return this.$store.state.cart
     },
     total () {
@@ -153,7 +151,7 @@ export default {
       this.$store.dispatch('deleteCart', id)
         .then(result => {
           this.fetchCart()
-          this.message = 'success remove cart'
+          this.message = 'success removed cart'
           this.loading = false
         })
         .catch(err => {
@@ -188,7 +186,7 @@ export default {
       this.updateCart(data)
         .then(result => {
           this.fetchCart()
-          this.message = 'success update quantity'
+          this.message = 'success updated quantity'
           this.loading = false
         })
         .catch(err => {
@@ -214,12 +212,10 @@ export default {
     },
     onReset (evt) {
       evt.preventDefault()
-      // Reset our form values
       this.form.name = ''
       this.form.cardNumber = ''
       this.form.cardCVC = ''
       this.form.cardExpiry = ''
-      // Trick to reset/clear native browser form validation state
       this.show = false
       this.$nextTick(() => {
         this.show = true
@@ -227,7 +223,9 @@ export default {
     }
   },
   created () {
-    this.fetchCart()
+    if (localStorage.token) {
+      this.fetchCart()
+    }
   }
 
 }

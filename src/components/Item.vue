@@ -1,7 +1,7 @@
 <template>
    <div class="col-md-2 mb-5">
     <div class="card h-100">
-      <img :src='image' :alt="name" class="card-img-top img-fluid d-block">
+      <img :src='image' :alt="name" class="card-img-top img-fluid">
       <div class="card-body p-2 d-flex flex-column align-items-center justify-content-center">
         <h6 class="card-title">{{ name.split(':')[0] }} </h6>
         <div class="card-text">Price: {{ price | rupiah}}</div>
@@ -15,7 +15,7 @@
         >
         Added to cart <i class="fa fa-check"></i>
         </b-alert>
-        <button class="btn btn-block btn-primary mt-auto" @click="addToCart(invId, price)">Add to cart <i class="fa fa-shopping-cart"></i></button>
+        <button class="btn btn-block btn-primary active mt-auto" @click="addToCart(invId, price)">Add to cart <i class="fa fa-shopping-cart"></i></button>
       </div>
     </div>
   </div>
@@ -65,6 +65,11 @@ export default {
       } else {
         this.$router.push('login')
       }
+    }
+  },
+  created () {
+    if (localStorage.token) {
+      this.fetchCart()
     }
   }
 

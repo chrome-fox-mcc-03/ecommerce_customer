@@ -33,7 +33,6 @@
               </form>
           </article>
         </div>
-
     </div>
   </div>
 </template>

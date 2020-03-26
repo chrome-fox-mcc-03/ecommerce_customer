@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 import Item from './Item.vue'
 import ShoppingCart from './ShoppingCart.vue'
 import Error from './Error'
@@ -52,14 +52,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchProduct']),
-    ...mapMutations(['SET_PRODUCTS'])
+    ...mapActions(['fetchProduct'])
   },
   computed: {
     forSale () {
       return this.$store.getters.forSale
-    },
-    ...mapState(['products'])
+    }
   },
   created () {
     this.fetchProduct()

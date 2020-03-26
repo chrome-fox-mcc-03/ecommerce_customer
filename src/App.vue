@@ -14,11 +14,13 @@
       </lottie-player>
       <p class="font-weight-light mt-0 h4">Loading....</p>
   </div>
+  <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
@@ -28,7 +30,8 @@ export default {
     }
   },
   components: {
-    Navbar
+    Navbar,
+    Footer
   },
   computed: {
     ...mapState(['loading', 'products'])
