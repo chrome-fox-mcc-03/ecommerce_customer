@@ -1,12 +1,12 @@
 <template>
-  <b-modal id="loginModal" hide-header="true" hide-footer="true" :title="title">
+  <b-modal id="loginModal" hide-header="hide-header" hide-footer="hide-footer" :title="title">
     <form @submit.prevent="loginProcess"
           class="form-group d-flex flex-column justify-content-center align-items-baseline">
           <h1 class="modal-header w-100" >Login</h1>
           <hr>
           <div class="align-self-center">
             <label for="email">Email:</label><br>
-            <input v-model="email" type="text" id="email" name="email"><br>
+            <input v-model="email" type="email" id="email" name="email"><br>
           </div>
           <div class="align-self-center mt-2">
             <label for="password">Password:</label><br>

@@ -1,16 +1,14 @@
 <template>
   <div class="shadow">
   <b-navbar toggleable="lg" type="dark" variant="primary">
-    <b-navbar-brand class="nav-title" >AlitopanExpress</b-navbar-brand>
-
-    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+    <b-navbar-brand class="nav-title ml-5" style="font-size: 2rem" >AlitopanExpress</b-navbar-brand>
 
     <b-collapse id="nav-collapse" is-nav>
       <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto">
-        <b-nav-item-dropdown v-if="isLogin" right>
+      <b-navbar-nav class="ml-auto mr-5">
+        <b-nav-item-dropdown v-if="statusLogin" right>
           <template v-slot:button-content>
-            <em>{{countItemInCart}} Cart</em>
+            <em class="text-white" style="font-size:1rem">{{countItemInCart}} Cart</em>
           </template>
           <div @click="$event.stopPropagation()">
             <cart-component />
@@ -18,12 +16,12 @@
         </b-nav-item-dropdown>
         <b-nav-item-dropdown right>
           <template v-slot:button-content>
-            <em>User</em>
+            <em class="text-white" style="font-size:1rem">User</em>
           </template>
-          <b-dropdown-item v-if="!isLogin"><router-link v-b-modal.loginModal to="">Sign In</router-link></b-dropdown-item>
-          <b-dropdown-item v-if="!isLogin"><router-link v-b-modal.registerModal to="">Register</router-link></b-dropdown-item>
-          <b-dropdown-item v-if="isLogin"><router-link v-b-modal.profileModal to="">Profile</router-link></b-dropdown-item>
-          <b-dropdown-item v-if="isLogin" @click.prevent="logoutUser()"><router-link to="">Sign Out</router-link></b-dropdown-item>
+          <b-dropdown-item v-if="!statusLogin"><router-link v-b-modal.loginModal to="">Sign In</router-link></b-dropdown-item>
+          <b-dropdown-item v-if="!statusLogin"><router-link v-b-modal.registerModal to="">Register</router-link></b-dropdown-item>
+          <b-dropdown-item v-if="statusLogin"><router-link v-b-modal.profileModal to="">Profile</router-link></b-dropdown-item>
+          <b-dropdown-item v-if="statusLogin" @click.prevent="logoutUser()"><router-link to="">Sign Out</router-link></b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
@@ -41,7 +39,7 @@ import CartComponent from './CartComponent.vue'
 import LoginForm from './LoginForm.vue'
 import RegisterForm from './RegisterForm.vue'
 import ProfileCard from './UserProfile.vue'
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   name: 'NavBar',
   components: {
@@ -52,12 +50,24 @@ export default {
   },
   methods: {
     logoutUser () {
+      this.statusLogin = false
       this.$store.dispatch('onLogoutUser')
     }
   },
   computed: {
-    ...mapState(['isLogin']),
+    // ...mapState(['isLogin']),
     ...mapGetters(['countItemInCart'])
+  },
+  data () {
+    return {
+      statusLogin: false
+    }
+  },
+  created () {
+    const token = localStorage.getItem('access_token')
+    if (token) {
+      this.statusLogin = true
+    }
   }
 }
 </script>
@@ -65,6 +75,5 @@ export default {
 <style>
 .nav-title {
   font-family: 'Caveat', cursive;
-  position: fixed;
 }
 </style>

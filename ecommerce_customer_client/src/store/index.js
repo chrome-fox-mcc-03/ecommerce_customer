@@ -95,10 +95,9 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          
           localStorage.setItem('access_token', data.access_token)
           dispatch('createCart')
-          commit('SET_LOGIN_STATUS', true)
+          // commit('SET_LOGIN_STATUS', true)
           Vue.notify({
             group: 'auth',
             type: 'success',
@@ -117,7 +116,7 @@ export default new Vuex.Store({
 
     addProductToCart ({ commit }, { product, quantity }) {
       const accessToken = localStorage.getItem('access_token')
-      
+
       if (accessToken) {
         if (quantity) {
           commit('ADD_TO_CART', { product, quantity })
@@ -202,7 +201,7 @@ export default new Vuex.Store({
             group: 'auth',
             type: 'error',
             title: 'fetching cart error',
-            text: 'Internal server error'
+            text: err.message
           })
         })
     },
@@ -298,7 +297,6 @@ export default new Vuex.Store({
         text: 'successfully logged out'
       })
     }
-
   },
   getters: {
     countItemInCart (state) {

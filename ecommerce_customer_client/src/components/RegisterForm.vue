@@ -1,5 +1,5 @@
 <template>
-  <b-modal id="registerModal" hide-footer=true hide-header=true :title="title">
+  <b-modal id="registerModal" hide-footer="hide-footer" hide-header="hide-header" :title="title">
       <form @submit.prevent="registerProcess" class="form-group d-flex flex-column justify-content-center align-items-start">
         <!-- <div class="container d-flex flex-column justify-content-center align-items-baseline"> -->
             <h1 class="modal-header w-100">Register</h1>

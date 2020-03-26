@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-row flex-wrap sizeCustom py-2 justify-content-center">
-      <product-card v-for="product in products" :key="product.id" :product="product"></product-card>
+      <product-card v-for="product in products.slice(0, 4)" :key="product.id" :product="product"></product-card>
   </div>
 </template>
 

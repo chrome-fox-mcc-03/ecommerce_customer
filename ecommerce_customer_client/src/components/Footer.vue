@@ -1,5 +1,5 @@
 <template>
-  <div class="footer bg-dark shadow">
+  <div class="footer bg-primary shadow">
       <p>For educational purpose only</p>
   </div>
 </template>

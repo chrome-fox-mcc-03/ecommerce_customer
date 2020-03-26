@@ -1,54 +1,63 @@
 <template>
-  <b-modal id="detailModal" :title="title">
-    <div class="container">
-    <div class="card">
-      <div class="container-fliud">
-        <div class="wrapper row">
-          <div class="preview col-md-6">
-
-            <div class="preview-pic tab-content">
-            <div class="tab-pane active" id="pic-1"><img src="http://placekitten.com/400/252" /></div>
-            </div>
-            <ul class="preview-thumbnail nav nav-tabs">
-            </ul>
-
-            </div>
-            <div class="details col-md-6">
-              <h3 class="product-title">men's shoes fashion</h3>
-            <div class="rating">
-            <div class="stars">
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-            </div>
-              <span class="review-no">41 reviews</span>
-            </div>
-            <p class="product-description">Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
-            <h4 class="price">current price: <span>$180</span></h4>
-            <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
-            <div class="action">
-              <button class="add-to-cart btn btn-default" type="button">add to cart</button>
-              <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
-            </div>
-          </div>
+  <b-modal :id="modifiedName" hide-header="hide-header" hide-footer="hide-footer" :title="title">
+      <h1 class="my-4">{{product.name}}
+        <small>Detail Product</small>
+      </h1>
+      <div class="row">
+        <div class="col-md-8">
+          <img class="img-fluid" :src="product.image_url" alt="">
+        </div>
+        <div class="col-md-4">
+          <h3 class="my-3">Project Description</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
+          <h3 class="my-3">Product Details</h3>
+          <ul>
+            <li>Price : {{product.price | currency}}</li>
+            <li>Stock : {{product.stock}}</li>
+          </ul>
         </div>
       </div>
-    </div>
-    </div>
   </b-modal>
 </template>
 
 <script>
 export default {
   name: 'ProductDetail',
+  // props: ['product', 'name']
   props: {
+    product: {
+      type: Object
+    },
+    modifiedName: {
+      type: String
+    },
     title: String
   }
 }
 </script>
 
 <style scoped>
+
+.right-column {
+  margin-top: 2%;
+}
+
+.left-column {
+  margin-top: 2%;
+}
+
+.image-container {
+  width: 40vw;
+  height: 50vh;
+  margin-bottom: 25%;
+  margin-top: 10%;
+}
+
+.detail-container {
+  width: 40vw;
+  height: 50vh;
+  margin-bottom: 25%;
+  margin-top: 10%;
+}
 
 </style>

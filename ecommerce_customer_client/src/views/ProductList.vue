@@ -1,6 +1,9 @@
 <template>
-  <div class="d-flex flex-row flex-wrap sizeCustom px-3 py-2 justify-content-center">
-      <product-card v-for="product in products" :key="product.id" :product="product"></product-card>
+  <div>
+      <input type="text" v-model="search" placeholder="find a product">
+    <div class="d-flex flex-row flex-wrap px-1 py-2 justify-content-center">
+      <product-card v-for="product in products" :key="product.id" :product="product" :id="product.id"></product-card>
+    </div>
   </div>
 </template>
 
@@ -12,19 +15,25 @@ export default {
   components: {
     ProductCard
   },
+  data () {
+    return {
+      productsContainer: [],
+      search: ''
+    }
+  },
   created () {
     this.$store.dispatch('onFetchProduct')
   },
   computed: {
-    ...mapState(['products'])
+    ...mapState(['products']),
+    filterProduct: function () {
+      return this.productsContainer.filter((product) => {
+        return product.name.match(this.search)
+      })
+    }
   }
 }
 </script>
 
 <style>
-.sizeCustom {
-    max-width: 50vw;
-    background-color: white;
-    border-radius: 10px;
-}
 </style>
