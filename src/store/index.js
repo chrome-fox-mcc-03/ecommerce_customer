@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
+// import UIkit from 'uikit'
 
 Vue.use(Vuex)
 
@@ -22,11 +23,11 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    getProducts (state) {
-      state.commit('SET_ISLOADING', true)
+    getProducts (context) {
+      context.commit('SET_ISLOADING', true)
       return axios({
         method: 'GET',
-        url: 'http://localhost:3000/products',
+        url: 'https://ecommerce-cms-h8.herokuapp.com/products',
         headers: {
           token: localStorage.getItem('token')
         }
@@ -35,22 +36,24 @@ export default new Vuex.Store({
     getProductData (_, id) {
       return axios({
         method: 'GET',
-        url: `http://localhost:3000/products/${id}`,
+        url: `https://ecommerce-cms-h8.herokuapp.com/products/${id}`,
         headers: {
           token: localStorage.getItem('token')
         }
       })
     },
-    register (_, payload) {
+    register (context, payload) {
+      context.commit('SET_ISLOADING', true)
       return axios({
-        url: 'http://localhost:3000/register',
+        url: 'https://ecommerce-cms-h8.herokuapp.com/register',
+        // url: 'http://localhost:3000/register',
         method: 'POST',
         data: payload
       })
     },
     login (_, payload) {
       return axios({
-        url: 'http://localhost:3000/login',
+        url: 'https://ecommerce-cms-h8.herokuapp.com/login',
         method: 'POST',
         data: payload
       })
@@ -62,7 +65,7 @@ export default new Vuex.Store({
     },
     getCart (_) {
       return axios({
-        url: 'http://localhost:3000/carts',
+        url: 'https://ecommerce-cms-h8.herokuapp.com/carts',
         method: 'GET',
         headers: {
           token: localStorage.getItem('token')
@@ -72,7 +75,7 @@ export default new Vuex.Store({
     addToCart (_, payload) {
       const { id, quantity } = payload
       return axios({
-        url: `http://localhost:3000/products/${id}`,
+        url: `https://ecommerce-cms-h8.herokuapp.com/products/${id}`,
         method: 'POST',
         headers: {
           token: localStorage.getItem('token')
@@ -84,7 +87,7 @@ export default new Vuex.Store({
     },
     removeItem (_, id) {
       return axios({
-        url: `http://localhost:3000/carts/${id}`,
+        url: `https://ecommerce-cms-h8.herokuapp.com/carts/${id}`,
         method: 'DELETE',
         headers: {
           token: localStorage.getItem('token')
@@ -93,7 +96,7 @@ export default new Vuex.Store({
     },
     pay (_, id) {
       return axios({
-        url: `http://localhost:3000/carts/${id}`,
+        url: `https://ecommerce-cms-h8.herokuapp.com/carts/${id}`,
         method: 'PUT',
         headers: {
           token: localStorage.getItem('token')
@@ -102,7 +105,7 @@ export default new Vuex.Store({
     },
     payall (_, listId) {
       return axios({
-        url: 'http://localhost:3000/carts/payall',
+        url: 'https://ecommerce-cms-h8.herokuapp.com/carts/payall',
         method: 'PUT',
         headers: {
           token: localStorage.getItem('token')

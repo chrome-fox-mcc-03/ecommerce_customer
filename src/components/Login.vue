@@ -50,10 +50,10 @@ export default {
       }
       this.$store.dispatch('login', payload)
         .then(response => {
-          this.$store.commit('SET_ISLOGIN', true)
-          this.$router.push('/dashboard')
           const { token, fullname } = response.data
           localStorage.setItem('token', token)
+          this.$store.commit('SET_ISLOGIN', true)
+          this.$router.push('/dashboard')
           UIkit.notification({
             message: `Welcome back ${fullname}`,
             status: 'primary',

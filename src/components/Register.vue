@@ -66,19 +66,22 @@ export default {
       this.$store.dispatch('register', payload)
         .then(response => {
           const { token, fullname } = response.data
-          this.$store.commit('SET_ISLOGIN', true)
+
           localStorage.setItem('token', token)
+
+          this.$store.commit('SET_ISLOGIN', true)
+
+          this.$router.push('/dashboard')
+
           UIkit.notification({
             message: `Welcome ${fullname}`,
             status: 'primary',
             pos: 'top-right',
             timeout: 2500
           })
-          this.$router.push('/dashboard')
-          this.clearData()
         })
         .catch(err => {
-          const message = err.response.data.message[0]
+          const message = err.response.data.message
           UIkit.notification({
             message: message,
             status: 'danger',
@@ -95,8 +98,9 @@ export default {
       this.registerPassword = null
       this.registerFullname = null
     }
+  },
+  computed: {
   }
-
 }
 </script>
 

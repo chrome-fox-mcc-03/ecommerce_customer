@@ -36,6 +36,9 @@ const routes = [
   {
     path: '/profile',
     component: () => import('../views/Profile.vue'),
+    meta: {
+      authentication: true
+    },
     children: [
       {
         path: '',
@@ -59,6 +62,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token')
+
   if (to.matched.some(record => record.meta.authentication)) {
     if (token) next()
     else {
