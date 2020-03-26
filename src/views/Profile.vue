@@ -40,10 +40,11 @@ export default {
 }
 
 .profile-display {
-  border: 1px solid lightgray;
+  /* border: 1px solid lightgray; */
   border-radius: 15px;
   padding: 1em;
   width: 60vw;
+  height: 80vh;
 }
 
 </style>

@@ -90,6 +90,27 @@ export default new Vuex.Store({
           token: localStorage.getItem('token')
         }
       })
+    },
+    pay (_, id) {
+      return axios({
+        url: `http://localhost:3000/carts/${id}`,
+        method: 'PUT',
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+    },
+    payall (_, listId) {
+      return axios({
+        url: 'http://localhost:3000/carts/payall',
+        method: 'PUT',
+        headers: {
+          token: localStorage.getItem('token')
+        },
+        data: {
+          listId: listId
+        }
+      })
     }
   },
   getters: {

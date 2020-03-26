@@ -26,6 +26,7 @@
           </div>
         </div>
       </div>
+
       <!-- Pay confirmation modal -->
       <div :id="'pay-confirmation-'+productInCart.id" uk-modal>
         <div class="uk-modal-dialog uk-margin-auto-vertical">
@@ -40,29 +41,61 @@
             <p>Quantity: <b>{{ productInCart.quantity }}</b></p>
           </div>
           <div class="uk-modal-footer uk-text-right">
-              <button class="uk-button uk-button-text btn-remove" type="button">Pay</button>
+              <button @click.prevent="pay" class="uk-button uk-button-text btn-remove" type="button">Pay</button>
               <button class="uk-button uk-button-text uk-modal-close btn-cancel" type="button">Cancel</button>
           </div>
         </div>
       </div>
+
+      <!-- Loading -->
+      <div v-if="isLoading" class="loading-buy">
+        <loading-buy></loading-buy>
+        <p>Your payment are being authorize, please wait a moment</p>
+      </div>
+
+      <!-- Payment confirmed -->
+      <payment-confirmed></payment-confirmed>
     </tr>
 </template>
 
 <script>
 import UIkit from 'uikit'
+import LoadingBuy from './LoadingBuy'
+import PaymentConfirmed from './PaymentConfirmed'
 export default {
   data () {
     return {
       isLoading: false
     }
   },
+  components: {
+    LoadingBuy,
+    PaymentConfirmed
+  },
   props: ['productInCart', 'index'],
   created () {
   },
   methods: {
     pay () {
+      this.isLoading = true
+      this.$store.dispatch('pay', this.productInCart.id)
+        .then(response => {
+          UIkit.modal(`#pay-confirmation-${this.productInCart.id}`).hide()
+          UIkit.modal('#payment-confirmed').show()
+          setInterval(_ => {
+            UIkit.modal('#payment-confirmed').hide()
+          }, 1500)
+          this.$emit('getCart')
+        })
+        .catch(err => {
+          console.log(err.response.data.message)
+        })
+        .finally(() => {
+          this.isLoading = false
+        })
     },
     removeItem () {
+      this.isLoading = true
       this.$store.dispatch('removeItem', this.productInCart.id)
         .then(response => {
           UIkit.modal(`#delete-confirmation-${this.productInCart.id}`).hide()
@@ -70,18 +103,21 @@ export default {
             message: `Successfully remove ${this.productInCart.Product.name} from cart`,
             status: 'success',
             pos: 'top-center',
-            timeout: 2500
+            timeout: 1500
           })
           this.$emit('getCart')
         })
         .catch(err => {
-          console.log(err)
+          UIkit.notification({
+            message: err,
+            status: 'danger',
+            pos: 'top-center',
+            timeout: 1500
+          })
         })
         .finally(() => {
+          this.isLoading = false
         })
-    },
-    pay () {
-      
     }
   },
   computed: {
@@ -127,8 +163,22 @@ export default {
   border: none;
 }
 .uk-modal-header{
-  border-radius: 25px;
-  border: none;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  border-bottom: #ff847c 3px solid;
+
+}
+.loading-buy{
+  left: 0;
+  top: 0;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(255, 255, 255, 0.8);
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 </style>

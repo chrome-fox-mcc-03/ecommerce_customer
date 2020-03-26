@@ -63,19 +63,18 @@ export default {
         password: this.registerPassword,
         fullname: this.registerFullname
       }
-
       this.$store.dispatch('register', payload)
         .then(response => {
           const { token, fullname } = response.data
           this.$store.commit('SET_ISLOGIN', true)
           localStorage.setItem('token', token)
-          this.$router.push('/dashboard')
           UIkit.notification({
             message: `Welcome ${fullname}`,
             status: 'primary',
             pos: 'top-right',
             timeout: 2500
           })
+          this.$router.push('/dashboard')
           this.clearData()
         })
         .catch(err => {

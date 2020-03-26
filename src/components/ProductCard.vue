@@ -3,6 +3,9 @@
     <div v-if="loading" class="loading-screen">
       <loading>Please Wait</loading>
     </div>
+    <div v-if="isSoldout" class="soldout">
+      <img src="../assets/soldout.png" alt="">
+    </div>
     <div class="uk-card-header" :href="`#product-detail-${product.id}`" uk-toggle>
         <div class="uk-grid-small uk-flex-middle">
             <div class="uk-width-auto product-image-container">
@@ -72,6 +75,32 @@ export default {
     },
     picLoaded () {
       this.picLoading = false
+    },
+    addToCart () {
+      const payload = {
+        id: this.product.id,
+        quantity: this.addQuantity
+      }
+      this.$store.dispatch('addToCart', payload)
+        .then(response => {
+          UIkit.notification({
+            message: `Successfully add ${this.product.name} to cart`,
+            status: 'success',
+            pos: 'top-center',
+            timeout: 1000
+          })
+        })
+        .catch(err => {
+          console.log(err)
+          UIkit.notification({
+            message: err,
+            status: 'danger',
+            pos: 'top-center',
+            timeout: 1000
+          })
+        })
+        .finally(() => {
+        })
     }
   },
   props: ['product'],
@@ -86,6 +115,10 @@ export default {
       const pricerev = this.product.price.toString().split('').reverse().join('')
       for (let i = 0; i < pricerev.length; i++) if (i % 3 === 0) rupiah += pricerev.substr(i, 3) + '.'
       return 'Rp. ' + rupiah.split('', rupiah.length - 1).reverse().join('')
+    },
+    isSoldout () {
+      if (this.product.stock === 0) return true
+      return false
     }
   },
   created () {
@@ -144,6 +177,17 @@ h3{
 .footer-nav{
   display: flex;
   justify-content: space-around;
+}
+.soldout{
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  height: 100%;
+  z-index: 5;
+  border-radius: 15px;
+}
+
+.soldout img{
+  margin: auto;
 }
 
 .loading-screen{
