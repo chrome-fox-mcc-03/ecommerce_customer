@@ -2,11 +2,8 @@
     <b-modal id="profileModal" :title="title" class="card">
     <!-- <div class="card"> -->
         <img src="https://www.w3schools.com/w3images/team2.jpg" alt="John" style="width:100%" class="shadow">
-        <h1>John Doe</h1>
-        <p class="title">CEO & Founder, Example</p>
-        <p>Harvard University</p>
+        <h1>user@mail.com</h1>
         <div style="margin: 24px 0;">
-            <a href="#"><i class="fa fa-dribbble"></i></a>
             <a href="#"><i class="fa fa-twitter"></i></a>
             <a href="#"><i class="fa fa-linkedin"></i></a>
             <a href="#"><i class="fa fa-facebook"></i></a>
@@ -16,10 +13,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'ProfileCard',
   props: {
     title: String
+  },
+  computed: {
+    ...mapState(['profile'])
   }
 }
 </script>

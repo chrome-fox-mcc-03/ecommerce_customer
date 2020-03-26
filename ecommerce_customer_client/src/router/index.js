@@ -11,10 +11,11 @@ const routes = [
     component: Home
   },
   {
-    path: '/productDetail/:id',
-    name: 'productDetail',
-    component: () => import('../components/ProductDetail')
+    path: '/show-detail',
+    name: 'ProductDetail',
+    component: () => import('../components/ProductDetail.vue')
   }
+
 ]
 
 const router = new VueRouter({

@@ -3,7 +3,7 @@
     <b-card
         style="max-width: 18rem; max-heigt: 20rem"
         class="mb-2 ml-3 mr-3 mt-2 shadow d-flex flex-columnjustify-content-center flex-wrap">
-      <b-card-title><router-link v-b-modal.modifiedName to=''>{{product.name}}</router-link></b-card-title>
+      <b-card-title @click.prevent="showDetail(product.id)"><router-link v-b-modal.modifiedName to=''>{{product.name}}</router-link></b-card-title>
       <hr>
         <b-card-img :src="product.image_url" style="max-width: 150px; max-height: 100px"></b-card-img>
         <b-card-text class="align-self-end">
@@ -19,25 +19,15 @@
           </div>
         </div>
     </b-card>
-    <product-detail :product="product" :modifiedName="modifiedName" :title="product.name"></product-detail>
   </div>
 </template>
 
 <script>
-import ProductDetail from './ProductDetail'
 export default {
   name: 'ProductCard',
-  components: {
-    ProductDetail
-  },
   props: {
     product: {
       type: Object
-    }
-  },
-  computed: {
-    modifiedName: function () {
-      return `${this.product.id}modal`
     }
   },
   data () {
@@ -51,6 +41,10 @@ export default {
         product: this.product,
         quantity: Number(quantity)
       })
+    },
+    showDetail (productId) {
+      this.$store.dispatch('showDetail', { productId })
+      this.$bvModal.show('detailProduct')
     }
   }
 }
