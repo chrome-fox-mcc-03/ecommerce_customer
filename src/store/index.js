@@ -9,7 +9,7 @@ export default new Vuex.Store({
   state: {
     notification: '',
     products: [],
-    cart: []
+    carts: []
   },
   mutations: {
     SET_NOTIFICATION (state, payload) {
@@ -17,6 +17,9 @@ export default new Vuex.Store({
     },
     SET_PRODUCT (state, payload) {
       state.products = payload
+    },
+    SET_CART (state, payload) {
+      state.carts = payload
     }
   },
   actions: {
@@ -71,6 +74,60 @@ export default new Vuex.Store({
       return axios({
         method: 'GET',
         url: `http://localhost:3000/product/${id}`,
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+    },
+    addCart (context, payload) {
+      return axios({
+        method: 'POST',
+        url: 'http://localhost:3000/cart',
+        headers: {
+          token: localStorage.getItem('token')
+        },
+        data: {
+          ProductId: payload
+        }
+      })
+    },
+    fetchCart (context, payload) {
+      axios({
+        method: 'GET',
+        url: 'http://localhost:3000/cart',
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+      .then(({ data }) => {
+        context.commit('SET_CART', data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+    increase (context, id) {
+      return axios({
+        method: 'PATCH',
+        url: `http://localhost:3000/cart/increase/${id}`,
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+    },
+    decrease (context, id) {
+      return axios({
+        method: 'PATCH',
+        url: `http://localhost:3000/cart/decrease/${id}`,
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+    },
+    deleteCart (context, id) {
+      return axios({
+        method: 'DELETE',
+        url: `http://localhost:3000/cart/${id}`,
         headers: {
           token: localStorage.getItem('token')
         }

@@ -5,7 +5,8 @@ import Login from '../views/loginPage.vue'
 import Register from '../views/registerPage.vue'
 import Dashboard from '../views/Dashboard.vue'
 import ListProduct from '../views/ListProduct.vue'
-import DetailProduct from '../views/detailProduct.vue'
+import DetailProduct from '../views/DetailProduct.vue'
+import CartPage from '../views/CartPage.vue'
 
 Vue.use(VueRouter)
 
@@ -41,7 +42,6 @@ const routes = [
   },
   {
     path: '/product',
-    name: 'dashboard',
     component: Dashboard,
     children: [
       {
@@ -55,6 +55,14 @@ const routes = [
         component: DetailProduct
       }
     ],
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/cart',
+    name: 'cartPage',
+    component: CartPage,
     meta: {
       requiresAuth: true
     }

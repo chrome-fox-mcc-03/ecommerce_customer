@@ -17,6 +17,7 @@
       <div class="row mb-5">
         <div class="col">
           <h1>OUR PRODUCTS</h1>
+          <hr width="50px" color="red">
         </div>
       </div>
       <div class="row justify-content-between">
@@ -48,19 +49,23 @@ export default {
 </script>
 
 <style>
+.product{
+margin-top: 100px;
+}
+
 .promotion-image{
   width: 100%;
   background-color: rgb(206, 7, 7);
 }
 
 .all-product{
-  background-color: brown;
   display: flex;
   flex-direction: row;
 }
 
 .col h1{
-font-weight: 700;
-font-size: 60px;
+  font-weight: 700;
+  font-size: 60px;
 }
+
 </style>

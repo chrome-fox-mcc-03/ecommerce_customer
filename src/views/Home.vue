@@ -39,7 +39,7 @@
         </a>
       </div>
     </div>
-    <div id="promotion" class="continer row">
+    <div id="promotion" class="row">
         <div class="card col-md-4 col-sm-12 apparels">
           <img src="../assets/apparels.jpg">
         </div>

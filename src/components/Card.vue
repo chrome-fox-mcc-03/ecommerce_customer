@@ -1,6 +1,6 @@
 <template>
   <div @click="toDetailPage(product.id)" class="card-deck col-lg-3 col-md-6">
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 20rem;">
       <img :src="`${product.image}`" class="card-img-top" alt="Gambar" />
       <div class="card-body d-flex flex-column justify-content-between">
         <div>
@@ -36,7 +36,6 @@ export default {
 <style>
 .card-deck{
   margin-bottom: 30px;
-  padding: 0;
 }
 
 #foot{
