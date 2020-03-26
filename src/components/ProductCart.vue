@@ -90,7 +90,7 @@ export default {
       })
     },
     fetchCart () {
-      return this.$store.dispatch('fetchCart')
+      this.$store.dispatch('fetchCart')
     }
   }
 }

@@ -3,8 +3,8 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 Vue.use(Vuex)
-const baseUrl = 'http://localhost:3000'
-// const baseUrl = 'http://13.250.32.193'
+// const baseUrl = 'http://localhost:3000'
+const baseUrl = 'http://13.250.32.193'
 export default new Vuex.Store({
   state: {
     isLogin: false,
@@ -97,6 +97,7 @@ export default new Vuex.Store({
       })
     },
     fetchCart ({ commit }, payload) {
+      console.log('masukk ==========================')
       commit('SET_LOADING', true)
       axios({
         url: baseUrl + '/carts',
@@ -106,6 +107,7 @@ export default new Vuex.Store({
         }
       })
         .then(response => {
+          console.log(response.data, '=================')
           commit('SET_CART', response.data)
         })
         .catch(err => {

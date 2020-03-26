@@ -82,7 +82,7 @@ export default {
               .finally(_ => {
                 this.$store.commit('SET_LOADING', false)
               })
-            break
+            // break
           }
         }
       } else {
