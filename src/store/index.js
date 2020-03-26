@@ -33,7 +33,7 @@ export default new Vuex.Store({
       const password = payload.password
       return axios({
         method: 'POST',
-        url: 'http://localhost:3000/user/register',
+        url: 'https://peaceful-fortress-31291.herokuapp.com/user/register',
         data: {
           email,
           password
@@ -45,7 +45,7 @@ export default new Vuex.Store({
       const password = payload.password
       return axios({
         method: 'POST',
-        url: 'http://localhost:3000/user/login',
+        url: 'https://peaceful-fortress-31291.herokuapp.com/user/login',
         data: {
           email,
           password
@@ -64,7 +64,7 @@ export default new Vuex.Store({
       context.commit('SET_LOADING', true)
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/product',
+        url: 'https://peaceful-fortress-31291.herokuapp.com/product',
         headers: {
           token: localStorage.getItem('token')
         }
@@ -83,7 +83,7 @@ export default new Vuex.Store({
       context.commit('SET_LOADING', true)
       return axios({
         method: 'GET',
-        url: `http://localhost:3000/product/${id}`,
+        url: `https://peaceful-fortress-31291.herokuapp.com/product/${id}`,
         headers: {
           token: localStorage.getItem('token')
         }
@@ -92,7 +92,7 @@ export default new Vuex.Store({
     addCart (context, payload) {
       return axios({
         method: 'POST',
-        url: 'http://localhost:3000/cart',
+        url: 'https://peaceful-fortress-31291.herokuapp.com/cart',
         headers: {
           token: localStorage.getItem('token')
         },
@@ -105,7 +105,7 @@ export default new Vuex.Store({
       context.commit('SET_LOADING', true)
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/cart',
+        url: 'https://peaceful-fortress-31291.herokuapp.com/cart',
         headers: {
           token: localStorage.getItem('token')
         }
@@ -123,7 +123,7 @@ export default new Vuex.Store({
     increase (context, id) {
       return axios({
         method: 'PATCH',
-        url: `http://localhost:3000/cart/increase/${id}`,
+        url: `https://peaceful-fortress-31291.herokuapp.com/cart/increase/${id}`,
         headers: {
           token: localStorage.getItem('token')
         }
@@ -132,7 +132,7 @@ export default new Vuex.Store({
     decrease (context, id) {
       return axios({
         method: 'PATCH',
-        url: `http://localhost:3000/cart/decrease/${id}`,
+        url: `https://peaceful-fortress-31291.herokuapp.com/cart/decrease/${id}`,
         headers: {
           token: localStorage.getItem('token')
         }
@@ -141,7 +141,7 @@ export default new Vuex.Store({
     deleteCart (context, id) {
       return axios({
         method: 'DELETE',
-        url: `http://localhost:3000/cart/${id}`,
+        url: `https://peaceful-fortress-31291.herokuapp.com/cart/${id}`,
         headers: {
           token: localStorage.getItem('token')
         }
