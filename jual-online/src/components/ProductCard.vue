@@ -5,7 +5,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ product.image_url }}</h5>
                 <p class="card-text">Price: {{ product.price }} Stock: {{ product.stock }}</p>
-                <input type="number" placeholder="amount"> <button v-on:click.prevent="addToCart" class="add-to-cart">Add to Cart</button>
+                <input type="number" v-model="quantity" placeholder="amount"> <button v-on:click.prevent="addToCart" class="add-to-cart">Add to Cart</button>
             </div>
         </div>
     </div>
@@ -17,9 +17,15 @@ export default {
   props: {
     product: Object
   },
+  data () {
+    return {
+      quantity: 0
+    }
+  },
   methods: {
     addToCart: function () {
-      this.$store.dispatch('addToCart', this.product)
+      this.$store.dispatch('addToCart', { quantity: this.quantity, id: this.product.id, name: this.product.name })
+      this.quantity = 0
     }
   }
 }

@@ -18,7 +18,8 @@ const localhost = 'http://localhost:3000'
 export default new Vuex.Store({
   state: {
     products: [],
-    isLoading: false
+    isLoading: false,
+    cart: []
   },
   mutations: {
     SET_PRODUCTS (state, payload) {
@@ -26,6 +27,9 @@ export default new Vuex.Store({
     },
     SET_LOADING (state, payload) {
       state.isLoading = payload
+    },
+    SET_CART (state, payload) {
+      state.cart = payload
     }
   },
   actions: {
@@ -94,6 +98,49 @@ export default new Vuex.Store({
         })
         .finally(_ => {
           commit('SET_LOADING', false)
+        })
+    },
+    addToCart: function ({ commit }, cartData) {
+      axios({
+        method: 'POST',
+        url: `${localhost}/purchase/add-to-cart/${cartData.id}`,
+        headers: {
+          token: localStorage.getItem('token')
+        },
+        data: {
+          quantity: cartData.quantity
+        }
+      })
+        .then(response => {
+          alert.$vToastify.success({
+            title: 'Success',
+            body: `Adding ${cartData.name} to cart. See your checkout form to proceed.`
+          })
+        })
+        .catch(err => {
+          alert.$vToastify.error({
+            title: 'Error',
+            body: err.response.data
+          })
+        })
+    },
+    getCart: function ({ commit }) {
+      axios({
+        method: 'GET',
+        url: `${localhost}/purchase/cart`,
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+        .then(response => {
+          commit('SET_CART', response.data)
+          console.log(response.data)
+        })
+        .catch(err => {
+          alert.$vToastify.error({
+            title: 'Error',
+            body: err.response.data
+          })
         })
     }
   },
