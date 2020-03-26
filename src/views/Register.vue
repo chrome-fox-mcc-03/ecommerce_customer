@@ -37,7 +37,6 @@ export default {
       }
       this.$store.dispatch('register', payload)
         .then(result => {
-          console.log(result)
           const condition = {
             icon: 'success',
             title: 'Register succesfully'
@@ -51,7 +50,6 @@ export default {
             title: err.response.data.message
           }
           this.$store.dispatch('notification', condition)
-          console.log(err)
         })
         .finally(_ => {
           this.$store.commit('SET_ISLOADING', false)

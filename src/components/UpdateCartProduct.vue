@@ -35,7 +35,6 @@ export default {
       let cartId
       this.$store.dispatch('updateCartProduct', this.cartProductUpdate)
         .then(result => {
-          console.log(result.data)
           cartId = result.data.CartId
           const condition = {
             icon: 'success',
@@ -57,7 +56,6 @@ export default {
             title: err.response.data.message
           }
           this.$store.dispatch('notification', condition)
-          console.log(err.response.data)
         })
         .finally(_ => {
           this.$store.commit('SET_ISLOADING', false)

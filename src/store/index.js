@@ -76,10 +76,9 @@ export default new Vuex.Store({
         .then(result => {
           context.commit('SET_PRODUCTS', result.data)
           context.commit('SET_FILTEREDPRODUCTS', result.data)
-          console.log(result.data)
         })
         .catch(err => {
-          console.log(err.response.data)
+          console.log(err)
         })
         .finally(_ => {
           context.commit('SET_ISLOADING', false)
@@ -96,7 +95,7 @@ export default new Vuex.Store({
           context.commit('SET_PRODUCTDETAIL', result.data)
         })
         .catch(err => {
-          console.log(err.response.data)
+          console.log(err)
         })
         .finally(_ => {
           context.commit('SET_ISLOADING', false)
@@ -125,7 +124,6 @@ export default new Vuex.Store({
             const currentCart = carts.filter(el => {
               return el.isPaid === false
             })
-            console.log(currentCart)
             if (currentCart.length > 0) {
               context.commit('SET_CART', currentCart[0])
             } else {
@@ -148,9 +146,6 @@ export default new Vuex.Store({
           }
         })
         .then(result => {
-          console.log('>>>><<<<<<')
-          console.log(result)
-          console.log('>>>><<<<<<')
           if (result) {
             const newCart = result.data
             context.commit('SET_CART', newCart)
@@ -186,7 +181,7 @@ export default new Vuex.Store({
           context.commit('SET_CARTS', result.data)
         })
         .catch(err => {
-          console.log(err.response.data)
+          console.log(err)
         })
         .finally(_ => {
           context.commit('SET_ISLOADING', false)
@@ -217,7 +212,6 @@ export default new Vuex.Store({
             title: err.response.data.message
           }
           context.dispatch('notification', condition)
-          console.log(err.response.data)
         })
         .finally(_ => {
           context.commit('SET_ISLOADING', false)
@@ -258,7 +252,6 @@ export default new Vuex.Store({
         }
       })
         .then(result => {
-          console.log(result.data)
           context.commit('SET_CARTPRODUCTUPDATE', result.data)
         })
         .catch(err => {

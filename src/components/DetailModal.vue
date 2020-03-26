@@ -42,7 +42,7 @@ export default {
           this.$router.push({ name: 'Buy' })
         })
         .catch(err => {
-          console.log(err.response.data)
+          console.log(err)
         })
         .finally(_ => {
           this.$store.commit('SET_ISLOADING', false)

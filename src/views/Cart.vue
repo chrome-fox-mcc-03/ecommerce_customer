@@ -71,7 +71,7 @@ export default {
           this.$router.push({ name: 'CartDetail', params: { id: cartId } })
         })
         .catch(err => {
-          console.log(err.response.data)
+          console.log(err)
         })
         .finally(_ => {
           this.$store.commit('SET_ISLOADING', false)

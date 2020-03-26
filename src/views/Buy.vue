@@ -58,7 +58,6 @@ export default {
             title: err.response.data.message
           }
           this.$store.dispatch('notification', condition)
-          console.log(err.response.data)
         })
         .finally(_ => {
           this.$store.commit('SET_ISLOADING', false)

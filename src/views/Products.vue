@@ -34,7 +34,6 @@ export default {
   watch: {
     filter (val) {
       val = val.toLowerCase()
-      console.log(val)
       this.products.forEach(el => {
         el.name = el.name.toLowerCase()
       })

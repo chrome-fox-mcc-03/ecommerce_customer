@@ -36,6 +36,11 @@ export default {
       localStorage.clear()
       this.$store.commit('SET_ISLOGIN', false)
       this.$router.push({ name: 'Home' })
+      const condition = {
+        icon: 'success',
+        title: 'Logout successful'
+      }
+      this.$store.dispatch('notification', condition)
     }
   },
   computed: {

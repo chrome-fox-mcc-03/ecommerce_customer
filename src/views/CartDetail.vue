@@ -103,7 +103,6 @@ export default {
             title: err.response.data.message
           }
           this.$store.dispatch('notification', condition)
-          console.log(err)
         })
         .finally(_ => {
           this.$store.commit('SET_ISLOADING', false)
@@ -114,7 +113,6 @@ export default {
     },
     updateCartStatus () {
       const id = this.cartProduct[0].CartId
-      console.log(id)
       this.$store.dispatch('editCartStatus', id)
         .then(result => {
           const condition = {
@@ -130,7 +128,6 @@ export default {
             title: err.response.data.message
           }
           this.$store.dispatch('notification', condition)
-          console.log(err.response.data)
         })
         .finally(_ => {
           this.$store.commit('SET_ISLOADING', false)
