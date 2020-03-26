@@ -8,6 +8,7 @@
         <div class="panel-heading">
           <div class="panel-title">Register</div>
         </div>
+        <p v-if="$store.state.error"><b>password atleash have 8 characters</b></p>
         <div style="padding-top:30px" class="panel-body">
           <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
             <form id="loginform" class="form-horizontal" role="form">

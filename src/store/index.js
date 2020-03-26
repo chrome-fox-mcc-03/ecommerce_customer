@@ -69,6 +69,7 @@ export default new Vuex.Store({
         .then(({ data }) => {
           localStorage.token = data.access_token
           localStorage.name = data.name
+          commit('SET_ERROR', '')
           commit('SET_LOGIN')
           router.push('/')
         })
@@ -93,6 +94,7 @@ export default new Vuex.Store({
         .then(({ data }) => {
           localStorage.token = data.access_token
           localStorage.name = data.name
+          commit('SET_ERROR', '')
           commit('SET_LOGIN')
           commit('SET_USER')
           if (data.role === 'customer') {
@@ -127,25 +129,29 @@ export default new Vuex.Store({
         })
     },
     addCart ({ commit }, data) {
-      commit('SET_LOADING')
-      axios({
-        method: 'post',
-        url: 'https://agile-beyond-79709.herokuapp.com/cart',
-        headers: {
-          token: localStorage.token
-        },
-        data
-      })
-        .then(({ data }) => {
-          commit('ADD_CART', data)
-          router.push('/cart')
+      if (localStorage.token) {
+        commit('SET_LOADING')
+        axios({
+          method: 'post',
+          url: 'https://agile-beyond-79709.herokuapp.com/cart',
+          headers: {
+            token: localStorage.token
+          },
+          data
         })
-        .catch(err => {
-          console.log(err)
-        })
-        .finally(_ => {
-          commit('SET_LOADING')
-        })
+          .then(({ data }) => {
+            commit('ADD_CART', data)
+            router.push('/cart')
+          })
+          .catch(err => {
+            commit('SET_ERROR', err)
+          })
+          .finally(_ => {
+            commit('SET_LOADING')
+          })
+      } else {
+        router.push('/register')
+      }
     },
     getCart ({ commit }) {
       commit('SET_LOADING')
@@ -160,7 +166,7 @@ export default new Vuex.Store({
           commit('SET_CART', data)
         })
         .catch(err => {
-          console.log(err)
+          commit('SET_ERROR', err)
         })
         .finally(_ => {
           commit('SET_LOADING')
@@ -182,7 +188,7 @@ export default new Vuex.Store({
           dispatch('getCart')
         })
         .catch(err => {
-          console.log(err)
+          commit('SET_ERROR', err)
         })
         .finally(_ => {
           commit('SET_LOADING')
@@ -201,7 +207,7 @@ export default new Vuex.Store({
           dispatch('getCart')
         })
         .catch(err => {
-          console.log(err)
+          commit('SET_ERROR', err)
         })
         .finally(_ => {
           commit('SET_LOADING')

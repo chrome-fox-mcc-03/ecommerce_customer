@@ -66,6 +66,7 @@
           <div class="modal-body">
             <loading :active.sync="$store.state.isLoading"
               :is-full-page="true"></loading>
+            <h3 v-if="$store.state.error">password or email is wrong</h3>
             <form>
               <div class="form-group">
                 <label for="email">Email address</label>
@@ -78,7 +79,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button @click.prevent="login" type="submit" class="btn btn-secondary" data-dismiss="modal">Login</button>
+            <button v-if="!$store.state.isLogin" @click.prevent="login" type="submit" class="btn btn-secondary">Login</button>
             <button type="button" class="btn btn-dark" data-dismiss="modal">Cancel</button>
           </div>
         </div>
