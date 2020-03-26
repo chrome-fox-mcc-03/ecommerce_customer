@@ -1,7 +1,22 @@
 <template>
     <div>
         <Carousel/><br>
-        <h1 class="title is-2 has-text-black-ter is-family-secondary has-text-centered">Categories</h1><br>
+        <div class="columns">
+          <div class="column"></div>
+          <div class="column is-half">
+            <div class="buttons">
+              <router-link
+                to="/products"
+                class="button is-primary is-large is-rounded"
+                style="width: 100%">
+                Start Shopping
+              </router-link>
+            </div>
+          </div>
+          <div class="column"></div>
+        </div>
+        <br>
+        <h1 class="title is-3 has-text-black-ter is-family-secondary has-text-centered">Categories</h1><br>
         <div class="columns is-multiline is-mobile">
           <div class="column is-4">
             <p class="is-6 has-text-black-ter is-family-secondary">Fashion</p><br>

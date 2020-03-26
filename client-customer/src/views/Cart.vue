@@ -1,17 +1,20 @@
 <template>
-    <div>
+    <div v-if="!isLoadingCheckout">
         <h1 class="title is-2 has-text-black-ter is-family-secondary has-text-centered">My Cart</h1><br>
-        <div v-if="!isCartEmpty" class="columns">
+        <div class="columns">
             <div class="column"></div>
             <div class="column is-three-quarters">
-                <table class="table is-fullwidth">
+            <router-link to="/cart/history" class="button is-primary is-outlined is-rounded">
+                View History
+            </router-link>
+                <table v-if="!isCartEmpty" class="table is-fullwidth">
                     <thead>
                         <tr>
                             <th><abbr title="ID">#</abbr></th>
                             <th>Product</th>
                             <th style="text-align: center">Quantity</th>
-                            <th>Price/item</th>
-                            <th>Total Price</th>
+                            <th style="text-align: right">Price/item</th>
+                            <th style="text-align: right">Total Price</th>
                             <th style="text-align: center">Remove Item</th>
                         </tr>
                     </thead>
@@ -66,11 +69,11 @@
                         </p>
                     </div>
                     <div class="column is-3" style="text-align: right">
-                        <router-link to='/cart' class="button is-link is-rounded">
+                        <button @click="checkout" class="button is-link is-rounded">
                             <i class="fas fa-money-check"></i>
                             <p class="has-text-link">...</p>
                             Pay Now
-                        </router-link>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -79,14 +82,20 @@
         <div v-if="isCartEmpty" class="columns">
             <div class="column"></div>
                 <div class="column is-one-third">
+                    <router-link
+                        to="/products"
+                        class="button is-primary is-large is-rounded"
+                        style="width: 100%">
+                        Shop more
+                    </router-link>
                     <lottie-player
                         src="https://assets10.lottiefiles.com/datafiles/vhvOcuUkH41HdrL/data.json"
                         background="transparent"
                         speed="1"
-                        style="width: 500px; height: 500px;"
+                        style="width: 100%;"
                         loop
                         autoplay >
-                    </lottie-player>
+                    </lottie-player><br>
                 </div>
             <div class="column"></div>
         </div>
@@ -112,6 +121,9 @@ export default {
         return el.totalPrice
       })
       return arrTotalPrice.reduce((a, b) => a + b, 0)
+    },
+    isLoadingCheckout () {
+      return this.$store.state.isLoadingCheckout
     }
   },
   methods: {
@@ -123,6 +135,9 @@ export default {
     },
     deleteItem (id) {
       this.$store.dispatch('deleteItem', id)
+    },
+    checkout () {
+      this.$store.dispatch('checkout')
     }
   }
 }

@@ -4,9 +4,11 @@ import Home from '../views/Home'
 import UserLogin from '../views/UserLogin'
 import UserRegister from '../views/UserRegister'
 import ProductList from '../views/ProductList'
-import Blogs from '../views/Blogs'
+import Promos from '../views/Promos'
 import ProductDetail from '../views/ProductDetail'
 import Cart from '../views/Cart'
+import CheckoutHistory from '../views/CheckoutHistory'
+import CheckoutSuccess from '../views/CheckoutSuccess'
 
 Vue.use(VueRouter)
 
@@ -82,18 +84,36 @@ const routes = [
     }
   },
   {
-    path: '/blogs',
-    name: 'Blogs',
-    component: Blogs
+    path: '/cart/history',
+    name: 'CheckoutHistory',
+    component: CheckoutHistory,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem('token')
+      if (token) {
+        next()
+      } else {
+        next({ path: '/login' })
+      }
+    }
+  },
+  {
+    path: '/checkoutsuccess',
+    name: 'CheckoutSuccess',
+    component: CheckoutSuccess,
+    beforeEnter: (to, from, next) => {
+      if (from.path === '/cart') {
+        next()
+      } else {
+        const currentPath = from.path
+        next({ path: currentPath })
+      }
+    }
+  },
+  {
+    path: '/promos',
+    name: 'Promos',
+    component: Promos
   }
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // }
 ]
 
 const router = new VueRouter({

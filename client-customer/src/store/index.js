@@ -8,6 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLoading: false,
+    isLoadingCheckout: false,
     isLogin: false,
     product: {},
     products: [],
@@ -16,6 +17,9 @@ export default new Vuex.Store({
   mutations: {
     SET_ISLOADING (state, payload) {
       state.isLoading = payload
+    },
+    SET_ISLOADINGCHECKOUT (state, payload) {
+      state.isLoadingCheckout = payload
     },
     SET_ISLOGIN (state, payload) {
       state.isLogin = payload
@@ -35,7 +39,7 @@ export default new Vuex.Store({
       commit('SET_ISLOADING', true)
       axios({
         method: 'post',
-        url: 'http://localhost:3000/users/login',
+        url: 'https://still-plains-85177.herokuapp.com/users/login',
         data: {
           email: payload.email,
           password: payload.password
@@ -70,7 +74,7 @@ export default new Vuex.Store({
       commit('SET_ISLOADING', true)
       axios({
         method: 'post',
-        url: 'http://localhost:3000/users/register',
+        url: 'https://still-plains-85177.herokuapp.com/users/register',
         data: {
           email: payload.email,
           password: payload.password
@@ -112,7 +116,7 @@ export default new Vuex.Store({
       commit('SET_ISLOADING', true)
       axios({
         method: 'get',
-        url: 'http://localhost:3000/products',
+        url: 'https://still-plains-85177.herokuapp.com/products',
         headers: {
           token: localStorage.getItem('token')
         }
@@ -137,7 +141,7 @@ export default new Vuex.Store({
       commit('SET_ISLOADING', true)
       axios({
         method: 'get',
-        url: 'http://localhost:3000/carts',
+        url: 'https://still-plains-85177.herokuapp.com/carts',
         headers: {
           token: localStorage.getItem('token')
         }
@@ -162,7 +166,7 @@ export default new Vuex.Store({
       commit('SET_ISLOADING', true)
       axios({
         method: 'post',
-        url: 'http://localhost:3000/carts',
+        url: 'https://still-plains-85177.herokuapp.com/carts',
         headers: {
           token: localStorage.getItem('token')
         },
@@ -197,7 +201,7 @@ export default new Vuex.Store({
       const id = payload
       axios({
         method: 'put',
-        url: `http://localhost:3000/carts/${id}`,
+        url: `https://still-plains-85177.herokuapp.com/carts/${id}`,
         headers: {
           token: localStorage.getItem('token')
         }
@@ -229,7 +233,7 @@ export default new Vuex.Store({
       const id = payload
       axios({
         method: 'delete',
-        url: `http://localhost:3000/carts/${id}`,
+        url: `https://still-plains-85177.herokuapp.com/carts/${id}`,
         headers: {
           token: localStorage.getItem('token')
         }
@@ -261,7 +265,7 @@ export default new Vuex.Store({
       const id = payload
       axios({
         method: 'GET',
-        url: `http://localhost:3000/products/${id}`,
+        url: `https://still-plains-85177.herokuapp.com/products/${id}`,
         headers: {
           token: localStorage.getItem('token')
         }
@@ -280,6 +284,38 @@ export default new Vuex.Store({
         })
         .finally((_) => {
           commit('SET_ISLOADING', false)
+        })
+    },
+    checkout ({ commit, dispatch }, payload) {
+      commit('SET_ISLOADINGCHECKOUT', true)
+      axios({
+        method: 'get',
+        url: 'https://still-plains-85177.herokuapp.com/carts/checkout',
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+        .then(({ data }) => {
+          dispatch('fetchProducts')
+          dispatch('fetchCart')
+          router.push('/checkoutsuccess')
+          Vue.notify({
+            group: 'foo',
+            type: 'success',
+            title: 'Checkout success'
+          })
+        })
+        .catch(({ response }) => {
+          response.data.errors.forEach((el) => {
+            Vue.notify({
+              group: 'foo',
+              type: 'error',
+              title: el
+            })
+          })
+        })
+        .finally((_) => {
+          commit('SET_ISLOADINGCHECKOUT', false)
         })
     }
   },

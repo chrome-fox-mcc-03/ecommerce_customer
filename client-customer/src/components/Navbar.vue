@@ -15,8 +15,8 @@
                 <router-link v-if="isLogin" to="/products" class="navbar-item">
                     Products
                 </router-link>
-                <router-link to="/blogs"  class="navbar-item">
-                    Blogs
+                <router-link to="/promos"  class="navbar-item">
+                    Promos
                 </router-link>
             </div>
 
