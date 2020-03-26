@@ -1,5 +1,5 @@
 <template>
-  <div id="category" class="row">
+  <div id="category-tabs" class="row">
       <div class="col s12">
         <ul class="tabs">
           <li class="tab col s2"><a class="teal-text" href="#" @click.prevent="filter(null)">All Categories</a></li>

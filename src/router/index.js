@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import M from 'materialize-css'
 
 Vue.use(VueRouter)
 
@@ -45,7 +46,49 @@ const routes = [
           return import('../components/ItemDetails')
         }
       }
-    ]
+    ],
+    beforeEnter (to, from, next) {
+      if (!localStorage.getItem('token')) {
+        M.toast({
+          html: '<span>Please login first!</span>',
+          classes: 'large red rounded',
+          displayLength: 3000
+        })
+        next('/login')
+      } else next()
+    }
+  },
+  {
+    path: '/carts',
+    component: () => {
+      return import('../views/Carts')
+    },
+    children: [
+      {
+        path: '',
+        name: 'Carts',
+        component: () => {
+          return import('../components/CartsTable')
+        }
+      },
+      {
+        path: 'history',
+        name: 'History',
+        component: () => {
+          return import('../components/CartsHistory')
+        }
+      }
+    ],
+    beforeEnter (to, from, next) {
+      if (!localStorage.getItem('token')) {
+        M.toast({
+          html: '<span>Please login first!</span>',
+          classes: 'large red rounded',
+          displayLength: 3000
+        })
+        next('/login')
+      } else next()
+    }
   }
 ]
 

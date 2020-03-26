@@ -3,7 +3,7 @@
     <div class="col s12">
       <h1>Welcome To Vood App</h1>
       <h5>Your dialy food online shop</h5>
-      <button class="waves-effect waves-light btn-large">Order Our Food Now!</button>
+      <router-link to="/items" class="waves-effect waves-light btn-large">Order Our Food Now!</router-link>
     </div>
   </div>
 </template>

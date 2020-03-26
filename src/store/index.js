@@ -13,7 +13,8 @@ export default new Vuex.Store({
     item: {},
     categories: [],
     filterId: null,
-    cart: {}
+    carts: [],
+    histories: []
   },
   mutations: {
     LOADING (state) {
@@ -35,8 +36,11 @@ export default new Vuex.Store({
     SET_FILTER_ID (state, payload) {
       state.filterId = payload
     },
-    CART (state, payload) {
+    CARTS (state, payload) {
       state.carts = payload
+    },
+    HISTORIES (state, payload) {
+      state.histories = payload
     },
     SUCCESS (_, payload) {
       M.toast({
@@ -140,27 +144,25 @@ export default new Vuex.Store({
         })
         .catch(err => commit('ERROR', `Something went wrong... ${err}`))
     },
-    fetchCarts ({ commit }, payload) {
+    fetchCarts ({ commit }) {
       commit('LOADING')
       const token = localStorage.getItem('token')
-      return new Promise((resolve, reject) => {
-        Axios({
-          url: '/carts',
-          method: 'GET',
-          headers: { token }
-        })
-          .then(({ data }) => {
-            commit('CART', data.cart)
-            resolve(true)
-          })
-          .catch(err => {
-            const status = err.response.data.status
-            if (status === 401) commit('ERROR', err)
-            else commit('ERROR', `Something went wrong... ${err}`)
-            reject(err.response.data)
-          })
-          .finally(() => commit('LOADING'))
+      Axios({
+        url: '/carts',
+        method: 'GET',
+        headers: { token }
       })
+        .then(({ data }) => {
+          if (!data) commit('CARTS', {})
+          else commit('CARTS', data.cart.CartItems)
+        })
+        .catch(err => {
+          // const status = err.response.data.status
+          // if (status === 401) commit('ERROR', err)
+          // else
+          commit('ERROR', `Something went wrong... ${err}`)
+        })
+        .finally(() => commit('LOADING'))
     },
     addToCart ({ commit }, payload) {
       commit('LOADING')
@@ -177,6 +179,96 @@ export default new Vuex.Store({
           .catch(err => {
             commit('ERROR', err)
             reject(err.response.data)
+          })
+          .finally(() => commit('LOADING'))
+      })
+    },
+    checkout ({ commit, dispatch }) {
+      commit('LOADING')
+      const token = localStorage.getItem('token')
+      return new Promise((resolve, reject) => {
+        Axios({
+          url: 'carts/checkout',
+          method: 'PATCH',
+          headers: { token }
+        })
+          .then(({ data }) => {
+            commit('SUCCESS', data.message)
+            return dispatch('fetchCarts')
+          })
+          .then(() => resolve(true))
+          .catch(err => {
+            commit('ERROR', err)
+            if (!err.response.data) reject(err)
+            else reject(err.response.data)
+          })
+          .finally(() => commit('LOADING'))
+      })
+    },
+    fetchHistories ({ commit }) {
+      commit('LOADING')
+      const token = localStorage.getItem('token')
+      return new Promise((resolve, reject) => {
+        Axios({
+          url: '/carts/history',
+          method: 'GET',
+          headers: { token }
+        })
+          .then(({ data }) => {
+            commit('HISTORIES', data.cart.CartItems)
+            resolve(true)
+          })
+          .catch(err => {
+            const status = err.response.data.status
+            if (status === 401) commit('ERROR', err)
+            else commit('ERROR', `Something went wrong... ${err}`)
+            reject(err.response.data)
+          })
+          .finally(() => commit('LOADING'))
+      })
+    },
+    editCart ({ commit, dispatch }, payload) {
+      commit('LOADING')
+      const token = localStorage.getItem('token')
+      const { itemId, quantity } = payload
+      return new Promise((resolve, reject) => {
+        Axios({
+          url: `/carts/${itemId}/edit`,
+          method: 'PATCH',
+          headers: { token },
+          data: { quantity }
+        })
+          .then(({ data }) => {
+            commit('SUCCESS', data.message)
+            return dispatch('fetchCarts')
+          })
+          .then(() => resolve(true))
+          .catch(err => {
+            commit('ERROR', err)
+            if (!err.response.data) reject(err)
+            else reject(err.response.data)
+          })
+          .finally(() => commit('LOADING'))
+      })
+    },
+    deleteCart ({ commit, dispatch }, payload) {
+      commit('LOADING')
+      const token = localStorage.getItem('token')
+      const { itemId } = payload
+      return new Promise((resolve, reject) => {
+        Axios({
+          url: `/carts/${itemId}/delete`,
+          method: 'DELETE',
+          headers: { token }
+        })
+          .then(({ data }) => {
+            commit('SUCCESS', data.message)
+            dispatch('fetchCarts')
+            resolve(true)
+          })
+          .catch(err => {
+            commit('ERROR', err)
+            reject(err)
           })
           .finally(() => commit('LOADING'))
       })

@@ -3,10 +3,10 @@
     <div class="navbar-fixed">
       <nav class="brown lighten-4">
         <div class="nav-wrapper">
-         <a href="#" class="brand-logo" @click.prevent="goHome">Vood App</a>
+         <router-link to="/" class="brand-logo">Vood App</router-link>
           <ul class="right">
-            <li v-if="isLogin"><a href="#" @click.prevent=""><i class="material-icons">shopping_cart</i></a></li>
-            <li v-else><a href="#" @click.prevent="goToLogin">Login</a></li>
+            <li v-if="isLogin"><router-link to="/carts"><i class="material-icons">shopping_cart</i></router-link></li>
+            <li v-else><router-link to="/login" @click.prevent="goToLogin">Login</router-link></li>
             <li v-show="isLogin">
               <a
                 class="dropdown-trigger"
@@ -37,19 +37,7 @@
 import M from 'materialize-css'
 export default {
   name: 'Navbar',
-  data () {
-    return {
-
-    }
-  },
   methods: {
-    goHome () {
-      if (!this.isLogin) this.$router.push('/')
-      else this.$router.push('/items')
-    },
-    goToLogin () {
-      this.$router.push('/login')
-    },
     logout () {
       localStorage.removeItem('token')
       localStorage.removeItem('username')
