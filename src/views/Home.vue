@@ -1,5 +1,15 @@
 <template>
-  <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+  <div class="container" style="padding-top: 5em">
+    <div class="jumbotron">
+      <h1 class="display-4">Welcome!</h1>
+      <p class="lead">Congratulation you have discover our page. Click button below to browse our product.</p>
+      <hr class="my-4">
+      <p class="lead">
+        <router-link to="products" class="btn btn-lg btn-dark">Browse Product</router-link>
+      </p>
+    </div>
+  </div>
+  <!-- <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
     <header class="masthead mb-auto">
     <div class="inner">
       <h3 class="masthead-brand">Ecommerce</h3>
@@ -24,7 +34,7 @@
       <p>Made with Ryan</p>
     </div>
     </footer>
-  </div>
+  </div> -->
 </template>
 
 <script>
