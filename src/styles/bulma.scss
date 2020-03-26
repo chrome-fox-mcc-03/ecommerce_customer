@@ -1,0 +1,29 @@
+@import '~bulma/sass/utilities/all';
+
+$primary: #f75239;
+$primary-invert: findColorInvert($primary);
+$dark: #402f3f;
+$dark-invert: findColorInvert($dark);
+$success: #16a085;
+$siccess-invert: findColorInvert($success);
+$tesin: #16a085;
+// e.g is-white
+$colors: ('white': ($white, $black),
+    'black': ($black, $white),
+    'light': ($light, $light-invert),
+    'dark': ($dark, $dark-invert),
+    'primary': ($primary, $primary-invert),
+    'info': ($info, $info-invert),
+    'success': ($success, $success-invert),
+    'warning': ($warning, $warning-invert),
+    'danger': ($danger, $danger-invert),
+    'tesin': ($tesin, $dark));
+
+$link: $primary;
+$link-invert: $primary-invert;
+$link-focus-border: $primary;
+
+$dimensions: (48);
+
+@import '~bulma';
+@import '~buefy/src/scss/buefy';
