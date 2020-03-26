@@ -75,7 +75,7 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err)
         })
-        .finally(_=> {
+        .finally(_ => {
           context.commit('SET_LOADING', false)
         })
     },
@@ -110,15 +110,15 @@ export default new Vuex.Store({
           token: localStorage.getItem('token')
         }
       })
-      .then(({ data }) => {
-        context.commit('SET_CART', data)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-      .finally(_=> {
-        context.commit('SET_LOADING', false)
-      })
+        .then(({ data }) => {
+          context.commit('SET_CART', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        .finally(_ => {
+          context.commit('SET_LOADING', false)
+        })
     },
     increase (context, id) {
       return axios({

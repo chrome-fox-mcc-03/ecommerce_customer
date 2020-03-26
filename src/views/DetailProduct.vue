@@ -37,17 +37,16 @@ export default {
     }
   },
   methods: {
-    addToCart: function() {
+    addToCart: function () {
       const payload = this.$route.params.id
-      console.log(payload, 'ini idnya bangsat');
       this.$store.dispatch('addCart', payload)
-      .then(_ => {
-        this.$toasted.show( `successfully added item ${this.name} to cart`, {
+        .then(_ => {
+          this.$toasted.show(`successfully added item ${this.name} to cart`, {
             duration: 3000
           })
-        this.$router.push('/product/:id')
-      })
-      .catch((err) => {
+          this.$router.push('/product/:id')
+        })
+        .catch((err) => {
           console.log(err)
         })
     }
