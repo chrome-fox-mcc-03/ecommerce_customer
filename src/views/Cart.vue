@@ -32,22 +32,28 @@
         </div>
         <!-- Button trigger modal -->
       </div>
+      <Loading v-if="isLoading"/>
   </div>
 </template>
 
 <script>
 import NavbarPanel from '../components/NavbarPanel'
 import CartItem from '../components/CartItem'
+import Loading from '../components/Loading'
 
 export default {
   name: 'Cart',
   components: {
     NavbarPanel,
-    CartItem
+    CartItem,
+    Loading
   },
   computed: {
     cart () {
       return this.$store.state.cart
+    },
+    isLoading () {
+      return this.$store.state.isLoading
     }
   },
   created () {
@@ -55,6 +61,9 @@ export default {
   },
   watch: {
     cart (val) {
+      console.log(val)
+    },
+    isLoading (val) {
       console.log(val)
     }
   }

@@ -3,7 +3,8 @@
   <div class="row d-flex justify-content-center" style="margin-top: 37px;margin-bottom: 11px;">
     <h1 class=" display-2 title-app">Jolie</h1>
   </div>
-  <div class="row">
+  <Loading v-if="isLoading"/>
+  <div class="row" v-if="!isLoading">
     <div class="col d-flex justify-content-center">
       <img src="../assets/login.png" alt="" style="height: auto; width:auto">
     </div>
@@ -37,6 +38,7 @@
 </template>
 
 <script>
+import Loading from './Loading'
 import axiosCostumer from '../config/index'
 
 export default {
@@ -48,9 +50,18 @@ export default {
 
     }
   },
+  components: {
+    Loading
+  },
+  computed: {
+    isLoading () {
+      return this.$store.state.isLoading
+    }
+  },
   methods: {
     login () {
-      console.log(this.email, this.password)
+      this.$store.commit('SET_LOADING', true)
+      // console.log(this.email, this.password)
       axiosCostumer({
         method: 'post',
         url: '/loginCostumers',
@@ -69,6 +80,9 @@ export default {
           const { data } = response
           const { error } = data
           this.$vToastify.error(error)
+        })
+        .finally(_ => {
+          this.$store.commit('SET_LOADING', false)
         })
     }
   }

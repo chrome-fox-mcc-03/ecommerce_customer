@@ -1,10 +1,11 @@
 <template>
   <div class="m-2">
-      <!-- {{cartItem.id}} -->
+      <!-- {{cartItem}} -->
     <div class="card text-center">
         <div class="card-header h3">
             Shopping-Cart Checkout
         </div>
+        <Loading v-if="isLoading"/>
         <div class="card-body">
             <div class="row">
                 <div class="col-4">
@@ -22,10 +23,14 @@
 </template>
 
 <script>
+import Loading from '../components/Loading'
 import axiosCostumer from '../config'
 
 export default {
   name: 'CheckoutCart',
+  components: {
+    Loading
+  },
   methods: {
     formatMoney (amount) {
       const price = 'Rp ' + parseFloat(amount).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1.')
@@ -38,6 +43,7 @@ export default {
     checkout (id) {
       console.log('ini idnya cuy')
       console.log(id)
+      this.$store.commit('SET_LOADING', true)
       axiosCostumer({
         method: 'get',
         url: `/cart/${id}/transaction`,
@@ -55,11 +61,17 @@ export default {
           const { error } = data
           this.$vToastify.error(error)
         })
+        .finally(_ => {
+          this.$store.commit('SET_LOADING', false)
+        })
     }
   },
   computed: {
     cartItem () {
       return this.$store.state.cartItem
+    },
+    isLoading () {
+      return this.$store.state.isLoading
     }
   },
   created () {

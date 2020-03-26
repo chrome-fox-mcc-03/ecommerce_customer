@@ -12,7 +12,8 @@
           <div class="col-sm-20 main-section">
               <div class="modal-content">
                   <div class="col-12 form-input">
-                      <form @submit.prevent="register">
+                      <Loading v-if="isLoading"/>
+                      <form @submit.prevent="register"  v-if="!isLoading">
                           <h1 class="login-text">REGISTER</h1>
                           <div class="form-group">
                               <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" aria-describedby="emailHelp" v-model="email">
@@ -36,6 +37,7 @@
 </template>
 
 <script>
+import Loading from './Loading'
 import axiosCostumer from '../config/index'
 
 export default {
@@ -47,8 +49,17 @@ export default {
 
     }
   },
+  components: {
+    Loading
+  },
+  computed: {
+    isLoading () {
+      return this.$store.state.isLoading
+    }
+  },
   methods: {
     register () {
+      this.$store.commit('SET_LOADING', true)
       axiosCostumer({
         method: 'post',
         url: '/registerCostumers',
@@ -65,6 +76,9 @@ export default {
           const { data } = response
           const { errors } = data
           this.$vToastify.error(errors[0])
+        })
+        .finally(_ => {
+          this.$store.commit('SET_LOADING', false)
         })
     }
   }

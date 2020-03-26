@@ -16,13 +16,16 @@ const routes = [
   {
     path: '/login',
     name: 'LoginPanel',
+    meta: {
+      isLogin: true
+    },
     component: () => import('../components/LoginPanel')
   },
   {
     path: '/register',
     name: 'RegisterPanel',
     meta: {
-      requiresAuth: true
+      isLogin: true
     },
     component: () => import('../components/RegisterPanel')
   },
@@ -49,29 +52,29 @@ const router = new VueRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.some(record => record.meta.loginPage)) {
-//     if (localStorage.access_token) {
-//       next({
-//         path: '/'
-//       })
-//     }
-//   }
-//   if (to.matched.some(record => record.meta.requiresAuth)) {
-//     if (localStorage.access_token && to.path === '/login') {
-//       next({
-//         name: 'AdminPanel'
-//       })
-//     } else if (localStorage.access_token && to.path !== '/login') {
-//       next()
-//     } else {
-//       next({
-//         path: '/login'
-//       })
-//     }
-//   } else {
-//     next()
-//   }
-// }
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.isLogin)) {
+    if (localStorage.access_token) {
+      next({
+        path: '/'
+      })
+    }
+  }
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (localStorage.access_token && to.path === '/login') {
+      next({
+        name: 'AdminPanel'
+      })
+    } else if (localStorage.access_token && to.path !== '/login') {
+      next()
+    } else {
+      next({
+        path: '/login'
+      })
+    }
+  } else {
+    next()
+  }
+})
 
 export default router

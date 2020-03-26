@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     products: [],
     cart: [],
-    cartItem: {}
+    cartItem: {},
+    isLoading: false
   },
   mutations: {
     PRODUCTS (state, data) {
@@ -19,10 +20,14 @@ export default new Vuex.Store({
     },
     CART_ITEM (state, data) {
       state.cartItem = data
+    },
+    SET_LOADING (state, data) {
+      state.isLoading = data
     }
   },
   actions: {
     fetchProducts ({ commit }) {
+      commit('SET_LOADING', true)
       axiosCostumer({
         method: 'GET',
         url: '/products',
@@ -38,8 +43,12 @@ export default new Vuex.Store({
           const { error } = data
           this.$vToastify.error(error)
         })
+        .finally(_ => {
+          commit('SET_LOADING', false)
+        })
     },
     fetchCart ({ commit }) {
+      commit('SET_LOADING', true)
       return axiosCostumer({
         method: 'GET',
         url: '/cart',
@@ -56,8 +65,12 @@ export default new Vuex.Store({
           const { error } = data
           this.$vToastify.error(error)
         })
+        .finally(_ => {
+          commit('SET_LOADING', false)
+        })
     },
     fetchCartItem ({ commit }, id) {
+      commit('SET_LOADING', true)
       return axiosCostumer({
         method: 'GET',
         url: `/cart/${id}`,
@@ -72,6 +85,9 @@ export default new Vuex.Store({
           const { data } = response
           const { error } = data
           this.$vToastify.error(error)
+        })
+        .finally(_ => {
+          commit('SET_LOADING', false)
         })
     }
   },
