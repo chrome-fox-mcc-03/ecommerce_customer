@@ -56,6 +56,7 @@ export default {
           console.log(data)
           localStorage.setItem('token', data.token)
           localStorage.setItem('name', data.name)
+          this.$store.commit('SET_LOGIN', true)
           this.$router.push('/')
           this.$buefy.toast.open({
             message: `Success login, Halo ${data.name}`,

@@ -52,8 +52,9 @@ export default {
   methods: {
     logout () {
       const name = localStorage.getItem('name')
-      localStorage.removeItem('token', 'name')
+      localStorage.clear()
       this.$store.commit('SET_LOGIN', false)
+      this.$router.push('/')
       this.$buefy.toast.open({
         message: `See You Later, ${name}`,
         type: 'is-dark',
