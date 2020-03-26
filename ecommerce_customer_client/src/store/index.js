@@ -298,7 +298,6 @@ export default new Vuex.Store({
 
     onLogoutUser ({ dispatch, commit }) {
       commit('SET_LOGIN_STATUS', false)
-      dispatch('removeCart')
       localStorage.clear()
       Vue.notify({
         group: 'auth',
