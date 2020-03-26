@@ -80,7 +80,6 @@ export default new Vuex.Store({
         })
     },
     getProduct (context, id) {
-      context.commit('SET_LOADING', true)
       return axios({
         method: 'GET',
         url: `https://peaceful-fortress-31291.herokuapp.com/product/${id}`,
