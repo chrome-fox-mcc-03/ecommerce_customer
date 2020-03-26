@@ -40,7 +40,9 @@ export default {
 }
 
 .profile-display {
-  background-color: blue;
+  border: 1px solid lightgray;
+  border-radius: 15px;
+  padding: 1em;
   width: 60vw;
 }
 

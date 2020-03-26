@@ -62,11 +62,16 @@ export default {
             message: `Successfully add ${this.product.name} to cart`,
             status: 'success',
             pos: 'top-center',
-            timeout: 2500
+            timeout: 1000
           })
         })
         .catch(err => {
-          console.log(err.response)
+          UIkit.notification({
+            message: err.response.data.message + ' please check your shopping cart',
+            status: 'danger',
+            pos: 'top-center',
+            timeout: 2500
+          })
         })
         .finally(() => {
 

@@ -22,7 +22,7 @@
         </div>
         <div class="uk-margin">
           <div class="uk-inline">
-              <span class="uk-form-icon" uk-icon="icon: lock"></span>
+              <span class="uk-form-icon" uk-icon="icon: users"></span>
               <input v-model="registerFullname" class="uk-input" type="text" placeholder="Full name">
           </div>
         </div>
@@ -118,9 +118,6 @@ form{
 }
 input{
   width: 100%;
-}
-.uk-form-icon{
-  color: black;
 }
 form .uk-button{
   margin-right: 5px;

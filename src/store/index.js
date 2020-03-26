@@ -69,7 +69,7 @@ export default new Vuex.Store({
         }
       })
     },
-    addToCart (state, payload) {
+    addToCart (_, payload) {
       const { id, quantity } = payload
       return axios({
         url: `http://localhost:3000/products/${id}`,
@@ -79,6 +79,15 @@ export default new Vuex.Store({
         },
         data: {
           quantity
+        }
+      })
+    },
+    removeItem (_, id) {
+      return axios({
+        url: `http://localhost:3000/carts/${id}`,
+        method: 'DELETE',
+        headers: {
+          token: localStorage.getItem('token')
         }
       })
     }
