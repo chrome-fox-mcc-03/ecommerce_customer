@@ -43,9 +43,7 @@ export default {
           console.log('ERROR CATCHED:')
           // console.log('ERR RESPONSE IS')
           // console.log(error.response.data.error);
-          this.$toasted.error(err.response.data.errorS, {
-            position: 'bottom-center'
-          })
+          this.$toasted.error(err.response.data.errors)
         })
         .finally(_ => {
           this.$store.commit('SET_LOADING', false)

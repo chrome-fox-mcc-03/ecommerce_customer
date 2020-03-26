@@ -18,7 +18,7 @@ Vue.use(BootstrapVueIcons)
 Vue.use(axios.defaults)
 Vue.use(Toasted, {
   duration: 3000,
-  position: 'top-right'
+  position: 'bottom-center'
 })
 Vue.config.productionTip = false
 

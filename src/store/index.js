@@ -5,7 +5,8 @@ import cors from 'cors'
 
 Vue.use(Vuex)
 Vue.use(cors)
-const URL = 'http://localhost:3000'
+// const URL = 'http://localhost:3000'
+const URL = 'https://maxhamz-ecommerce.herokuapp.com'
 // let data
 export default new Vuex.Store({
   state: {

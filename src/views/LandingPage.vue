@@ -69,9 +69,7 @@ export default {
           const errArr = err.response.data.errors
           console.log(err.response.data.errors)
           errArr.forEach(el => {
-            this.$toasted.error(el, {
-              position: 'bottom-center'
-            })
+            this.$toasted.error(el)
           })
         })
     },

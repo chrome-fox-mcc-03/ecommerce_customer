@@ -50,9 +50,7 @@ export default {
           const errArr = err.response.data.errors
           console.log(err.response.data.errors)
           errArr.forEach(el => {
-            this.$toasted.error(el, {
-              position: 'bottom-center'
-            })
+            this.$toasted.error(el)
           })
         })
         .finally(_ => {
@@ -64,10 +62,15 @@ export default {
       console.log('>>> REMOVE TO CART')
       this.$store
         .dispatch('reduceQty', id)
-        .then(({ data }) => {
+        .then(response => {
           console.log('REMOVED 1 PRODUCT FROM CART')
-          console.log(data)
-          this.$router.push('/catalog')
+          console.log(response)
+          // this.$router.push('/catalog')
+
+          // IF DELETED CART
+          if (response.data === 1) {
+            this.$toasted.success('CART DELETED')
+          }
           this.$store.dispatch('getCarts')
           this.$store.commit('SUBSTRACT_TOTAL', this.subtotal)
         })
@@ -77,9 +80,7 @@ export default {
           const errArr = err.response.data.errors
           console.log(err.response.data.errors)
           errArr.forEach(el => {
-            this.$toasted.error(el, {
-              position: 'bottom-center'
-            })
+            this.$toasted.error(el)
           })
         })
         .finally(_ => {
@@ -102,9 +103,7 @@ export default {
           const errArr = err.response.data.errors
           console.log(err.response.data.errors)
           errArr.forEach(el => {
-            this.$toasted.error(el, {
-              position: 'bottom-center'
-            })
+            this.$toasted.error(el)
           })
         })
         .finally(_ => {
@@ -117,7 +116,7 @@ export default {
       this.$store.dispatch('checkout', id)
         .then(_ => {
           this.$store.commit('SET_IS_PAID', true)
-          this.$router.push('/catalog')
+          this.$router.push('/txnlog')
           this.$store.dispatch('getCarts')
         })
         .catch(err => {
@@ -126,9 +125,7 @@ export default {
           const errArr = err.response.data.errors
           console.log(err.response.data.errors)
           errArr.forEach(el => {
-            this.$toasted.error(el, {
-              position: 'bottom-center'
-            })
+            this.$toasted.error(el)
           })
         })
         .finally(_ => {
