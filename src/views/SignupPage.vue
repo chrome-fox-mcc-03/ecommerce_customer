@@ -51,7 +51,12 @@ export default {
           console.log(data)
         })
         .catch(err => {
-          console.log(err.response.data)
+          for (let i = 0; i < err.response.data.message.length; i++) {
+            this.$toasted.show(err.response.data.message[i], {
+              duration: 4000
+            })
+          }
+          console.log(err.response.data.message)
         })
         .finally(_ => {
           this.$store.commit('SET_ISLOADING', false)
