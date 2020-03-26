@@ -16,8 +16,24 @@ export default {
   name: 'Navbar',
   methods: {
     signout () {
-      localStorage.clear()
-      this.$router.push('/')
+      this.$toasted.show('Do you really want to sign out?', {
+        action: [
+          {
+            text: 'Yes',
+            onClick: (e, toastObject) => {
+              localStorage.clear()
+              this.$router.push('/')
+              toastObject.goAway(0)
+            }
+          },
+          {
+            text: 'No',
+            onClick: (e, toastObject) => {
+              toastObject.goAway(0)
+            }
+          }
+        ]
+      })
     },
     redirToCartPage () {
       this.$router.push('/cart')

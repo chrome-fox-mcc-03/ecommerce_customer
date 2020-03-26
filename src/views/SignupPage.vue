@@ -41,6 +41,9 @@ export default {
       this.$store.dispatch('signup', { name: this.name, email: this.email, password: this.password })
         .then(({ data }) => {
           localStorage.setItem('token', data.token)
+          this.$toasted.show(`Welcome to the club, ${data.currentUser}!`, {
+            duration: 4000
+          })
           this.$router.push('/catalog')
           console.log(data)
         })

@@ -10,7 +10,7 @@
         <h3>total: {{ carts.length }} items</h3>
         <h2 style="font-weight: 600;">IDR {{ total }}</h2>
       </div>
-      <button class="my-btn my-btn-teal">Checkout</button>
+      <button @click="toast" class="my-btn my-btn-teal">Checkout</button>
     </div>
   </div>
 </template>
@@ -20,6 +20,13 @@ import Navbar from '../components/Navbar.vue'
 import CartCard from '../components/CartCard.vue'
 export default {
   name: 'CartPage',
+  methods: {
+    toast () {
+      this.$toasted.show('Sorry, this feature is not available at the moment', {
+        duration: 4000
+      })
+    }
+  },
   components: {
     Navbar,
     CartCard

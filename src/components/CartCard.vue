@@ -55,16 +55,32 @@ export default {
         })
     },
     deleteCart (cartId) {
-      this.$store.dispatch('deleteCart', cartId)
-        .then(({ data }) => {
-          console.log(data)
-          this.$router.push('/cart')
-          this.$store.dispatch('fetchCarts')
-          this.$store.commit('SUBSTRACT_TOTAL', this.subtotal)
-        })
-        .catch(err => {
-          console.log(err.response.data)
-        })
+      this.$toasted.show(`Are you sure you want to remove ${this.cart.Product.name} from your cart?`, {
+        action: [
+          {
+            text: 'Yes',
+            onClick: (e, toastObject) => {
+              this.$store.dispatch('deleteCart', cartId)
+                .then(({ data }) => {
+                  console.log(data)
+                  this.$router.push('/cart')
+                  this.$store.dispatch('fetchCarts')
+                  this.$store.commit('SUBSTRACT_TOTAL', this.subtotal)
+                  toastObject.goAway(0)
+                })
+                .catch(err => {
+                  console.log(err.response.data)
+                })
+            }
+          },
+          {
+            text: 'No',
+            onClick: (e, toastObject) => {
+              toastObject.goAway(0)
+            }
+          }
+        ]
+      })
     }
   },
   computed: {

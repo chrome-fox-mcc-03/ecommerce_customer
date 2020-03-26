@@ -37,7 +37,9 @@ export default {
         .then(({ data }) => {
           localStorage.setItem('token', data.token)
           this.$router.push('/catalog')
-          console.log(data)
+          this.$toasted.show(`Glad to see you again, ${data.currentUser}`, {
+            duration: 4000
+          })
         })
         .catch(err => {
           console.log(err.response.data)

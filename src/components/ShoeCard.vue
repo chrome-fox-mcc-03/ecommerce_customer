@@ -17,14 +17,30 @@ export default {
   props: ['shoe'],
   methods: {
     addToCart (id) {
-      this.$store.dispatch('addToCart', id)
-        .then(({ data }) => {
-          console.log(data)
-          this.$store.dispatch('fetchCarts')
-        })
-        .catch(err => {
-          console.log(err.response.data)
-        })
+      this.$toasted.show(`Add ${this.shoe.name} to cart?`, {
+        action: [
+          {
+            text: 'Yes',
+            onClick: (e, toastObject) => {
+              this.$store.dispatch('addToCart', id)
+                .then(({ data }) => {
+                  console.log(data)
+                  this.$store.dispatch('fetchCarts')
+                  toastObject.goAway(0)
+                })
+                .catch(err => {
+                  console.log(err.response.data)
+                })
+            }
+          },
+          {
+            text: 'No',
+            onClick: (e, toastObject) => {
+              toastObject.goAway(0)
+            }
+          }
+        ]
+      })
     },
     redirToDetail (id) {
       console.log('detail!', id)
