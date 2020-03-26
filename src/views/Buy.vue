@@ -45,10 +45,23 @@ export default {
       }
       this.$store.dispatch('buyProduct', payload)
         .then(result => {
+          const condition = {
+            icon: 'success',
+            title: 'Successfully Add Items to Cart'
+          }
+          this.$store.dispatch('notification', condition)
           this.$router.push({ name: 'Products' })
         })
         .catch(err => {
+          const condition = {
+            icon: 'error',
+            title: err.response.data.message
+          }
+          this.$store.dispatch('notification', condition)
           console.log(err.response.data)
+        })
+        .finally(_ => {
+          this.$store.commit('SET_ISLOADING', false)
         })
     }
   }

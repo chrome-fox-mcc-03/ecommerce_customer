@@ -4,6 +4,7 @@
       <navbar/>
     </div>
     <router-view id="main"/>
+    <loading v-if="isLoading"/>
     <div id="footer">
       <Footer/>
     </div>
@@ -13,15 +14,22 @@
 <script>
 import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
+import Loading from './views/Loading.vue'
 export default {
   components: {
     Navbar,
-    Footer
+    Footer,
+    Loading
   },
   mounted () {
     const token = localStorage.getItem('token')
     if (token) {
       this.$store.commit('SET_ISLOGIN', true)
+    }
+  },
+  computed: {
+    isLoading () {
+      return this.$store.state.isLoading
     }
   }
 }

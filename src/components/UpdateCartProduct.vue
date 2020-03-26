@@ -37,6 +37,11 @@ export default {
         .then(result => {
           console.log(result.data)
           cartId = result.data.CartId
+          const condition = {
+            icon: 'success',
+            title: 'Successfully edit item quantity'
+          }
+          this.$store.dispatch('notification', condition)
           return this.$store.dispatch('cartDetail', cartId)
         })
         .then(result => {
@@ -47,7 +52,15 @@ export default {
           this.$store.commit('SET_CARTPRODUCT', cartProducts)
         })
         .catch(err => {
+          const condition = {
+            icon: 'error',
+            title: err.response.data.message
+          }
+          this.$store.dispatch('notification', condition)
           console.log(err.response.data)
+        })
+        .finally(_ => {
+          this.$store.commit('SET_ISLOADING', false)
         })
     }
   }

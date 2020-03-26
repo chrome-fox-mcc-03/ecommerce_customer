@@ -38,10 +38,23 @@ export default {
       this.$store.dispatch('register', payload)
         .then(result => {
           console.log(result)
+          const condition = {
+            icon: 'success',
+            title: 'Register succesfully'
+          }
+          this.$store.dispatch('notification', condition)
           this.$router.push({ name: 'Login' })
         })
         .catch(err => {
+          const condition = {
+            icon: 'error',
+            title: err.response.data.message
+          }
+          this.$store.dispatch('notification', condition)
           console.log(err)
+        })
+        .finally(_ => {
+          this.$store.commit('SET_ISLOADING', false)
         })
     }
   }

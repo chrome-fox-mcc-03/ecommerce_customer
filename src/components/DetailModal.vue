@@ -19,7 +19,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <a @click="buy(productDetail.id)" class="btn btn-primary" data-dismiss="modal">Buy</a>
+        <button @click="buy(productDetail.id)" class="btn btn-primary" data-dismiss="modal">Buy</button>
       </div>
     </div>
   </div>
@@ -43,6 +43,9 @@ export default {
         })
         .catch(err => {
           console.log(err.response.data)
+        })
+        .finally(_ => {
+          this.$store.commit('SET_ISLOADING', false)
         })
     }
   }

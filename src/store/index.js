@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     isLogin: false,
+    isLoading: false,
     products: [],
     filteredProducts: [],
     productDetail: {},
@@ -19,6 +21,9 @@ export default new Vuex.Store({
   mutations: {
     SET_ISLOGIN (state, value) {
       state.isLogin = value
+    },
+    SET_ISLOADING (state, value) {
+      state.isLoading = value
     },
     SET_PRODUCTS (state, value) {
       state.products = value
@@ -47,6 +52,7 @@ export default new Vuex.Store({
   },
   actions: {
     login (context, payload) {
+      context.commit('SET_ISLOADING', true)
       return axios({
         method: 'POST',
         url: 'http://localhost:3000/customers/login',
@@ -54,6 +60,7 @@ export default new Vuex.Store({
       })
     },
     register (context, payload) {
+      context.commit('SET_ISLOADING', true)
       return axios({
         method: 'POST',
         url: 'http://localhost:3000/customers/register',
@@ -61,6 +68,7 @@ export default new Vuex.Store({
       })
     },
     getProducts (context, payload) {
+      context.commit('SET_ISLOADING', true)
       axios({
         method: 'GET',
         url: 'http://localhost:3000/products'
@@ -73,8 +81,12 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err.response.data)
         })
+        .finally(_ => {
+          context.commit('SET_ISLOADING', false)
+        })
     },
     getDetail (context, payload) {
+      context.commit('SET_ISLOADING', true)
       const id = payload
       axios({
         method: 'GET',
@@ -86,8 +98,12 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err.response.data)
         })
+        .finally(_ => {
+          context.commit('SET_ISLOADING', false)
+        })
     },
     getBuy (context, payload) {
+      context.commit('SET_ISLOADING', true)
       const id = payload
       return axios({
         method: 'GET',
@@ -146,6 +162,7 @@ export default new Vuex.Store({
     },
     buyProduct (context, payload) {
       const token = localStorage.getItem('token')
+      context.commit('SET_ISLOADING', true)
       return axios({
         method: 'POST',
         url: 'http://localhost:3000/cartproducts',
@@ -157,6 +174,7 @@ export default new Vuex.Store({
     },
     getCarts (context, payload) {
       const token = localStorage.getItem('token')
+      context.commit('SET_ISLOADING', true)
       axios({
         method: 'GET',
         url: 'http://localhost:3000/carts',
@@ -170,9 +188,13 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err.response.data)
         })
+        .finally(_ => {
+          context.commit('SET_ISLOADING', false)
+        })
     },
     deleteCart (context, payload) {
       const token = localStorage.getItem('token')
+      context.commit('SET_ISLOADING', true)
       const id = payload
       axios({
         method: 'DELETE',
@@ -182,14 +204,28 @@ export default new Vuex.Store({
         }
       })
         .then(result => {
+          const condition = {
+            icon: 'success',
+            title: `Successfully delete cart with id ${id}`
+          }
+          context.dispatch('notification', condition)
           context.dispatch('getCarts')
         })
         .catch(err => {
+          const condition = {
+            icon: 'error',
+            title: err.response.data.message
+          }
+          context.dispatch('notification', condition)
           console.log(err.response.data)
+        })
+        .finally(_ => {
+          context.commit('SET_ISLOADING', false)
         })
     },
     cartDetail (context, payload) {
       const token = localStorage.getItem('token')
+      context.commit('SET_ISLOADING', true)
       return axios({
         method: 'GET',
         url: 'http://localhost:3000/cartproducts',
@@ -201,6 +237,7 @@ export default new Vuex.Store({
     deleteCartProduct (context, payload) {
       const id = payload
       const token = localStorage.getItem('token')
+      context.commit('SET_ISLOADING', true)
       return axios({
         method: 'DELETE',
         url: `http://localhost:3000/cartproducts/${id}`,
@@ -212,6 +249,7 @@ export default new Vuex.Store({
     getUpdateCartProduct (context, payload) {
       const id = payload
       const token = localStorage.getItem('token')
+      context.commit('SET_ISLOADING', true)
       axios({
         method: 'GET',
         url: `http://localhost:3000/cartproducts/${id}`,
@@ -226,11 +264,15 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err)
         })
+        .finally(_ => {
+          context.commit('SET_ISLOADING', false)
+        })
     },
     updateCartProduct (context, payload) {
       const id = payload.id
       const token = localStorage.getItem('token')
       const quantity = payload.quantity
+      context.commit('SET_ISLOADING', true)
       return axios({
         method: 'PATCH',
         url: `http://localhost:3000/cartproducts/${id}`,
@@ -246,6 +288,7 @@ export default new Vuex.Store({
       const id = payload
       const status = true
       const token = localStorage.getItem('token')
+      context.commit('SET_ISLOADING', true)
       return axios({
         method: 'PATCH',
         url: `http://localhost:3000/carts/${id}`,
@@ -256,6 +299,24 @@ export default new Vuex.Store({
           isPaid: status
         }
       })
+    },
+    notification (context, payload) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        onOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      Toast.fire({
+        icon: payload.icon,
+        title: payload.title
+      })
+      return ''
     }
   },
   modules: {

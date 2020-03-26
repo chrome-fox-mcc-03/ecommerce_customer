@@ -13,9 +13,9 @@
               <h5 class="card-title">{{ item.Product.name }}</h5>
               <p class="card-text">Amount: {{ item.quantity }}</p>
               <p class="card-text">Price: Rp {{ price(item.quantity, item.Product.price) }}</p>
-              <div class="d-flex flex-row justify-content-lg-around">
-                <a @click="deleteCartProduct(item.id)">Delete</a>
-                <a @click="getUpdateCartProduct(item.id)" data-toggle="modal" data-target="#updateCartProduct">
+              <div class="d-flex flex-row justify-content-lg-around" >
+                <a v-if="!cartProduct[0].Cart.isPaid" @click="deleteCartProduct(item.id)" class="option">Delete</a>
+                <a v-if="!cartProduct[0].Cart.isPaid" @click="getUpdateCartProduct(item.id)" class="option" data-toggle="modal" data-target="#updateCartProduct">
                   Update
                 </a>
               </div>
@@ -83,6 +83,11 @@ export default {
       this.$store.dispatch('deleteCartProduct', id)
         .then(result => {
           cartId = result.data.CartId
+          const condition = {
+            icon: 'success',
+            title: `Successfully deleted ${result.data.Product.name}`
+          }
+          this.$store.dispatch('notification', condition)
           return this.$store.dispatch('cartDetail', cartId)
         })
         .then(result => {
@@ -93,7 +98,15 @@ export default {
           this.$store.commit('SET_CARTPRODUCT', cartProducts)
         })
         .catch(err => {
+          const condition = {
+            icon: 'error',
+            title: err.response.data.message
+          }
+          this.$store.dispatch('notification', condition)
           console.log(err)
+        })
+        .finally(_ => {
+          this.$store.commit('SET_ISLOADING', false)
         })
     },
     getUpdateCartProduct (id) {
@@ -104,10 +117,23 @@ export default {
       console.log(id)
       this.$store.dispatch('editCartStatus', id)
         .then(result => {
+          const condition = {
+            icon: 'success',
+            title: `Payment Cart with id ${result.data.id} is success`
+          }
+          this.$store.dispatch('notification', condition)
           this.$router.push({ name: 'Cart' })
         })
         .catch(err => {
+          const condition = {
+            icon: 'error',
+            title: err.response.data.message
+          }
+          this.$store.dispatch('notification', condition)
           console.log(err.response.data)
+        })
+        .finally(_ => {
+          this.$store.commit('SET_ISLOADING', false)
         })
     }
   }
@@ -128,13 +154,7 @@ export default {
   width: 20%;
   height: auto;
 }
-/* .img-cart-detail-cont {
-  height: 100% !important;
-  width: 100% !important;
-  background-color: red !important;
-} */
 .img-cart-detail-cont img {
   width: 80% !important;
-  background-color: red !important;
 }
 </style>

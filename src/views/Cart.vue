@@ -3,7 +3,7 @@
   <div v-for="cart in carts" :key="cart.id" class="card text-center" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">Cart ID: {{cart.id}} </h5>
-      <p class="card-text">Last Updated: {{cartDate(cart.updatedAt)}}</p>
+      <p class="card-text">Last Updated: {{cartDate(cart.updatedAt)}} ago</p>
       <p>Status: {{ status(cart.isPaid) }} </p>
       <div class="d-flex flex-row justify-content-lg-around align-items-center">
         <a @click="cartDetail(cart.id)" class="option">Details</a>
@@ -26,15 +26,24 @@ export default {
   },
   methods: {
     cartDate (time) {
-      const date = new Date(time)
-      const year = date.getFullYear()
-      const month = date.getMonth() + 1
-      const day = date.getDay()
-      const hours = date.getHours()
-      const minutes = date.getMinutes()
-      const seconds = date.getSeconds()
-      const dateString = `${year}-${month}-${day}, ${hours}:${minutes}:${seconds}`
-      return dateString
+      const selisih = new Date().getTime() - new Date(time).getTime()
+      const seconds = Math.round(selisih / 1000)
+      if (seconds >= 60) {
+        const minutes = Math.round(seconds / 60)
+        if (minutes >= 60) {
+          const hours = Math.round(minutes / 60)
+          if (hours >= 24) {
+            const days = Math.round(hours / 24)
+            return `${days} days`
+          } else {
+            return `${hours} hours`
+          }
+        } else {
+          return `${minutes} minutes`
+        }
+      } else {
+        return `${seconds} seconds`
+      }
     },
     status (bool) {
       if (bool) {
@@ -63,6 +72,9 @@ export default {
         })
         .catch(err => {
           console.log(err.response.data)
+        })
+        .finally(_ => {
+          this.$store.commit('SET_ISLOADING', false)
         })
     }
   }

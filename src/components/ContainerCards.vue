@@ -40,6 +40,9 @@ export default {
         .catch(err => {
           console.log(err.response.data)
         })
+        .finally(_ => {
+          this.$store.commit('SET_ISLOADING', false)
+        })
     }
   }
 }

@@ -35,10 +35,23 @@ export default {
         .then(result => {
           localStorage.setItem('token', result.data.token)
           this.$store.commit('SET_ISLOGIN', true)
+          const condition = {
+            icon: 'success',
+            title: 'Logged in succesfully'
+          }
+          this.$store.dispatch('notification', condition)
           this.$router.push({ name: 'Products' })
         })
         .catch(err => {
+          const condition = {
+            icon: 'error',
+            title: err.response.data.message
+          }
+          this.$store.dispatch('notification', condition)
           console.log(err)
+        })
+        .finally(_ => {
+          this.$store.commit('SET_ISLOADING', false)
         })
     }
   }
