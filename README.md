@@ -1,3 +1,4 @@
+https://ecommerce-customer-243ba.firebaseapp.com
 # ecommerce_customer
 
 ## Project setup
