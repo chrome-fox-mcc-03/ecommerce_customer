@@ -42,7 +42,6 @@ export default {
     margin: 10px auto;
     border: 1px solid grey;
     width: 60%;
-    /* height: 100px; */
     background-color: white;
     padding: 20px;
   }

@@ -5,6 +5,17 @@
       <ul>
         <li @click="moveHome">Home</li>
         <li @click="moveProducts">Product</li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white !important;">
+            Category
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item"
+              v-for="category in categories"
+              :key="category.id"
+              @click="moveCategory(category.id)">{{category.name}}</a>
+          </div>
+        </li>
       </ul>
     </div>
     <div class="right-bar">
@@ -64,6 +75,9 @@ export default {
     moveCheckout () {
       this.$router.push('/dashboard/checkout')
     },
+    moveCategory (categoryId) {
+      this.$router.push(`/categories/${categoryId}`)
+    },
     logoutProcess () {
       localStorage.clear()
       this.$router.push('/')
@@ -110,6 +124,9 @@ export default {
         qty = qty + cart[i].qty
       }
       return qty
+    },
+    categories () {
+      return this.$store.state.categories
     }
   },
   watch: {
@@ -135,7 +152,6 @@ export default {
   justify-content: space-between;
   background-color: black;
   height: 8vh;
-  /* position: fixed; */
 }
 
 #navbar .left-bar h2 {
@@ -144,7 +160,6 @@ export default {
     font-weight: bold;
     text-align: right;
     margin-bottom: 0px;
-    /* margin-top: 20px; */
     margin-right: 20px;
     letter-spacing: -2px;
   }

@@ -25,14 +25,12 @@ export default {
       }
       this.$store.dispatch('loginOn', payload)
         .then(({ data }) => {
-          console.log(data)
           localStorage.cartId = data.cartId
           localStorage.access_token = data.access_token
           this.$router.push('/dashboard')
           this.$vToastify.success('Login is successfully')
         })
         .catch(({ response }) => {
-          console.log(response)
           const messageErr = response.data.errObj[0]
           this.$store.commit('SET_ERROR_HANDLER', messageErr)
           setTimeout(() => {

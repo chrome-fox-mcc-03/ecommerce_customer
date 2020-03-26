@@ -22,7 +22,6 @@ export default {
   },
   methods: {
     registerProcess () {
-      console.log('BERHASIL DI KLIK')
       const payload = {
         name: this.name,
         email: this.email,

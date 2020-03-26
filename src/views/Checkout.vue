@@ -73,16 +73,16 @@ export default {
       }
     },
     checkoutProcess () {
-      console.log('CHECKOUT DULU YUK')
-      console.log(this.$store.state.cart)
       this.$store.dispatch('checkoutAllItems', this.$store.state.cart)
         .then(({ data }) => {
-          console.log(data)
           this.$vToastify.success('Checkout Is Successfully')
-          this.$router.push('/dashboard')
+          this.$store.dispatch('fetchCart')
+          this.$store.dispatch('fetchProduct')
+          setTimeout(() => {
+            this.$router.push('/dashboard')
+          }, 5000)
         })
         .catch(({ response }) => {
-          console.log(response)
           this.$vToastify.error('Sorry, Stock is not already exists now, Please checkout again!')
           setTimeout(() => {
             this.$router.push('/dashboard')

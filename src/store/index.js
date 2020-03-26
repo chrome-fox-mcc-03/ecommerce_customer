@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios'
-import router from '../router'
+// import router from '../router'
 import VueToastify from 'vue-toastify'
 Vue.use(VueToastify)
 
@@ -15,7 +15,9 @@ export default new Vuex.Store({
     errorHandler: '',
     isNavLogin: 'login',
     cart: [],
-    products_home: []
+    products_home: [],
+    categories: [],
+    product_detail: {}
   },
   mutations: {
     SET_PRODUCTS (state, payload) {
@@ -38,6 +40,12 @@ export default new Vuex.Store({
     },
     SET_PRODUCTS_HOME (state, payload) {
       state.products_home = payload
+    },
+    SET_CATEGORIES (state, payload) {
+      state.categories = payload
+    },
+    SET_PRODUCT_DETAIL (state, payload) {
+      state.product_detail = payload
     }
   },
   actions: {
@@ -50,7 +58,6 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          console.log(data)
           context.commit('SET_PRODUCTS', data)
         })
         .catch(({ response }) => {
@@ -58,7 +65,6 @@ export default new Vuex.Store({
         })
     },
     registerOn (context, payload) {
-      console.log('MASUK STORE')
       Axios({
         method: 'POST',
         url: 'http://localhost:3000/customers/register',
@@ -81,7 +87,6 @@ export default new Vuex.Store({
         })
     },
     loginOn (context, payload) {
-      console.log('masuk STORE loGIN')
       return Axios({
         method: 'POST',
         url: 'http://localhost:3000/customers/login',
@@ -115,7 +120,6 @@ export default new Vuex.Store({
           context.commit('SET_CART', data.products)
         })
         .catch(({ response }) => {
-          console.log(response)
           const messageErr = response.data.errors[0]
           context.commit('SET_ERROR_HANDLER', messageErr)
           setTimeout(() => {
@@ -137,7 +141,6 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          console.log('ADD SUCCESS NIH')
           context.dispatch('fetchCart')
         })
         .catch(({ response }) => {
@@ -161,7 +164,6 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          console.log('UDAH KE UPDATE NIH')
           context.dispatch('fetchCart')
         })
         .catch(({ response }) => {
@@ -184,7 +186,6 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          console.log('MASUK DELETE ITEM FROM CART')
           context.dispatch('fetchCart')
         })
         .catch(({ response }) => {
@@ -196,7 +197,6 @@ export default new Vuex.Store({
         })
     },
     checkoutAllItems (context, payload) {
-      console.log('INI DI STORE')
       return Axios({
         method: 'POST',
         url: 'http://localhost:3000/customers/checkout',
@@ -208,21 +208,24 @@ export default new Vuex.Store({
           cart: payload
         }
       })
-        .then(({ data }) => {
-          console.log(data)
-          this.$vToastify.success('Checkout Is Successfully')
-          router.push('/dashboard')
-        })
-        .catch(({ response }) => {
-          console.log(response)
-          this.$vToastify.error('Sorry, Stock is not already exists now, Please checkout again!')
-        })
     },
     fetchProductsHome (context) {
       return Axios({
         method: 'GET',
         url: 'http://localhost:3000/products/home'
       })
+    },
+    fetchCategories (context) {
+      Axios({
+        method: 'GET',
+        url: 'http://localhost:3000/categories'
+      })
+        .then(({ data }) => {
+          context.commit('SET_CATEGORIES', data)
+        })
+        .catch(({ response }) => {
+          console.log(response)
+        })
     }
   },
   modules: {

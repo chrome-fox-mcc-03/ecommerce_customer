@@ -31,7 +31,6 @@ export default {
   },
   methods: {
     addToCart (product) {
-      console.log(product, 'INI ADD TO CART NIH >>>>>>')
       const cart = this.$store.state.cart
       var productIndex
       var productExist = cart.filter(function (item, index) {
@@ -42,19 +41,14 @@ export default {
           return false
         }
       })
-      console.log(cart)
       if (productExist.length) {
         cart[productIndex].qty++
-        console.log('>>>>>>>>>>>>>>>>>>>>>>>MASUK')
-        console.log(cart[productIndex])
         const payload = {
           cart: cart[productIndex],
           productId: product.id
         }
-        console.log(payload, 'INI PAYLOAD PRODUCT EXISTS')
         this.$store.dispatch('updateQtyProduct', payload)
       } else {
-        console.log('MASUK')
         cart.push({ product: product, qty: 1 })
         const payload = {
           cart: cart[cart.length - 1],
@@ -62,11 +56,6 @@ export default {
         }
         this.$store.dispatch('addNewProductToCart', payload)
       }
-      // const payload = {
-      //     cart: cart,
-      //     productId: product.id
-      //   }
-      // this.$store.dispatch('addNewProductToCart', payload)
     }
   }
 }
@@ -87,5 +76,8 @@ export default {
   }
   .add-to-cart button {
     margin-bottom: 20px;
+    margin-right: 10px;
+    background-color: bisque;
   }
+
 </style>

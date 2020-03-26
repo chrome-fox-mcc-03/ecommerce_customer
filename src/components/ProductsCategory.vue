@@ -13,22 +13,10 @@ import ItemProduct from './ItemProduct.vue'
 
 export default {
   name: 'Products',
-  data () {
-    return {
-      products: []
-    }
-  },
   components: {
     ItemProduct
   },
-  watch: {
-    products (val) {
-      this.products = val
-    }
-  },
-  created () {
-    this.products = this.$store.state.products
-  }
+  props: ['products']
 }
 </script>
 

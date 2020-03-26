@@ -40,12 +40,12 @@ export default {
   },
   computed: {
     successMessage () {
-      console.log(this.$store.state.successMessage, '>>>>>>>>>> COMPUTED')
       return this.$store.state.successMessage
     }
   },
   created () {
     this.$store.dispatch('fetchProduct')
+    this.$store.dispatch('fetchCategories')
   }
 }
 </script>

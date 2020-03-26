@@ -5,6 +5,7 @@ import Dashboard from '../views/Dashboard.vue'
 import Home from '../components/Home.vue'
 import Products from '../components/Products.vue'
 import Checkout from '../views/Checkout.vue'
+import CategoryProduct from '../views/CategoryProduct.vue'
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,11 @@ const routes = [
         component: Checkout
       }
     ]
+  },
+  {
+    path: '/categories/:id',
+    name: 'CategoryProduct',
+    component: CategoryProduct
   }
 ]
 
