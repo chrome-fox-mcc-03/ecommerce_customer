@@ -17,7 +17,7 @@ export default new Vuex.Store({
     login ({ commit }, payload) {
       const { email, password } = payload
       return axios({
-        url: 'http://localhost:3000/login',
+        url: 'https://evening-mesa-91440.herokuapp.com/login',
         method: 'POST',
         data: {
           email,
@@ -28,7 +28,7 @@ export default new Vuex.Store({
     register ({ commit }, payload) {
       const { email, password } = payload
       return axios({
-        url: 'http://localhost:3000/register',
+        url: 'https://evening-mesa-91440.herokuapp.com/register',
         method: 'POST',
         data: {
           email,
@@ -38,7 +38,7 @@ export default new Vuex.Store({
     },
     getAllProduct ({ commit }, payload) {
       return axios({
-        url: 'http://localhost:3000/product',
+        url: 'https://evening-mesa-91440.herokuapp.com/product',
         headers: {
           token: localStorage.getItem('token')
         },
@@ -49,7 +49,7 @@ export default new Vuex.Store({
       console.log(payload)
       const { amount, id } = payload // ada price tapi ga diambil
       return axios({
-        url: 'http://localhost:3000/cart',
+        url: 'https://evening-mesa-91440.herokuapp.com/cart',
         method: 'POST',
         headers: {
           token: localStorage.getItem('token')
@@ -62,7 +62,7 @@ export default new Vuex.Store({
     },
     getCartByUserId ({ commit }, payload) {
       return axios({
-        url: 'http://localhost:3000/cart',
+        url: 'https://evening-mesa-91440.herokuapp.com/cart',
         method: 'GET',
         headers: {
           token: localStorage.getItem('token')
@@ -72,7 +72,7 @@ export default new Vuex.Store({
     deleteCart ({ commit }, payload) {
       const id = payload.idCart
       return axios({
-        url: `http://localhost:3000/cart/${id}`,
+        url: `https://evening-mesa-91440.herokuapp.com/cart/${id}`,
         method: 'DELETE',
         headers: {
           token: localStorage.getItem('token')
