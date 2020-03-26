@@ -47,6 +47,13 @@ export default new Vuex.Store({
           commit('SET_LOADING', false)
         })
     },
+    getProductById ({ commit }, payload) {
+      commit('SET_LOADING', true)
+      return axios({
+        method: 'get',
+        url: `https://enigmatic-tundra-28075.herokuapp.com/products/${payload}`
+      })
+    },
     addCart ({ commit, state }, payload) {
       const { ProductId, quantity } = payload
       commit('SET_LOADING', true)
