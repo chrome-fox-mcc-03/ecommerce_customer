@@ -32,7 +32,7 @@
                     </b-field>
                     <b-field>
                         <b-button native-type="submit">
-                            Login
+                            Register
                         </b-button>
                     </b-field>
                   </form>
@@ -66,6 +66,7 @@ export default {
           this.$buefy.toast.open({
             message: `Hi, ${data.name}, You can login now!`,
             type: 'is-success',
+            position: 'is-top-left',
             duration: 3000
           })
         })
@@ -75,9 +76,12 @@ export default {
           this.$buefy.toast.open({
             duration: 2500,
             message: errors[0],
-            position: 'is-top',
+            position: 'is-top-left',
             type: 'is-danger'
           })
+        })
+        .finally(_ => {
+          this.$store.commit('SET_LOADING', false)
         })
     }
   }

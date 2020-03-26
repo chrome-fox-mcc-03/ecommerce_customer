@@ -53,7 +53,6 @@ export default {
       this.$store.dispatch('login', payload)
         .then(response => {
           const { data } = response
-          console.log(data)
           localStorage.setItem('token', data.token)
           localStorage.setItem('name', data.name)
           this.$store.commit('SET_LOGIN', true)
@@ -61,18 +60,21 @@ export default {
           this.$buefy.toast.open({
             message: `Success login, Halo ${data.name}`,
             type: 'is-success',
+            position: 'is-top-left',
             duration: 3000
           })
         })
         .catch(error => {
           const errors = error.response.data.errors
-          console.log(errors, 'ini error')
           this.$buefy.toast.open({
-            duration: 5000,
+            duration: 3000,
             message: errors[0],
-            position: 'is-top',
+            position: 'is-top-left',
             type: 'is-danger'
           })
+        })
+        .finally(_ => {
+          this.$store.commit('SET_LOADING', false)
         })
     }
   }

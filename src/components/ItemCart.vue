@@ -12,11 +12,11 @@
                     <div class="cart-form">
                         <b-field label="Quantity">
                         <b-field grouped>
-                        <b-numberinput size="is-small" v-model="quantity" @input="inputQty(item.id, quantity)" min="0" expanded>
+                        <b-numberinput size="is-small" v-model="quantity" @input="inputQty(item.id, quantity)" min="1" expanded>
                         </b-numberinput>
                         <p class="control">
                             <a @click="deleteCart(item.id)">
-                        <b-icon pack="fas" icon="trash" type="is-danger" >halo</b-icon>
+                        <b-icon pack="fas" icon="trash" type="is-danger" ></b-icon>
                             </a>
                         </p>
                         </b-field>
@@ -45,8 +45,17 @@ export default {
       this.$emit('inputQty', payload)
     },
     deleteCart (CartItemId) {
-      console.log(CartItemId, 'ini delete')
-      this.$emit('deleteCart', CartItemId)
+      this.$buefy.snackbar.open({
+        duration: 3000,
+        message: 'delete item? <br><em>your item will be remove from your cart</em>.',
+        type: 'is-danger',
+        position: 'is-top',
+        actionText: 'Yes',
+        queue: false,
+        onAction: () => {
+          this.$emit('deleteCart', CartItemId)
+        }
+      })
     },
     rupiahFormat (price) {
       const priceString = price.toString().split('').reverse().join('')
@@ -69,9 +78,5 @@ export default {
     display: flex;
     padding: 0;
     margin-top: 2px;
-}
-
-.klik{
-    cursor: pointer;
 }
 </style>

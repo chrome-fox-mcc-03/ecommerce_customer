@@ -21,10 +21,16 @@
         </div>
         </div>
         <div class="card-footer">
-          <button class="button is-primary" @click.prevent="addCart(product.id)" >
+          <b-tooltip
+            :label="this.product.description"
+            size="is-small"
+            position="is-bottom"
+            multilined>
+            <button class="button is-primary" @click.prevent="addCart(product.id)" >
             <b-icon pack="fas" icon="cart-plus"></b-icon>
             <span>Add Cart</span>
           </button>
+        </b-tooltip>
         </div>
     </div>
 </template>
@@ -52,10 +58,29 @@ export default {
       } else {
         this.$store.dispatch('addCart', payload)
           .then(response => {
-            console.log(response)
+            this.$buefy.snackbar.open({
+              duration: 3000,
+              message: 'Success add cart',
+              type: 'is-success',
+              position: 'is-top',
+              actionText: 'see cart',
+              queue: false,
+              onAction: () => {
+                this.$router.push('/cart')
+              }
+            })
           })
           .catch(error => {
-            console.log(error.response)
+            const errors = error.response.data.errors
+            this.$buefy.toast.open({
+              duration: 3000,
+              message: errors[0],
+              position: 'is-top-left',
+              type: 'is-danger'
+            })
+          })
+          .finally(_ => {
+            this.$store.commit('SET_LOADING', false)
           })
       }
     },
@@ -85,7 +110,6 @@ export default {
     width: 15%;
     height: 30%;
     margin: 5px;
-    /* padding: 2px; */
 }
 .klik{
     cursor: pointer;
