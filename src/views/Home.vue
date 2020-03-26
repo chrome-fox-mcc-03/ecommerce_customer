@@ -39,6 +39,7 @@ export default {
   name: 'Home',
   created () {
     this.$store.dispatch('getProducts')
+    this.$store.dispatch('getCart')
   },
   methods: {
     details (id) {

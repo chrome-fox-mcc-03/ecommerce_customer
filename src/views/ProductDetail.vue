@@ -37,7 +37,7 @@
                     Stock: {{ product.stock }}
                     </div>
                     <div class="buttons">
-                        <button class="button is-danger">Add to card</button>
+                        <button class="button is-danger" @click="addToCart">Add to card</button>
                         <button class="button is-secondary" @click="back">Back</button>
                     </div>
                 </div>
@@ -56,6 +56,9 @@ export default {
   methods: {
     back () {
       this.$router.push('/')
+    },
+    addToCart () {
+      this.$store.dispatch('addToCart', this.product.id)
     }
   },
   computed: {
