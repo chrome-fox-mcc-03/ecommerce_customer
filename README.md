@@ -36,6 +36,10 @@
 * vue-easy-slider ( Customer )
 * vue-notification ( Customer )
 
+## New feature Image Uploader on CMS
+* NPM Unggah
+* NPM AWS-SDK
+
 ## Dummy things:
 * Promos in navbar
 * Promos in Carousel
