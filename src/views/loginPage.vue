@@ -54,16 +54,14 @@ export default {
       this.$store.dispatch('login', data)
         .then(result => {
           localStorage.setItem('token', result.data.token)
-          this.$store.commit('SET_NOTIFICATION', {
-            msg: 'loggin success',
-            color: 'bg-success'
+          this.$toasted.show('Glad to see you back!', {
+            duration: 3000
           })
           this.$router.push({ path: '/' })
         })
         .catch(err => {
-          this.$store.commit('SET_NOTIFICATION', {
-            msg: 'loggin failed',
-            color: 'bg-success'
+          this.$toasted.show(err.response.data.message, {
+            duration: 3000
           })
           console.log(err)
         })

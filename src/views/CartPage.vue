@@ -1,7 +1,8 @@
 <template>
   <div id="cartPage">
     <Navbar/>
-    <div class="cart" style="margin-top: 130px">
+    <Loading v-if="isLoading"/>
+    <div v-else class="cart" style="margin-top: 130px">
       <h1>My Shopping Cart</h1>
       <hr width="50px" color="red">
       <div>
@@ -24,16 +25,21 @@
 import Navbar from '../components/NavBar'
 import FooterPage from '../components/Footer'
 import CartCard from '../components/CartCard'
+import Loading from '../components/LoadingPage'
 export default {
   name: 'cartPage',
   components: {
     Navbar,
     FooterPage,
-    CartCard
+    CartCard,
+    Loading
   },
   computed: {
     carts: function () {
       return this.$store.state.carts
+    },
+    isLoading: function () {
+      return this.$store.state.isLoading
     }
   },
   created () {

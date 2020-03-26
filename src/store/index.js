@@ -4,12 +4,14 @@ import axios from 'axios'
 import router from '../router/index'
 
 Vue.use(Vuex)
+// https://peaceful-fortress-31291.herokuapp.com
 
 export default new Vuex.Store({
   state: {
     notification: '',
     products: [],
-    carts: []
+    carts: [],
+    isLoading: false
   },
   mutations: {
     SET_NOTIFICATION (state, payload) {
@@ -20,6 +22,9 @@ export default new Vuex.Store({
     },
     SET_CART (state, payload) {
       state.carts = payload
+    },
+    SET_LOADING (state, payload) {
+      state.isLoading = payload
     }
   },
   actions: {
@@ -56,6 +61,7 @@ export default new Vuex.Store({
       })
     },
     fetchData (context, payload) {
+      context.commit('SET_LOADING', true)
       axios({
         method: 'GET',
         url: 'http://localhost:3000/product',
@@ -69,8 +75,12 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err)
         })
+        .finally(_=> {
+          context.commit('SET_LOADING', false)
+        })
     },
     getProduct (context, id) {
+      context.commit('SET_LOADING', true)
       return axios({
         method: 'GET',
         url: `http://localhost:3000/product/${id}`,
@@ -92,6 +102,7 @@ export default new Vuex.Store({
       })
     },
     fetchCart (context, payload) {
+      context.commit('SET_LOADING', true)
       axios({
         method: 'GET',
         url: 'http://localhost:3000/cart',
@@ -104,6 +115,9 @@ export default new Vuex.Store({
       })
       .catch(err => {
         console.log(err)
+      })
+      .finally(_=> {
+        context.commit('SET_LOADING', false)
       })
     },
     increase (context, id) {

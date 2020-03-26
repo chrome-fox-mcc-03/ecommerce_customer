@@ -11,7 +11,7 @@
             <p>Ketersediaan: {{ stock }}</p>
           </div>
           <div class="input" @click="addToCart">
-            <i class="fas fa-cart-plus fa-2x"></i>
+            <a><i class="fas fa-cart-plus fa-lg"></i>Add to cart</a>
           </div>
         </div>
       </div>
@@ -22,7 +22,6 @@
 
 <script>
 import Footerpage from '../components/Footer'
-
 export default {
   name: 'detailProduct',
   components: {
@@ -43,6 +42,9 @@ export default {
       console.log(payload, 'ini idnya bangsat');
       this.$store.dispatch('addCart', payload)
       .then(_ => {
+        this.$toasted.show( `successfully added item ${this.name} to cart`, {
+            duration: 3000
+          })
         this.$router.push('/product/:id')
       })
       .catch((err) => {
@@ -52,7 +54,7 @@ export default {
   },
   created () {
     this.$store.dispatch('getProduct', this.$route.params.id)
-    .then(({ data }) => {
+      .then(({ data }) => {
         this.id = data.id
         this.name = data.name
         this.price = data.price
@@ -62,6 +64,11 @@ export default {
       .catch(err => {
         console.log(err)
       })
+  },
+  computed: {
+    isLoading: function () {
+      return this.$store.state.isLoading
+    }
   }
 }
 </script>
@@ -113,11 +120,12 @@ export default {
   color: rgb(192, 14, 14);
 }
 
-.input i{
+.input{
   color: #c65039;
 }
 
-.input i:hover{
-  transform: scale(1.5)
+.input i{
+  margin-right: 10px;
 }
+
 </style>
