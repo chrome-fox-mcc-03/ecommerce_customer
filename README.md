@@ -41,5 +41,5 @@
 * Promos in Carousel
 * Categories in Home
 
-## Trouble:
+## Issue:
 * Just learnt about Transaction Sequelize and Promise.All
