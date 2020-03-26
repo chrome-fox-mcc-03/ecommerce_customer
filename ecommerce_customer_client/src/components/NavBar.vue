@@ -5,10 +5,10 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto mr-5">
+      <b-navbar-nav class="ml-auto mr-5" >
         <b-nav-item-dropdown v-if="isLogin || statusLogin" right>
           <template v-slot:button-content>
-            <em class="text-white" style="font-size:1rem">{{countItemInCart}} Cart</em>
+            <em class="text-white mr-2" style="font-size:1em;">{{countItemInCart}} <i class="fab fa-opencart fa-2x"></i> Your Cart</em>
           </template>
           <div @click="$event.stopPropagation()">
             <cart-component />
@@ -16,7 +16,7 @@
         </b-nav-item-dropdown>
         <b-nav-item-dropdown right>
           <template v-slot:button-content>
-            <em class="text-white" style="font-size:1rem">User</em>
+            <em class="text-white mr-2" style="font-size:1em"><i class="far fa-user fa-2x"></i> User</em>
           </template>
           <b-dropdown-item v-if="!isLogin || statusLogin"><router-link v-b-modal.loginModal to="">Sign In</router-link></b-dropdown-item>
           <b-dropdown-item v-if="!isLogin || statusLogin"><router-link v-b-modal.registerModal to="">Register</router-link></b-dropdown-item>

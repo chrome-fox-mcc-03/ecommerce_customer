@@ -10,10 +10,10 @@
                 <h1 class="home-title align-self-start">Featured Product</h1>
                 <hr>
                   <ProductCarousel class="shadow" />
-                  <div class="mt-5" style="width:100%; height:10%;">
+                  <div class="mt-5" style="width:100%;">
                     <div>
                       <h3>Category</h3>
-                      <div style="width:100%; height:5%;" class="border border-primary pt-3 mt-3 rounded">
+                      <div style="width:100%; height:5%;" class=" shadow border border-primary pt-3 mt-3 rounded">
                           <ul>
                             <li>
                               <router-link to="" style="color: Dodgerblue;"><i class="fas fa-laptop"></i> Computers</router-link>

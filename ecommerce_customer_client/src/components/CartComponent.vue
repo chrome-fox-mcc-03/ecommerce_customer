@@ -6,13 +6,13 @@
             >
                 <div>
                   <b-img thumbnail fluid :src="item.product.image_url" alt="Image 1" style="width:50px"></b-img>
-                    <strong>{{item.product.name}}</strong>
+                    <strong> {{item.product.name}}</strong>
                     <br>
                     Qty : {{item.quantity}} x {{item.product.price | currency}}
                     <hr>
                 </div>
                 <div>
-                    <a href="#" class="badge badge-secondary" @click.prevent="removeProduct(item.product)">remove</a>
+                    <a href="#" class="badge badge-secondary" @click.prevent="removeProduct(item.product)"><i class="far fa-trash-alt"></i> remove</a>
                 </div>
             </div>
         </div>

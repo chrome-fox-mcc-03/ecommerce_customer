@@ -45,7 +45,7 @@ export default new Vuex.Store({
     onFetchProduct ({ commit }) {
       Axios({
         method: 'GET',
-        url: 'http://localhost:3000/product'
+        url: 'https://whispering-cliffs-09196.herokuapp.com/product'
       })
         .then(({ data }) => {
           commit('SET_PRODUCTS', data.result)
@@ -62,7 +62,7 @@ export default new Vuex.Store({
     onRegisterUser ({ commit }, { email, password }) {
       Axios({
         method: 'POST',
-        url: `http://localhost:3000/register/${email}`,
+        url: `https://whispering-cliffs-09196.herokuapp.com/register/${email}`,
         data: {
           email,
           password
@@ -88,7 +88,7 @@ export default new Vuex.Store({
     onLoginUser ({ dispatch, commit }, { email, password }) {
       Axios({
         method: 'POST',
-        url: `http://localhost:3000/login/${email}`,
+        url: `https://whispering-cliffs-09196.herokuapp.com/login/${email}`,
         data: {
           email,
           password
@@ -122,7 +122,7 @@ export default new Vuex.Store({
           commit('ADD_TO_CART', { product, quantity })
           Axios({
             method: 'POST',
-            url: 'http://localhost:3000/addtocart',
+            url: 'https://whispering-cliffs-09196.herokuapp.com/addtocart',
             headers: {
               access_token: localStorage.getItem('access_token'),
               cartId: localStorage.getItem('cart')
@@ -168,7 +168,7 @@ export default new Vuex.Store({
     createCart ({ commit }) {
       Axios({
         method: 'POST',
-        url: 'http://localhost:3000/cart',
+        url: 'https://whispering-cliffs-09196.herokuapp.com/cart',
         headers: {
           access_token: localStorage.getItem('access_token')
         }
@@ -188,7 +188,7 @@ export default new Vuex.Store({
     fetchCart ({ commit }) {
       Axios({
         method: 'GET',
-        url: 'http://localhost:3000/cartitem',
+        url: 'https://whispering-cliffs-09196.herokuapp.com/cartitem',
         headers: {
           access_token: localStorage.getItem('access_token'),
           cartId: localStorage.getItem('cart')
@@ -196,12 +196,12 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           commit('SET_CART', { cart: data.result })
-        }).catch((err) => {
+        }).catch((_) => {
           Vue.notify({
             group: 'auth',
-            type: 'error',
+            type: 'primary',
             title: 'Your cart is empty, Go add some stuff! :)',
-            text: err.message
+            text: ''
           })
         })
     },
@@ -210,7 +210,7 @@ export default new Vuex.Store({
       commit('REMOVE_PRODUCT_IN_CART', { product })
       Axios({
         method: 'DELETE',
-        url: `http://localhost:3000/cartitem/${product.id}`,
+        url: `https://whispering-cliffs-09196.herokuapp.com/cartitem/${product.id}`,
         headers: {
           access_token: localStorage.getItem('access_token'),
           cartId: localStorage.getItem('cart')
@@ -237,7 +237,7 @@ export default new Vuex.Store({
       commit('REMOVE_ALL_PRODUCT_IN_CART')
       Axios({
         method: 'DELETE',
-        url: 'http://localhost:3000/cartitem/',
+        url: 'https://whispering-cliffs-09196.herokuapp.com/cartitem/',
         headers: {
           access_token: localStorage.getItem('access_token'),
           cartId: localStorage.getItem('cart')
@@ -263,7 +263,7 @@ export default new Vuex.Store({
     removeCart ({ commit }) {
       Axios({
         method: 'DELETE',
-        url: 'http://localhost:3000/cart',
+        url: 'https://whispering-cliffs-09196.herokuapp.com/cart',
         headers: {
           access_token: localStorage.getItem('access_token'),
           cartId: localStorage.getItem('cart')
