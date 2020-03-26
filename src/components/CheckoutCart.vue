@@ -41,8 +41,8 @@ export default {
       return total
     },
     checkout (id) {
-      console.log('ini idnya cuy')
-      console.log(id)
+      // console.log('ini idnya cuy')
+      // console.log(id)
       this.$store.commit('SET_LOADING', true)
       axiosCostumer({
         method: 'get',
@@ -52,7 +52,7 @@ export default {
         }
       })
         .then(({ data }) => {
-          console.log(data)
+          // console.log(data)
           this.$router.push({ path: '/' })
           this.$vToastify.success(data.message)
         })
@@ -78,6 +78,9 @@ export default {
     this.$store.dispatch('fetchCartItem', this.$route.params.id)
   },
   watch: {
+    cartItem (val) {
+      // console.log (val)
+    }
   }
 }
 </script>

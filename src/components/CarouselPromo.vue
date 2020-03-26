@@ -5,7 +5,7 @@
       <img src="https://images.soco.id/66341958771-1583683593989.png" class="d-block w-100" alt="promo 1">
     </div>
     <div class="carousel-item">
-      <img src="https://1.bp.blogspot.com/-nuL2C0DCRUc/Wi6g0CsoF5I/AAAAAAAAE_U/j45u4X_GaYss1wiKrgltiKSVFKTNWlCtACLcBGAs/s1600/thebodyshop_1212-0.jpg" class="d-block w-100" alt="promo 2x ">
+      <img src="https://images.soco.id/46927911886-1583684638282.png" class="d-block w-100" alt="promo 2x ">
     </div>
     <div class="carousel-item">
       <img src="https://istyle.id/wp-content/uploads//2018/03/Buy-10-Get-30-Nature-Republic.jpg" class="d-block w-100" alt="promo 3">

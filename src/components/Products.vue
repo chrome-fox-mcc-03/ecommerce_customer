@@ -6,7 +6,7 @@
             v-for="product in products"
             :key="product.id"
         >
-            <ProductCard :product="product"/>
+            <ProductCard v-if="product.stock > 0" :product="product"/>
         </div>
     </div>
 </template>
@@ -27,10 +27,19 @@ export default {
     },
     isLoading () {
       return this.$store.state.isLoading
+    },
+    cart () {
+      return this.$store.state.cart
     }
   },
   created () {
     this.$store.dispatch('fetchProducts')
+    this.$store.dispatch('fetchCart')
+  },
+  watch: {
+    cart (val) {
+      console.log(val)
+    }
   }
 }
 </script>

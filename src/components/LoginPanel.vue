@@ -72,11 +72,13 @@ export default {
       })
         .then(({ data }) => {
         //   console.log(data)
-          this.$router.push('/')
           localStorage.setItem('access_token', data.access_token)
+          this.$router.push({
+            path: '/'
+          })
         })
         .catch(({ response }) => {
-          console.log(response)
+          // console.log(response)
           const { data } = response
           const { error } = data
           this.$vToastify.error(error)

@@ -61,10 +61,10 @@ export default {
   },
   watch: {
     cart (val) {
-      console.log(val)
+      // console.log(val)
     },
     isLoading (val) {
-      console.log(val)
+      // console.log(val)
     }
   }
 }

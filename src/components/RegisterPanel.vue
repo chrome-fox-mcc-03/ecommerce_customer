@@ -72,7 +72,7 @@ export default {
           this.$router.push('/login')
         })
         .catch(({ response }) => {
-          console.log(response)
+          // console.log(response)
           const { data } = response
           const { errors } = data
           this.$vToastify.error(errors[0])

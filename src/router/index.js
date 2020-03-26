@@ -9,6 +9,7 @@ const routes = [
     path: '/',
     name: 'Home',
     meta: {
+      isLogin: false,
       requiresAuth: true
     },
     component: Home
@@ -17,7 +18,8 @@ const routes = [
     path: '/login',
     name: 'LoginPanel',
     meta: {
-      isLogin: true
+      isLogin: true,
+      requiresAuth: false
     },
     component: () => import('../components/LoginPanel')
   },
@@ -25,7 +27,8 @@ const routes = [
     path: '/register',
     name: 'RegisterPanel',
     meta: {
-      isLogin: true
+      isLogin: true,
+      requiresAuth: false
     },
     component: () => import('../components/RegisterPanel')
   },
@@ -34,6 +37,7 @@ const routes = [
     name: 'Cart',
     component: () => import('../views/Cart'),
     meta: {
+      isLogin: false,
       requiresAuth: true
     },
     children: [
@@ -61,12 +65,12 @@ router.beforeEach((to, from, next) => {
     }
   }
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (localStorage.access_token && to.path === '/login') {
-      next({
-        name: 'AdminPanel'
-      })
-    } else if (localStorage.access_token && to.path !== '/login') {
+    if (localStorage.access_token) {
       next()
+    } else if (localStorage.access_token && to.path !== '/login') {
+      next({
+        path: '/'
+      })
     } else {
       next({
         path: '/login'

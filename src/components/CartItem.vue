@@ -97,7 +97,7 @@ export default {
         })
     },
     remove (id) {
-      console.log('ke trigger bos')
+      // console.log('ke trigger bos')
       axiosCostumer({
         method: 'DELETE',
         url: `/cart/${id}`,
