@@ -4,17 +4,17 @@
   <form @submit.prevent="register">
     <div class="form-group">
       <label for="exampleInputEmail1">Email address</label>
-      <input v-model="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      <input v-model="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ex: budi@gmail.com">
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">Password</label>
-      <input v-model="password" type="password" class="form-control" id="exampleInputPassword1">
+      <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="ex: xxxxx">
     </div>
     <div class="form-group">
       <label for="exampleInputMoney">Money</label>
-      <input v-model="money" type="number" class="form-control" id="exampleInputMoney">
+      <input v-model="money" type="number" class="form-control" id="exampleInputMoney" placeholder="ex: 123500">
     </div>
-    <button type="submit" class="btn btn-primary">Register</button>
+    <button type="submit" class="submit">Register</button>
   </form>
 </div>
 </template>

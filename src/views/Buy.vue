@@ -1,18 +1,18 @@
 <template>
-  <div id="buy-container" class="d-flex flex-row justify-content-center align-items-center">
+  <div id="buy-container" class="d-flex flex-row justify-content-around align-items-center">
     <div id="buy-image-cont" class="d-flex justify-content-center align-items-center">
       <img id="buy-img" :src="productBuy.image_url" :alt="productBuy.name">
     </div>
     <div id="form-buy-cont" class="d-flex justify-content-center align-items-center flex-column">
-      <h1 style="padding-bottom: 4rem">{{ productBuy.name }}</h1>
+      <h1 style="padding-bottom: 2rem">{{ productBuy.name }}</h1>
       <form @submit.prevent="buyProduct(productBuy.id)">
         <h4>Price: {{ productBuy.price }}</h4>
         <h4>Stock: {{ productBuy.stock }}</h4>
         <h4>
-          <label for="quantity">Quantity</label>
+          <label for="quantity">Quantity: </label>
+          <input v-model="quantity" type="number" id="quantity" placeholder="0"><br>
         </h4>
-        <input v-model="quantity" type="number" id="quantity" placeholder="0"><br>
-        <input type="submit" value="Add to Cart">
+        <input class="submit mt-3" type="submit" value="Add to Cart">
       </form>
     </div>
   </div>
@@ -56,20 +56,39 @@ export default {
 </script>
 
 <style>
+img {
+  border-radius: 3px;
+}
 #buy-container{
+  background-color: #faf4f4;
   width: 100%;
   height: 100%;
 }
 #buy-image-cont{
-  width: 40%;
+  width: 60%;
   height: 100%;
 }
 #buy-img {
-  width: 100%;
+  width: 80%;
   height: auto
 }
 #form-buy-cont {
-  width: 60%;
+  width: 40%;
   height: 100%;
+}
+#quantity {
+  width: 5rem;
+  margin: 0.5rem;
+}
+.submit {
+  width: 10rem;
+  height: 3rem;
+  background-color: #005082;
+  color: #fcf8f3;
+  font-weight: bold;
+  border-radius: 5px;
+}
+.submit:hover {
+  color: #ffa41b;
 }
 </style>

@@ -5,14 +5,14 @@
       <div class="modal-header">
         <h5 class="modal-title" id="detailModalTitle">{{ productDetail.name }}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true" style="color: #faf4f4;">&times;</span>
         </button>
       </div>
       <div class="modal-body d-flex justify-content-around align-items-center flex-row">
         <div>
-          <img :src="productDetail.image_url" :alt="productDetail.name" style="width: 10rem">
+          <img :src="productDetail.image_url" :alt="productDetail.name" style="width: 20rem; border-radius: 3px;">
         </div>
-        <div>
+        <div id="detail-words" class="d-flex flex-column justify-content-sm-around align-items-center">
           <p>Price: {{ productDetail.price }}</p>
           <p>Stock: {{ productDetail.stock }}</p>
         </div>
@@ -50,7 +50,15 @@ export default {
 </script>
 
 <style>
-.modal-header {
+.modal-header, .modal-footer {
   background-color: #000839;
+  color: #ffa41b;
+}
+.modal-body {
+  background-color: #faf4f4;
+}
+#detail-words {
+  color: #005082;
+  font-weight: bold;
 }
 </style>

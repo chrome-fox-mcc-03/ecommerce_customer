@@ -52,7 +52,8 @@ export default {
 }
 
 #main {
-  height: 80vh
+  height: 80vh;
+  background-color: #f3ecb8;
 }
 
 #nav a {

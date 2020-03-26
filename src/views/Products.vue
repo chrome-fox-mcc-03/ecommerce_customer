@@ -59,9 +59,10 @@ export default {
 #prod-cont {
   height: 100%;
   width: 100%;
+  background-color: #faf4f4 !important;
 }
 #search-bar {
-  background-color: #fcf8f3 !important;
+  background-color: #faf4f4 !important;
   border: none;
   border-bottom: royalblue 2px solid;
   text-align: center;
@@ -78,7 +79,7 @@ export default {
 }
 #product-container {
   background-color: #fcf8f3 !important;
-  height: auto;
+  height: 85%;
   width: 100%;
   overflow: scroll;
 }

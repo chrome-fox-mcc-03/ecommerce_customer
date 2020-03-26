@@ -1,5 +1,5 @@
 <template>
-<div class="row row-cols-3 row-cols-md-3">
+<div id="cards-container" class="row row-cols-3 row-cols-md-3">
   <div v-for="product in products" :key="product.id" class="card d-flex flex-wrap flex-row justify-content-around align-items-center">
     <img :src="product.image_url" class="card-img-top" :alt="product.name" style="width: 10rem">
     <div class="card-body">
@@ -46,6 +46,9 @@ export default {
 </script>
 
 <style>
+cards-container {
+  background-color: #faf4f4 !important;
+}
 hr {
   margin: 0px !important;
   padding: 0px !important;

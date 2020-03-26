@@ -3,13 +3,13 @@
   <h1 class="pb-3">Cart</h1>
   <div class="d-flex flex-row justify-content-around align-items-center">
     <div id="container-items" class="d-flex justify-content-center align-items-center flex-row flex-wrap">
-      <div v-for="item in cartProduct" :key="item.id" class="card m-3" style="max-width: 30vw;">
+      <div v-for="item in cartProduct" :key="item.id" class="card m-3" style="max-width: 35vw;">
         <div class="row no-gutters">
-          <div class="col-md-4 d-flex justify-content-center align-items-center">
+          <div class="img-cart-detail-cont col-md-6 d-flex flex-row justify-content-center align-items-center">
             <img :src="item.Product.image_url" class="card-img" :alt="item.Product.name">
           </div>
-          <div class="col-md-8">
-            <div class="card-body">
+          <div class="col-md-6">
+            <div class="card-body" style="padding: 0.5rem;">
               <h5 class="card-title">{{ item.Product.name }}</h5>
               <p class="card-text">Amount: {{ item.quantity }}</p>
               <p class="card-text">Price: Rp {{ price(item.quantity, item.Product.price) }}</p>
@@ -27,7 +27,7 @@
     </div>
     <div id="container-checkout">
       <h3>Summary</h3>
-      <p>Total Price {{ totalPrice() }}</p>
+      <p>Total Price: Rp {{ totalPrice() }}</p>
       <button v-if="!cartProduct[0].Cart.isPaid" @click="updateCartStatus" class="btn btn-primary">Checkout</button>
     </div>
   </div>
@@ -120,12 +120,21 @@ export default {
   height: auto;
 }
 #container-items {
-  width: 70vw;
-  height: 80vh;
+  width: 80%;
+  height: 100%;
   overflow: scroll;
 }
 #container-checkout {
-  width: 30vw;
+  width: 20%;
   height: auto;
+}
+/* .img-cart-detail-cont {
+  height: 100% !important;
+  width: 100% !important;
+  background-color: red !important;
+} */
+.img-cart-detail-cont img {
+  width: 80% !important;
+  background-color: red !important;
 }
 </style>
