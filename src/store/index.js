@@ -11,6 +11,7 @@ export default new Vuex.Store({
     products: [],
     successObj: {},
     errorObj: {},
+    history: [],
     isLoading: false,
     isLogin: false
   },
@@ -32,6 +33,9 @@ export default new Vuex.Store({
     },
     SET_CARTS (state, payload) {
       state.carts = payload
+    },
+    SET_HISTORY (state, payload) {
+      state.history = payload
     }
   },
   actions: {
@@ -146,6 +150,26 @@ export default new Vuex.Store({
           context.commit('SET_SUCCESSOBJ', res.data)
 
           router.push({ name: 'Product' })
+        })
+        .catch(err => {
+          context.commit('SET_ERROROBJ', err.response.data)
+        })
+        .finally(() => {
+          context.commit('SET_ISLOADING', false)
+        })
+    },
+    fetchHistory (context) {
+      const token = localStorage.getItem('token')
+
+      context.commit('SET_ISLOADING', true)
+
+      Axios({
+        method: 'GET',
+        url: 'http://localhost:3000/carts/history',
+        headers: { token }
+      })
+        .then(res => {
+          context.commit('SET_HISTORY', res.data.carts)
         })
         .catch(err => {
           context.commit('SET_ERROROBJ', err.response.data)

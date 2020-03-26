@@ -12,6 +12,9 @@
         <li class="nav-item">
           <router-link class="nav-link" to="/carts">Your Carts</router-link>
         </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/history">Payment History</router-link>
+        </li>
       </ul>
       <a class="btn btn-secondary logout-link form-inline my-2 my-lg-0 border" @click.prevent="logout" v-if="isLogin">Log out</a>
     </div>

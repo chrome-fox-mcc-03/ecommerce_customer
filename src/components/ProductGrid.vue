@@ -2,7 +2,7 @@
   <div class="col-md-3 col-sm-6">
     <div class="product-grid2">
       <product-image :imgUrl="product.imageUrl" :id="product.id"></product-image>
-      <product-content :name="product.name" :price="product.price"></product-content>
+      <product-content :name="product.name" :price="product.price" :stock="product.stock"></product-content>
     </div>
   </div>
 </template>
