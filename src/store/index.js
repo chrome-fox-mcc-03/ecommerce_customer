@@ -7,10 +7,18 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     categories: [],
+    products: [],
+    carts: [],
   },
   mutations: {
     SET_CATEGORIES(state, payload) {
-      this.state.categories = payload;
+      state.categories = payload;
+    },
+    SET_PRODUCTS(state, payload) {
+      state.products = payload;
+    },
+    SET_CARTS(state, payload) {
+      state.carts = payload;
     },
   },
   actions: {
@@ -47,6 +55,33 @@ export default new Vuex.Store({
         },
       });
     },
+    getProducts({ commit }) {
+      axios({
+        url: '/product',
+        method: 'GET',
+      })
+        .then((result) => {
+          commit('SET_PRODUCTS', result.data);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    },
+    getCarts({ commit }) {
+      axios({
+        url: '/cart',
+        method: 'GET',
+        headers: {
+          access_token: localStorage.access_token,
+        },
+      })
+        .then((result) => {
+          commit('SET_CARTS', result.data);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    },
   },
   modules: {
   },
@@ -54,7 +89,7 @@ export default new Vuex.Store({
     categoryName(state) {
       const name = [];
       state.categories.forEach((el) => {
-        name.push(el.name);
+        name.push({ name: el.name, id: el.id });
       });
       return name;
     },
