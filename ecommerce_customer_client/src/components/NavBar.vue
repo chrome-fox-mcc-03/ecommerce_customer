@@ -6,7 +6,7 @@
     <b-collapse id="nav-collapse" is-nav>
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto mr-5">
-        <b-nav-item-dropdown v-if="statusLogin" right>
+        <b-nav-item-dropdown v-if="isLogin || statusLogin" right>
           <template v-slot:button-content>
             <em class="text-white" style="font-size:1rem">{{countItemInCart}} Cart</em>
           </template>
@@ -18,10 +18,10 @@
           <template v-slot:button-content>
             <em class="text-white" style="font-size:1rem">User</em>
           </template>
-          <b-dropdown-item v-if="!statusLogin"><router-link v-b-modal.loginModal to="">Sign In</router-link></b-dropdown-item>
-          <b-dropdown-item v-if="!statusLogin"><router-link v-b-modal.registerModal to="">Register</router-link></b-dropdown-item>
-          <b-dropdown-item v-if="statusLogin"><router-link v-b-modal.profileModal to="">Profile</router-link></b-dropdown-item>
-          <b-dropdown-item v-if="statusLogin" @click.prevent="logoutUser()"><router-link to="">Sign Out</router-link></b-dropdown-item>
+          <b-dropdown-item v-if="!isLogin || statusLogin"><router-link v-b-modal.loginModal to="">Sign In</router-link></b-dropdown-item>
+          <b-dropdown-item v-if="!isLogin || statusLogin"><router-link v-b-modal.registerModal to="">Register</router-link></b-dropdown-item>
+          <b-dropdown-item v-if="isLogin || statusLogin"><router-link v-b-modal.profileModal to="">Profile</router-link></b-dropdown-item>
+          <b-dropdown-item v-if="isLogin || statusLogin" @click.prevent="logoutUser()"><router-link to="">Sign Out</router-link></b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
@@ -39,7 +39,7 @@ import CartComponent from './CartComponent.vue'
 import LoginForm from './LoginForm.vue'
 import RegisterForm from './RegisterForm.vue'
 import ProfileCard from './UserProfile.vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'NavBar',
   components: {
@@ -55,7 +55,7 @@ export default {
     }
   },
   computed: {
-    // ...mapState(['isLogin']),
+    ...mapState(['isLogin']),
     ...mapGetters(['countItemInCart'])
   },
   data () {

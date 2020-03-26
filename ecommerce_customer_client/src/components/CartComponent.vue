@@ -5,9 +5,10 @@
                 v-for="item in cart" :key="item.id"
             >
                 <div>
+                  <b-img thumbnail fluid :src="item.product.image_url" alt="Image 1" style="width:50px"></b-img>
                     <strong>{{item.product.name}}</strong>
                     <br>
-                    {{item.quantity}} x {{item.product.price | currency}}
+                    Qty : {{item.quantity}} x {{item.product.price | currency}}
                     <hr>
                 </div>
                 <div>

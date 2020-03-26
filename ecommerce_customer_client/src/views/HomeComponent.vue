@@ -16,13 +16,13 @@
                       <div style="width:100%; height:5%;" class="border border-primary pt-3 mt-3 rounded">
                           <ul>
                             <li>
-                              <a href=""><i class="fas fa-laptop"></i> Computers</a>
+                              <router-link to="" style="color: Dodgerblue;"><i class="fas fa-laptop"></i> Computers</router-link>
                             </li>
                             <li>
-                              <a href=""><i class="fas fa-tshirt"></i> Clothing</a>
+                              <router-link to="" style="color: Dodgerblue;"><i class="fas fa-tshirt"></i> Clothing</router-link>
                             </li>
                             <li>
-                              <a href=""><i class="fas fa-baseball-ball"></i> Sports</a>
+                              <router-link to="" style="color: Dodgerblue;"><i class="fas fa-baseball-ball"></i> Sports</router-link>
                             </li>
                           </ul>
                       </div>
