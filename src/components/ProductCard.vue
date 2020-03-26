@@ -42,6 +42,18 @@ const Toast = Swal.mixin({
   }
 })
 
+const Toast2 = Swal.mixin({
+  toast: true,
+  position: 'bottom-start',
+  showConfirmButton: false,
+  timer: 1,
+  timerProgressBar: true,
+  onOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
 export default {
   props: ['product'],
   data () {
@@ -106,7 +118,7 @@ export default {
       .then((result) => {
         this.setQty()
       }).catch((err) => {
-        Toast.fire({
+        Toast2.fire({
           icon: 'error',
           title: err.response.data.message
         })

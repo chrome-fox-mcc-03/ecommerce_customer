@@ -4,7 +4,8 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-const server = 'http://localhost:3000'
+// const server = 'http://localhost:3000'
+const server = 'https://felix-pharmacy.herokuapp.com'
 
 export default new Vuex.Store({
   state: {
