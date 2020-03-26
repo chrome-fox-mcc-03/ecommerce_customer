@@ -1,8 +1,8 @@
 <template>
-    <b-modal id="profileModal" :title="title" class="card">
+    <b-modal id="profileModal" :title="title" class="card d-flex flex-wrap">
     <!-- <div class="card"> -->
         <img src="https://www.w3schools.com/w3images/team2.jpg" alt="John" style="width:100%" class="shadow">
-        <h1>user@mail.com</h1>
+        <h1>{{profile.email}}</h1>
         <div style="margin: 24px 0;">
             <a href="#"><i class="fa fa-twitter"></i></a>
             <a href="#"><i class="fa fa-linkedin"></i></a>

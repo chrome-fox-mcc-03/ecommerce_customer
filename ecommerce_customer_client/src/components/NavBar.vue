@@ -9,7 +9,7 @@
           <template v-slot:button-content>
             <em class="text-white mr-2" style="font-size:1em;"><span class="badge badge-success">{{countItemInCart}}</span> <i class="fab fa-opencart fa-2x"></i> Your Cart</em>
           </template>
-          <div @click="$event.stopPropagation()">
+          <div @click="$event.stopPropagation()" class="overflow-auto" style="max-height:60vw">
             <cart-component />
           </div>
         </b-nav-item-dropdown>

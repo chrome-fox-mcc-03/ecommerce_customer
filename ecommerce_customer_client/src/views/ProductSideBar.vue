@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-row flex-wrap sizeCustom py-2 justify-content-center">
+  <div class="d-flex flex-row flex-wrap sizeCustom py-2 justify-content-center overflow-auto" style="max-height: 80vh">
       <product-card v-for="product in products.slice(products.length-4, products.length)" :key="product.id" :product="product"></product-card>
   </div>
 </template>
