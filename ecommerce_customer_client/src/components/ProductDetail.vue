@@ -3,9 +3,9 @@
     <!-- <b-modal :id="product.id" hide-header="hide-header" hide-footer="hide-footer" :title="modifiedName"> -->
         <h2 class="my-5">{{product.data.name}}
         </h2>
-        <div class="row mt-5">
+        <div class="row mt-5 justify-content-baseline">
           <div class="col-md-6">
-            <img class="img-fluid shadow thumbnail border" style="width: 25vw; margin-left: 40%" :src="product.data.image_url" alt="">
+            <img class="img-fluid shadow thumbnail border" style="width: 20vw; max-width:20vw; margin-left: 40%" :src="product.data.image_url" alt="">
           </div>
           <div class="col-md-4 d-flex shadow flex-column align-items-center border">
             <h3 class="my-3">Product Description</h3>
@@ -22,6 +22,9 @@
               <div>
                 <b-button @click.prevent="addToCart(qty)"><i class="fas fa-cart-arrow-down"></i></b-button>
               </div>
+            </div>
+            <div class="align-self-end mb-3 pr-3">
+              <router-link class="btn btn-secondary" to="/">back</router-link>
             </div>
           </div>
         </div>

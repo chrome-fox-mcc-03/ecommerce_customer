@@ -17,8 +17,8 @@ export default {
    margin-right: 0;
    margin-left: 0;
    bottom: 0;
-   width: 99vw;
-   height: 8vh;
+   width: 100%;
+   height: 5vh;
    color: white;
    display: flex;
    flex-direction: row;

@@ -43,7 +43,13 @@
           </div>
         </b-col>
       </b-row>
-      <div class="productsContainer align-self-start shadow product-list mt-5 mb-4 d-flex flex-column align-items-center justify-content-center">
+      <div class="productsContainer
+            align-self-start
+            shadow
+            product-list
+            mt-5 mb-4 pb-5 d-flex flex-column
+            align-items-center justify-content-center"
+            >
         <div>
           <h3>Our Products</h3>
           <hr>

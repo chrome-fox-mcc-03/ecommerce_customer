@@ -309,7 +309,6 @@ export default new Vuex.Store({
     },
 
     showDetail ({ dispatch, commit }, { name, productId }) {
-      console.log(productId)
       Axios({
         method: 'GET',
         url: `http://localhost:3000/product/${productId}`,

@@ -2,7 +2,6 @@
   <div class="shadow">
   <b-navbar toggleable="lg" type="dark" variant="primary">
     <b-navbar-brand class="nav-title ml-5" style="font-size: 2rem" >AlitopanExpress</b-navbar-brand>
-
     <b-collapse id="nav-collapse" is-nav>
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto mr-5" >
@@ -18,10 +17,10 @@
           <template v-slot:button-content>
             <em class="text-white mr-2" style="font-size:1em"><i class="far fa-user fa-2x"></i> User</em>
           </template>
-          <b-dropdown-item v-if="!isLogin && !statusLogin"><router-link v-b-modal.loginModal to="">Sign In</router-link></b-dropdown-item>
-          <b-dropdown-item v-if="!isLogin && !statusLogin"><router-link v-b-modal.registerModal to="">Register</router-link></b-dropdown-item>
-          <b-dropdown-item v-if="isLogin || statusLogin"><router-link v-b-modal.profileModal to="">Profile</router-link></b-dropdown-item>
-          <b-dropdown-item v-if="isLogin || statusLogin" @click.prevent="logoutUser()"><router-link to="">Sign Out</router-link></b-dropdown-item>
+          <b-dropdown-item v-if="!isLogin && !statusLogin" @click.prevent="$bvModal.show('loginModal')">Sign In</b-dropdown-item>
+          <b-dropdown-item v-if="!isLogin && !statusLogin" @click.prevent="$bvModal.show('registerModal')">Register</b-dropdown-item>
+          <b-dropdown-item v-if="isLogin || statusLogin" @click.prevent="$bvModal.show('profileModal')">Profile</b-dropdown-item>
+          <b-dropdown-item v-if="isLogin || statusLogin" @click.prevent="logoutUser()">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>

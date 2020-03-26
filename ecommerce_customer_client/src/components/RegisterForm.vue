@@ -53,7 +53,8 @@ export default {
       const { email, password } = this
       this.onRegisterUser({ email, password })
       this.$bvModal.hide('registerModal')
-      // console.log('Register', this.email, this.password)
+      this.email = ''
+      this.password = ''
     }
   }
 }
