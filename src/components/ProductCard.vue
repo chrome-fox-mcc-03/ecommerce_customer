@@ -75,7 +75,9 @@ export default {
                 this.quantity = 0
               })
               .catch(err => {
-                console.log(err)
+                this.$toasted.error(err.response.data.message, {
+                  position: 'bottom-center'
+                })
               })
               .finally(_ => {
                 this.$store.commit('SET_LOADING', false)
@@ -91,7 +93,9 @@ export default {
             this.quantity = 0
           })
           .catch(err => {
-            console.log(err)
+            this.$toasted.error(err.response.data.message, {
+              position: 'bottom-center'
+            })
           })
           .finally(_ => {
             this.$store.commit('SET_LOADING', false)

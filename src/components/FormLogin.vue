@@ -48,7 +48,9 @@ export default {
           this.$toasted.success('Welcome Customer!!')
         })
         .catch(err => {
-          console.log(err)
+          this.$toasted.error(err.response.data.message, {
+            position: 'bottom-center'
+          })
         })
         .finally(_ => {
           this.$store.commit('SET_LOADING', false)

@@ -4,6 +4,7 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 const baseUrl = 'http://localhost:3000'
+// const baseUrl = 'http://13.250.32.193'
 export default new Vuex.Store({
   state: {
     isLogin: false,
@@ -77,7 +78,9 @@ export default new Vuex.Store({
           commit('SET_PRODUCT', response.data.data)
         })
         .catch(err => {
-          console.log(err)
+          this.$toasted.error(err.response.data.message, {
+            position: 'bottom-center'
+          })
         })
         .finally(_ => {
           commit('SET_LOADING', false)
@@ -106,7 +109,9 @@ export default new Vuex.Store({
           commit('SET_CART', response.data)
         })
         .catch(err => {
-          console.log(err)
+          this.$toasted.error(err.response.data.message, {
+            position: 'bottom-center'
+          })
         })
         .finally(_ => {
           commit('SET_LOADING', false)
@@ -140,7 +145,6 @@ export default new Vuex.Store({
       })
     },
     checkout (state, data) {
-      console.log('masokkk')
       return axios({
         url: baseUrl + '/carts/checkout',
         method: 'post',
@@ -172,7 +176,9 @@ export default new Vuex.Store({
           commit('SET_HISTORY', response.data)
         })
         .catch(err => {
-          console.log(err)
+          this.$toasted.error(err.response.data.message, {
+            position: 'bottom-center'
+          })
         })
         .finally(_ => {
           commit('SET_LOADING', false)

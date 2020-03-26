@@ -33,7 +33,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('fetchCart')
+    this.fetchCart()
   },
   components: {
     ProductCartCard
@@ -82,10 +82,15 @@ export default {
               this.$router.push('/confirm')
             })
             .catch(err => {
-              console.log(err.response.data)
+              this.$toasted.error(err.response.data.message, {
+                position: 'bottom-center'
+              })
             })
         }
       })
+    },
+    fetchCart () {
+      return this.$store.dispatch('fetchCart')
     }
   }
 }
