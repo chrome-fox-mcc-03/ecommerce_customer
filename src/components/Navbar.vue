@@ -30,7 +30,9 @@
             User
           </template>
           <b-dropdown-item class="nav-link">
+            <router-link to="/checkout">
             <i class="fas fa-shopping-cart"></i> Cart
+            </router-link>
           </b-dropdown-item>
           <b-dropdown-item class="nav-link" @click="logout" v-if="access_token">
             <i class="fas fa-sign-out-alt"></i> Logout
