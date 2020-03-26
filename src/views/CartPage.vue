@@ -3,6 +3,7 @@
     <Navbar/>
     <Loader v-if="isLoading"/>
     <div class="cart-space">
+      <h2 v-if="carts.length == 0">your cart is empty, checkout our <b @click="redirToCatalog" style="cursor: pointer;">catalog</b> to shop!</h2>
       <CartCard v-for="cart in carts" :key="cart.id" :cart="cart"/>
     </div>
     <div class="checkout-space">
@@ -27,6 +28,9 @@ export default {
       this.$toasted.show('Sorry, this feature is not available at the moment', {
         duration: 4000
       })
+    },
+    redirToCatalog () {
+      this.$router.push('/catalog')
     }
   },
   components: {
