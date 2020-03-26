@@ -9,6 +9,7 @@
               <button class="btn btn-primary" id="update-cart">Update Cart</button>
               <button class="btn btn-primary" id="delete-button" @click.prevent="deleteCart(cart.id)">x</button>
             </form>
+            <h5 id="cart-product-price">Price: {{cart.productPrice}}</h5>
           <!-- </div> -->
         </div>
 
@@ -68,5 +69,12 @@ export default {
 
 #delete-button:hover {
     background-color: black;
+}
+
+#cart-product-price {
+    position: absolute;
+    top: 15vh;
+    left: 22.5vw;
+    background-color: transparent;
 }
 </style>
