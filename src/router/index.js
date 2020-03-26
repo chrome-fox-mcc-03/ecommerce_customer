@@ -4,7 +4,9 @@ import VueRouter from 'vue-router'
 import Dashboard from '../views/Dashboard.vue'
 import ProductPage from '../views/ProductPage.vue'
 import Products from '../components/Products.vue'
+import DetailProduct from '../components/DetailProduct.vue'
 import Register from '../views/Register.vue'
+import Cart from '../views/Cart.vue'
 
 Vue.use(VueRouter)
 
@@ -27,8 +29,8 @@ const routes = [
         component: Products
       },
       {
-        path: ':category',
-        component: Products,
+        path: ':id',
+        component: DetailProduct,
         props: true
       }
     ]
@@ -36,6 +38,13 @@ const routes = [
   {
     path: '/register',
     component: Register
+  },
+  {
+    path: '/cart',
+    component: Cart,
+    meta: {
+      requiresAuth: true
+    }
   }
 ]
 
@@ -43,6 +52,21 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    const token = localStorage.getItem('token')
+    if (token) {
+      next()
+    } else {
+      next({
+        path: '/register'
+      })
+    }
+  } else {
+    next()
+  }
 })
 
 export default router

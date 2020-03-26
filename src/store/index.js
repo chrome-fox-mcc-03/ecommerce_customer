@@ -13,7 +13,8 @@ export default new Vuex.Store({
     redirectLogo: '/',
     name: '',
     products: [],
-    error: ''
+    error: '',
+    carts: []
   },
   mutations: {
     CHANGE_FORM (state) {
@@ -43,6 +44,12 @@ export default new Vuex.Store({
     },
     SET_ERROR (state, error) {
       state.error = error
+    },
+    ADD_CART (state, data) {
+      state.carts.push(data)
+    },
+    SET_CART (state, data) {
+      state.carts = data
     }
   },
   actions: {
@@ -115,6 +122,87 @@ export default new Vuex.Store({
           commit('SET_PRODUCT', data)
         })
         .catch(err => commit('SET_ERROR', err))
+        .finally(_ => {
+          commit('SET_LOADING')
+        })
+    },
+    addCart ({ commit }, data) {
+      commit('SET_LOADING')
+      axios({
+        method: 'post',
+        url: 'https://agile-beyond-79709.herokuapp.com/cart',
+        headers: {
+          token: localStorage.token
+        },
+        data
+      })
+        .then(({ data }) => {
+          commit('ADD_CART', data)
+          router.push('/cart')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        .finally(_ => {
+          commit('SET_LOADING')
+        })
+    },
+    getCart ({ commit }) {
+      commit('SET_LOADING')
+      axios({
+        method: 'get',
+        url: 'https://agile-beyond-79709.herokuapp.com/cart',
+        headers: {
+          token: localStorage.token
+        }
+      })
+        .then(({ data }) => {
+          commit('SET_CART', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        .finally(_ => {
+          commit('SET_LOADING')
+        })
+    },
+    editQtt ({ commit, dispatch }, data) {
+      commit('SET_LOADING')
+      axios({
+        method: 'patch',
+        url: `https://agile-beyond-79709.herokuapp.com/cart/${data.id}`,
+        headers: {
+          token: localStorage.token
+        },
+        data: {
+          quantity: data.quantity
+        }
+      })
+        .then(_ => {
+          dispatch('getCart')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        .finally(_ => {
+          commit('SET_LOADING')
+        })
+    },
+    deleteCart ({ commit, dispatch }, id) {
+      commit('SET_LOADING')
+      axios({
+        method: 'delete',
+        url: `https://agile-beyond-79709.herokuapp.com/cart/${id}`,
+        headers: {
+          token: localStorage.token
+        }
+      })
+        .then(_ => {
+          dispatch('getCart')
+        })
+        .catch(err => {
+          console.log(err)
+        })
         .finally(_ => {
           commit('SET_LOADING')
         })
