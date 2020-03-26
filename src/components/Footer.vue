@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid footer p-3">
+    <div class="container-fluid footer p-3" id="footer">
       <div class="container">
           <div class="row mt-4">
               <div class="col-md-8">
@@ -17,12 +17,18 @@
 <script>
 export default {
   name: 'Footer'
-
 }
 </script>
 
 <style scoped>
 a {
   font-size: 20pt;
+}
+
+.container-fluid.footer > *:last-child {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 5rem;
 }
 </style>
