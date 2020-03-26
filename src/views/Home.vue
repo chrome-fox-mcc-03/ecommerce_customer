@@ -15,7 +15,7 @@
     <h1 class="cover-heading">Welcome</h1>
     <p class="lead">Congratulation you have discover our page. Click button below to browse our product.</p>
     <p class="lead">
-      <router-link to="product" class="btn btn-lg btn-secondary">Browse Product</router-link>
+      <router-link to="products" class="btn btn-lg btn-secondary">Browse Product</router-link>
     </p>
     </main>
 

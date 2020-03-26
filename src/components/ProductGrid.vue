@@ -1,8 +1,8 @@
 <template>
   <div class="col-md-3 col-sm-6">
     <div class="product-grid2">
-      <product-image></product-image>
-      <product-content></product-content>
+      <product-image :imgUrl="product.imageUrl" :id="product.id"></product-image>
+      <product-content :name="product.name" :price="product.price"></product-content>
     </div>
   </div>
 </template>
@@ -16,7 +16,8 @@ export default {
   components: {
     ProductImage,
     ProductContent
-  }
+  },
+  props: ['product']
 }
 </script>
 
@@ -38,9 +39,6 @@ export default {
 .product-grid2 .social li a:after,.product-grid2 .social li a:before{content:attr(data-tip);color:#fff;background-color:#000;font-size:12px;line-height:22px;border-radius:3px;padding:0 5px;white-space:nowrap;opacity:0;transform:translateX(-50%);position:absolute;left:50%;top:-30px}
 .product-grid2 .social li a:after{content:'';height:15px;width:15px;border-radius:0;transform:translateX(-50%) rotate(45deg);top:-22px;z-index:-1}
 .product-grid2 .social li a:hover:after,.product-grid2 .social li a:hover:before{opacity:1}
-.product-grid2 .add-to-cart{color:#fff;background-color:#404040;font-size:15px;text-align:center;width:100%;padding:10px 0;display:block;position:absolute;left:0;bottom:-100%;transition:all .3s}
-.product-grid2 .add-to-cart:hover{background-color:#3498db;text-decoration:none}
-.product-grid2:hover .add-to-cart{bottom:0}
 .product-grid2 .product-new-label{background-color:#3498db;color:#fff;font-size:17px;padding:5px 10px;position:absolute;right:0;top:0;transition:all .3s}
 .product-grid2:hover .product-new-label{opacity:0}
 .product-grid2 .product-content{padding:20px 10px;text-align:center}

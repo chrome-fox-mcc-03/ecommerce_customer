@@ -1,14 +1,23 @@
 <template>
   <div id="app">
-    <router-view/>
-    <notifications/>
+    <loading-overlay v-if="isLoading"></loading-overlay>
+    <top-navbar></top-navbar>
+    <router-view></router-view>
+    <notifications />
   </div>
 </template>
 
 <script>
+import LoadingOverlay from './components/LoadingOverlay'
+import TopNavbar from './components/TopNavbar'
 import { mapState } from 'vuex'
 
 export default {
+  name: 'App',
+  components: {
+    LoadingOverlay,
+    TopNavbar
+  },
   computed: {
     ...mapState(['errorObj', 'successObj', 'isLogin', 'isLoading'])
   },
@@ -33,9 +42,3 @@ export default {
   }
 }
 </script>
-
-<style>
-#app {
-  text-align: center;
-}
-</style>
