@@ -48,7 +48,6 @@ export default {
           this.$toasted.show(err.response.data, {
             duration: 4000
           })
-          console.log(err.response.data)
         })
         .finally(_ => {
           this.$store.commit('SET_ISLOADING', false)

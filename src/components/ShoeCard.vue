@@ -25,12 +25,11 @@ export default {
               this.$store.commit('SET_ISLOADING', true)
               this.$store.dispatch('addToCart', id)
                 .then(({ data }) => {
-                  console.log(data)
                   this.$store.dispatch('fetchCarts')
                   toastObject.goAway(0)
                 })
                 .catch(err => {
-                  console.log(err)
+                  this.$toasted.show(err.response.data)
                 })
                 .finally(_ => {
                   this.$store.commit('SET_ISLOADING', false)
@@ -47,7 +46,6 @@ export default {
       })
     },
     redirToDetail (id) {
-      console.log('detail!', id)
       this.$router.push(`/catalog/detail/${id}`)
     }
   }

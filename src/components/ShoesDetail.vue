@@ -32,22 +32,20 @@ export default {
   created () {
     this.$store.dispatch('findOneShoes', this.$route.params.id)
       .then(({ data }) => {
-        console.log(data)
         this.shoe = data
       })
       .catch(err => {
-        console.log(err.response.data)
+        this.$toasted.show(err.response.data)
       })
   },
   methods: {
     addToCartWithBody (id) {
       this.$store.dispatch('addToCartWithBody', { id, product_qty: this.qtyInput })
         .then(({ data }) => {
-          console.log(data)
           this.$store.dispatch('fetchCarts')
         })
         .catch(err => {
-          console.log(err.response.data)
+          this.$toasted.show(err.response.data)
         })
     }
   }

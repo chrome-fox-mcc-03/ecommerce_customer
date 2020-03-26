@@ -48,7 +48,6 @@ export default {
             duration: 4000
           })
           this.$router.push('/catalog')
-          console.log(data)
         })
         .catch(err => {
           for (let i = 0; i < err.response.data.message.length; i++) {
@@ -56,7 +55,6 @@ export default {
               duration: 4000
             })
           }
-          console.log(err.response.data.message)
         })
         .finally(_ => {
           this.$store.commit('SET_ISLOADING', false)

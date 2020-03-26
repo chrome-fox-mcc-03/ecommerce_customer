@@ -34,13 +34,12 @@ export default {
       this.$store.commit('SET_ISLOADING', true)
       this.$store.dispatch('increase', cartId)
         .then(({ data }) => {
-          console.log(data)
           this.$router.push('/cart')
           this.$store.dispatch('fetchCarts')
           this.$store.commit('ADD_TOTAL', this.subtotal)
         })
         .catch(err => {
-          console.log(err.response.data)
+          this.$toasted.show(err.response.data)
         })
         .finally(_ => {
           this.$store.commit('SET_ISLOADING', false)
@@ -50,13 +49,12 @@ export default {
       this.$store.commit('SET_ISLOADING', true)
       this.$store.dispatch('decrease', cartId)
         .then(({ data }) => {
-          console.log(data)
           this.$router.push('/cart')
           this.$store.dispatch('fetchCarts')
           this.$store.commit('SUBSTRACT_TOTAL', this.subtotal)
         })
         .catch(err => {
-          console.log(err.response.data)
+          this.$toasted.show(err.response.data)
         })
         .finally(_ => {
           this.$store.commit('SET_ISLOADING', false)
@@ -71,14 +69,13 @@ export default {
               this.$store.commit('SET_ISLOADING', true)
               this.$store.dispatch('deleteCart', cartId)
                 .then(({ data }) => {
-                  console.log(data)
                   this.$router.push('/cart')
                   this.$store.dispatch('fetchCarts')
                   this.$store.commit('SUBSTRACT_TOTAL', this.subtotal)
                   toastObject.goAway(0)
                 })
                 .catch(err => {
-                  console.log(err.response.data)
+                  this.$toasted.show(err.response.data)
                 })
                 .finally(_ => {
                   this.$store.commit('SET_ISLOADING', false)
