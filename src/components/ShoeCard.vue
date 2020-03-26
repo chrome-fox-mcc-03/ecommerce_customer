@@ -22,6 +22,7 @@ export default {
           {
             text: 'Yes',
             onClick: (e, toastObject) => {
+              this.$store.commit('SET_ISLOADING', true)
               this.$store.dispatch('addToCart', id)
                 .then(({ data }) => {
                   console.log(data)
@@ -29,7 +30,10 @@ export default {
                   toastObject.goAway(0)
                 })
                 .catch(err => {
-                  console.log(err.response.data)
+                  console.log(err)
+                })
+                .finally(_ => {
+                  this.$store.commit('SET_ISLOADING', false)
                 })
             }
           },

@@ -4,12 +4,14 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 const url = 'http://localhost:3000'
+// const url = 'https://polar-badlands-09758.herokuapp.com'
 
 export default new Vuex.Store({
   state: {
     products: [],
     carts: [],
-    total: 0
+    total: 0,
+    isLoading: false
   },
   mutations: {
     SET_PRODUCTS (state, payload) {
@@ -26,6 +28,9 @@ export default new Vuex.Store({
     },
     SUBSTRACT_TOTAL (state, payload) {
       state.total -= payload
+    },
+    SET_ISLOADING (state, payload) {
+      state.isLoading = payload
     }
   },
   actions: {
@@ -51,6 +56,7 @@ export default new Vuex.Store({
       })
     },
     fetchProducts (context, payload) {
+      context.commit('SET_ISLOADING', true)
       axios({
         method: 'get',
         url: `${url}/products`,
@@ -65,8 +71,12 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err)
         })
+        .finally(_ => {
+          context.commit('SET_ISLOADING', false)
+        })
     },
     fetchCarts (context, payload) {
+      context.commit('SET_ISLOADING', true)
       axios({
         method: 'get',
         url: `${url}/carts`,
@@ -80,6 +90,9 @@ export default new Vuex.Store({
         })
         .catch(err => {
           console.log(err)
+        })
+        .finally(_ => {
+          context.commit('SET_ISLOADING', false)
         })
     },
     addToCart (context, id) {

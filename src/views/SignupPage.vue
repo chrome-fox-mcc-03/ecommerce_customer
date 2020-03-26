@@ -1,5 +1,6 @@
 <template>
   <div class="big-space">
+    <Loader v-if="isLoading"/>
     <div class="overlaytron" style="background-color: rgba(46, 71, 86, 0.5)">
       <div class="for-form">
         <form @submit.prevent="signup">
@@ -27,6 +28,7 @@
 </template>
 
 <script>
+import Loader from '../components/Loader.vue'
 export default {
   name: 'SignupPage',
   data () {
@@ -38,6 +40,7 @@ export default {
   },
   methods: {
     signup () {
+      this.$store.commit('SET_ISLOADING', true)
       this.$store.dispatch('signup', { name: this.name, email: this.email, password: this.password })
         .then(({ data }) => {
           localStorage.setItem('token', data.token)
@@ -50,9 +53,20 @@ export default {
         .catch(err => {
           console.log(err.response.data)
         })
+        .finally(_ => {
+          this.$store.commit('SET_ISLOADING', false)
+        })
     },
     redirToLandingPage () {
       this.$router.push('/')
+    }
+  },
+  components: {
+    Loader
+  },
+  computed: {
+    isLoading: function () {
+      return this.$store.state.isLoading
     }
   }
 }

@@ -1,5 +1,6 @@
 <template>
   <div class="big-space">
+    <Loader v-if="isLoading"/>
     <div class="overlaytron" style="background-color: rgba(0, 128, 128, 0.5)">
       <div class="for-form">
         <form @submit.prevent="signin">
@@ -23,6 +24,7 @@
 </template>
 
 <script>
+import Loader from '../components/Loader.vue'
 export default {
   name: 'SigninPage',
   data () {
@@ -33,6 +35,7 @@ export default {
   },
   methods: {
     signin () {
+      this.$store.commit('SET_ISLOADING', true)
       this.$store.dispatch('signin', { email: this.email, password: this.password })
         .then(({ data }) => {
           localStorage.setItem('token', data.token)
@@ -42,11 +45,25 @@ export default {
           })
         })
         .catch(err => {
+          this.$toasted.show(err.response.data, {
+            duration: 4000
+          })
           console.log(err.response.data)
+        })
+        .finally(_ => {
+          this.$store.commit('SET_ISLOADING', false)
         })
     },
     redirToLandingPage () {
       this.$router.push('/')
+    }
+  },
+  components: {
+    Loader
+  },
+  computed: {
+    isLoading: function () {
+      return this.$store.state.isLoading
     }
   }
 }

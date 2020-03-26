@@ -1,5 +1,6 @@
 <template>
   <div class="catalog-page">
+    <Loader v-if="isLoading"/>
     <Navbar/>
     <div class="ads">
       <h1>New Arrival</h1>
@@ -13,14 +14,21 @@
 <script>
 import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
+import Loader from '../components/Loader.vue'
 export default {
   name: 'CatalogPage',
   components: {
     Navbar,
-    Footer
+    Footer,
+    Loader
   },
   created () {
     this.$store.dispatch('fetchProducts')
+  },
+  computed: {
+    isLoading: function () {
+      return this.$store.state.isLoading
+    }
   }
 }
 </script>
