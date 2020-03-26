@@ -8,6 +8,9 @@ const routes = [
   {
     path: '/',
     name: 'Home',
+    meta: {
+      requiresAuth: true
+    },
     component: Home
   },
   {
@@ -18,17 +21,23 @@ const routes = [
   {
     path: '/register',
     name: 'RegisterPanel',
+    meta: {
+      requiresAuth: true
+    },
     component: () => import('../components/RegisterPanel')
   },
   {
     path: '/cart',
     name: 'Cart',
     component: () => import('../views/Cart'),
+    meta: {
+      requiresAuth: true
+    },
     children: [
       {
-        path: 'delete',
-        name: 'DeleteCart',
-        component: () => import('../components/DeleteCart')
+        path: 'checkout/:id',
+        name: 'CheckoutCart',
+        component: () => import('../components/CheckoutCart')
       }
     ]
   }
@@ -39,5 +48,30 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+// router.beforeEach((to, from, next) => {
+//   if (to.matched.some(record => record.meta.loginPage)) {
+//     if (localStorage.access_token) {
+//       next({
+//         path: '/'
+//       })
+//     }
+//   }
+//   if (to.matched.some(record => record.meta.requiresAuth)) {
+//     if (localStorage.access_token && to.path === '/login') {
+//       next({
+//         name: 'AdminPanel'
+//       })
+//     } else if (localStorage.access_token && to.path !== '/login') {
+//       next()
+//     } else {
+//       next({
+//         path: '/login'
+//       })
+//     }
+//   } else {
+//     next()
+//   }
+// }
 
 export default router

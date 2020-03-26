@@ -4,18 +4,41 @@
         <div class="card-body">
             <h2 class="card-title" style="text-align: left;">{{product.name}}</h2>
             <p class="card-text h4" style="font-family: 'Baloo 2', cursive; color: grey;">{{formatMoney(product.price)}}</p>
-            <button class="btn btn-link h3" style="text-decoration:none; text-align: right; color: black;">Add To Cart</button >
+            <button @click="add(product.id)" class="btn btn-link h3" style="text-decoration:none; text-align: right; color: black;">Add To Cart</button >
         </div>
     </div>
 </template>
 
 <script>
+import axiosCostumer from '../config/index'
+
 export default {
   name: 'ProductCard',
   methods: {
     formatMoney (amount) {
       const price = 'Rp ' + parseFloat(amount).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1.')
       return price
+    },
+    add (id) {
+      axiosCostumer({
+        method: 'post',
+        url: '/cart',
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          ProductId: id
+        }
+      })
+        .then(({ data }) => {
+          this.$vToastify.success('Success add to your shopping cart!')
+          this.$store.dispatch('fetchProducts')
+        })
+        .catch(({ response }) => {
+          const { data } = response
+          const { error } = data
+          this.$vToastify.error(error)
+        })
     }
   },
   props: {

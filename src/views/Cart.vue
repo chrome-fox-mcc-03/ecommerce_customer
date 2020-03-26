@@ -5,7 +5,8 @@
         <div class="m-3">
             <h2 class=" font-weight-bold">Shopping Cart</h2>
         </div>
-        <div class="container m-3" style="font-family: 'Lora', serif;">
+        <div class=" row m-3" style="font-family: 'Lora', serif;">
+          <div class="col-8">
             <table class="table table-borderless m-3">
                 <thead class="h4 font-weight-bold">
                     <tr>
@@ -24,6 +25,10 @@
                   <CartItem :item="item"/>
                 </tbody>
             </table>
+          </div>
+          <div class="col-4">
+            <router-view/>
+          </div>
         </div>
         <!-- Button trigger modal -->
       </div>
@@ -47,6 +52,11 @@ export default {
   },
   created () {
     this.$store.dispatch('fetchCart')
+  },
+  watch: {
+    cart (val) {
+      console.log(val)
+    }
   }
 }
 </script>
