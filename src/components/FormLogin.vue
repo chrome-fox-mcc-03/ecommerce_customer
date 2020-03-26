@@ -14,14 +14,6 @@
           </button>
         </form>
         <div>
-          <h6 style="text-align: center; color: #f6bd60;">OR</h6>
-          <div align="center">
-            <g-signin-button :params="googleSignInParams" @success="onSignInSuccess" @error="onSignInError">
-              Sign in with Google
-            </g-signin-button>
-          </div>
-        </div>
-        <div>
           <h5 style="text-align: center; color: #4e2f12; margin-top: 20px;">Dont Have Account? <a
               @click="toRegister" style="cursor: pointer; color: blue;">Sign Up</a></h5>
         </div>
@@ -36,10 +28,7 @@ export default {
   data () {
     return {
       email: '',
-      password: '',
-      googleSignInParams: {
-        client_id: '56825579600-oc79mls26sjkih9otiq417baug75u2oh.apps.googleusercontent.com'
-      }
+      password: ''
     }
   },
   methods: {
@@ -67,13 +56,6 @@ export default {
     },
     toRegister () {
       this.$router.push('/register')
-    },
-    onSignInSuccess (googleUser) {
-      const idToken = googleUser.getAuthResponse().id_token
-      this.$emit('onSignInSuccess', idToken)
-    },
-    onSignInError (error) {
-      console.log('OH NOES', error)
     }
   }
 }
@@ -171,13 +153,4 @@ export default {
   padding-bottom: 20px;
 }
 
-.g-signin-button {
-  cursor: pointer;
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 3px;
-  background-color: #3c82f7;
-  color: #fff;
-  box-shadow: 0 3px 0 #0f69ff;
-}
 </style>

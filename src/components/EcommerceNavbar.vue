@@ -8,13 +8,11 @@
             <router-link class="nav-link mr-5" to="/">Home</router-link>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-        </form>
       </div>
       <div class="row justify-content-end pr-5">
         <div class="nav-item mr-5">
+          <div v-if="cartsCount === 0" class="numberCircle ml-4" style="margin-top: -5px; color: red">{{cartsCount}}</div>
+          <div v-else class="numberCircle ml-4" style="margin-top: -5px; color: green">{{cartsCount}}</div>
           <router-link to="/cart"><i class="fas fa-cart-plus mt-1" style="color: white; font-size: 30px"></i></router-link>
         </div>
         <div>
@@ -36,6 +34,11 @@
 <script>
 export default {
   name: 'EcommerceNavbar',
+  data () {
+    return {
+      search: ''
+    }
+  },
   methods: {
     logout () {
       localStorage.clear()
@@ -51,12 +54,22 @@ export default {
     },
     getName () {
       return this.email.substr(0, this.email.indexOf('@'))
+    },
+    cartsCount () {
+      return this.$store.state.carts.length
     }
+  },
+  created () {
+    this.$store.dispatch('fetchCart')
   }
 }
 
 </script>
 
-<style>
-
+<style scoped>
+.numberCircle {
+  position: fixed;
+  font: 18px Arial, sans-serif;
+  font-weight: bold;
+}
 </style>

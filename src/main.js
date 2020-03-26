@@ -6,10 +6,9 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Toasted from 'vue-toasted'
 
-import GSignInButton from 'vue-google-signin-button'
 Vue.config.productionTip = false
+
 Vue.use(require('vue-moment'))
-Vue.use(GSignInButton)
 Vue.use(Toasted, {
   router,
   duration: 3000,
