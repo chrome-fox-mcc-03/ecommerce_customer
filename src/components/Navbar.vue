@@ -8,27 +8,27 @@
         <b-navbar-nav>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
-          <router-link class="nav-item" to="/register">
+          <router-link v-if="!$store.getters.userLogin" class="nav-item" to="/register">
             <b-button class="mx-1" variant="info" size="sm">
               Register
             </b-button>
           </router-link>
-          <router-link class="nav-item" to="/login">
+          <router-link v-if="!$store.getters.userLogin" class="nav-item" to="/login">
             <b-button class="mx-1" variant="outline-info" size="sm">
               Login
             </b-button>
           </router-link>
-          <router-link class="nav-item" to="/shop">
+          <router-link v-if="$store.getters.userLogin" class="nav-item" to="/shop">
             <b-button class="mx-1" variant="outline-info" size="sm">
               Shop
             </b-button>
           </router-link>
-          <router-link class="nav-item" to="/cart">
+          <router-link v-if="$store.getters.userLogin" class="nav-item" to="/cart">
             <b-button class="mx-1" variant="outline-info" size="sm">
               Cart <i class="fas fa-shopping-cart"></i>
             </b-button>
           </router-link>
-          <b-dropdown text="User" class="mx-1" variant="outline-info" size="sm" right>
+          <b-dropdown v-if="$store.getters.userLogin" text="User" class="mx-1" variant="outline-info" size="sm" right>
             <b-dropdown-item @click="toProfile">Profile</b-dropdown-item>
             <b-dropdown-item @click="toLogout">Logout</b-dropdown-item>
           </b-dropdown>
@@ -62,11 +62,10 @@ export default {
   },
   methods: {
     toProfile () {
-      console.log('profile')
       this.$router.push({ name: 'Profile' })
     },
     toLogout () {
-      console.log('logout')
+      this.$store.commit('userLogout')
     }
   }
 }

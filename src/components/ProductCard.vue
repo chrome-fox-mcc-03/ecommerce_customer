@@ -56,8 +56,6 @@ export default {
   },
   methods: {
     submitToCart (id) {
-      console.log(id)
-      console.log(this.item.id, this.amount, this.item.stock)
       const payload = {
         itemId: this.item.id,
         itemName: this.item.name,
@@ -72,7 +70,6 @@ export default {
     })
   },
   created () {
-    // console.log(this.idx)
     this.customerCart.forEach(cartItem => {
       if (cartItem.itemId === this.item.id) {
         this.onCart = cartItem.quantity

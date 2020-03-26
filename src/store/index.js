@@ -10,7 +10,8 @@ export default new Vuex.Store({
   state: {
     vuex: 'Vue available',
     appName: 'ecommercecustomerclient',
-    serverUrl: 'http://localhost:3000',
+    // serverUrl: 'http://localhost:3000',
+    serverUrl: 'https://tranquil-lowlands-54278.herokuapp.com',
     pageLoading: false,
     userLogin: false,
     pageNum: 1,
@@ -118,8 +119,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    register ({ state, commit }, payload) {
-      // console.log(payload)
+    register ({ state, commit, dispatch }, payload) {
       commit('startLoading')
       axios({
         url: `${state.serverUrl}/customer/register`,
@@ -127,19 +127,16 @@ export default new Vuex.Store({
         data: payload
       })
         .then(result => {
-          // console.log(result.data)
           commit('userLogin', result.data.user)
         })
         .catch(err => {
-          // console.log(err.response.data.errors)
-          commit('showError', err.response.data.errors[0])
+          dispatch('notifError', err.response.data.errors[0])
         })
         .finally(_ => {
           commit('stopLoading')
         })
     },
-    login ({ state, commit }, payload) {
-      // console.log(payload)
+    login ({ state, commit, dispatch }, payload) {
       commit('startLoading')
       axios({
         url: `${state.serverUrl}/customer/login`,
@@ -147,12 +144,10 @@ export default new Vuex.Store({
         data: payload
       })
         .then(result => {
-          // console.log(result.data)
           commit('userLogin', result.data.user)
         })
         .catch(err => {
-          // console.log(err.response)
-          commit('showError', err.response.data.error)
+          dispatch('notifError', err.response.data.error)
         })
         .finally(_ => {
           commit('stopLoading')
@@ -182,10 +177,6 @@ export default new Vuex.Store({
     },
     appendItemToCart ({ state, commit, dispatch }, payload) {
       const { itemId, itemName, amount } = payload
-      // append amount of itemId
-      // add to CartProduct, axios
-      // if success update product locally
-      // if fail, fetch product, showError, update product locally
       const body = {
         itemId,
         amount
@@ -214,7 +205,6 @@ export default new Vuex.Store({
         })
     },
     fetchCart ({ state, commit, dispatch }) {
-      console.log('fetch cart')
       commit('startLoading')
       axios({
         url: `${state.serverUrl}/customer/cart`,
@@ -236,7 +226,6 @@ export default new Vuex.Store({
     deleteCartItem ({ state, commit, dispatch }, payload) {
       const { cartItemId } = payload
       let msg = ''
-      console.log(cartItemId, 'will be deleted')
       commit('startLoading')
       axios({
         url: `${state.serverUrl}/customer/cart/${cartItemId}`,
@@ -285,7 +274,24 @@ export default new Vuex.Store({
         })
     },
     clearCart ({ state, commit, dispatch }) {
-      commit('clearCart')
+      commit('startLoading')
+      axios({
+        url: `${state.serverUrl}/customer/cart/all`,
+        method: 'DELETE',
+        headers: {
+          token: state.cred.token
+        }
+      })
+        .then(result => {
+          dispatch('notifSuccess', result.data.message)
+          commit('clearCart')
+        })
+        .catch(err => {
+          dispatch('notifError', err.response.data.error)
+        })
+        .finally(_ => {
+          commit('stopLoading')
+        })
     },
     checkoutCart ({ state, commit, dispatch }) {
       commit('checkoutCart')
@@ -318,6 +324,11 @@ export default new Vuex.Store({
         pauseOnHover: false,
         position: SnotifyPosition.rightTop
       })
+    }
+  },
+  getters: {
+    userLogin: state => {
+      return state.userLogin
     }
   }
 })

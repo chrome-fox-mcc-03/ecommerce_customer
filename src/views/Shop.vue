@@ -36,7 +36,6 @@ export default {
   created () {
     this.fetchProduct()
     this.fetchCart()
-    // console.log(this.$store.state.products)
   },
   components: {
     BCardGroup,

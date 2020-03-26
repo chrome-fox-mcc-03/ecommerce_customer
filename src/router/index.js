@@ -6,6 +6,8 @@ import Login from '../views/Login.vue'
 import Profile from '../views/Profile.vue'
 import Shop from '../views/Shop.vue'
 import Cart from '../views/Cart.vue'
+import store from '../store'
+import axios from 'axios'
 
 Vue.use(VueRouter)
 
@@ -65,7 +67,74 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   document.title = 'Belanja'
-  next()
+  store.commit('startLoading')
+  const storage = JSON.parse(localStorage.getItem(store.state.appName))
+  let token = ''
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (store.getters.userLogin) {
+      next()
+      store.commit('stopLoading')
+    } else {
+      if (storage) {
+        token = storage.token
+        axios({
+          url: `${store.state.serverUrl}/customer/token`,
+          method: 'GET',
+          headers: {
+            token
+          }
+        })
+          .then(result => {
+            store.commit('userLogin', result.data.user)
+            next()
+          })
+          .catch(_ => {
+            next({ path: '/login' })
+            localStorage.removeItem(store.state.appName)
+          })
+          .finally(_ => {
+            store.commit('stopLoading')
+          })
+        // axios cek token
+      } else {
+        next({ path: '/login' })
+        store.commit('stopLoading')
+      }
+    }
+  } else if (to.matched.some(record => record.meta.requiresAnon)) {
+    if (store.getters.userLogin) {
+      next({ path: '/profile' })
+      store.commit('stopLoading')
+    } else {
+      if (storage) {
+        token = storage.token
+        axios({
+          url: `${store.state.serverUrl}/customer/token`,
+          method: 'GET',
+          headers: {
+            token
+          }
+        })
+          .then(result => {
+            next({ path: '/profile' })
+            store.commit('userLogin', result.data.user)
+          })
+          .catch(_ => {
+            next()
+            localStorage.removeItem(store.state.appName)
+          })
+          .finally(_ => {
+            store.commit('stopLoading')
+          })
+      } else {
+        next()
+        store.commit('stopLoading')
+      }
+    }
+  } else {
+    next()
+    store.commit('stopLoading')
+  }
 })
 
 export default router

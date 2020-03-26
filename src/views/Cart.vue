@@ -99,10 +99,10 @@ export default {
       this.deleteCartItem({ cartItemId: id })
     },
     clearCart () {
-      console.log('clear')
+      this.$store.dispatch('clearCart')
     },
     checkoutCart () {
-      console.log('checkout')
+      // console.log('checkout not implemented yet')
     },
     ...mapActions({
       fetchCart: 'fetchCart',
@@ -121,7 +121,6 @@ export default {
   },
   created () {
     this.fetchCart()
-    console.log(this.$store.state.customerCart)
   }
 }
 </script>

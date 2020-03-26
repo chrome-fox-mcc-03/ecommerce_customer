@@ -13,6 +13,9 @@ export default {
   components: {
   },
   methods: {
+  },
+  created () {
+    this.$router.push({ path: '/profile' })
   }
 }
 </script>

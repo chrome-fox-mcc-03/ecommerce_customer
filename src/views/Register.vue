@@ -2,7 +2,7 @@
   <div class="bg-light pt-4">
     <div class="row">
       <div class="col-8">
-        /register placeholder dolor sit amet
+        <b-img fluid src="landing.svg"></b-img>
       </div>
       <div class="col-4">
         <b-overlay :show="$store.state.pageLoading" rounded="sm">
@@ -55,7 +55,8 @@ import {
   BFormInput,
   BButton,
   BOverlay,
-  BAlert
+  BAlert,
+  BImg
 } from 'bootstrap-vue'
 import { mapActions, mapState } from 'vuex'
 export default {
@@ -73,7 +74,8 @@ export default {
     BFormInput,
     BButton,
     BOverlay,
-    BAlert
+    BAlert,
+    BImg
   },
   methods: {
     submit () {
