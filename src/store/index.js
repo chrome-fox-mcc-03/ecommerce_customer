@@ -3,8 +3,8 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 Vue.use(Vuex)
-const url = 'http://localhost:3000'
-// const url = 'https://polar-badlands-09758.herokuapp.com'
+// const url = 'http://localhost:3000'
+const url = 'https://polar-badlands-09758.herokuapp.com'
 
 export default new Vuex.Store({
   state: {

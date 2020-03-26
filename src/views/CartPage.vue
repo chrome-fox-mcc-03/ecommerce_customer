@@ -1,6 +1,7 @@
 <template>
   <div class="cart-page">
     <Navbar/>
+    <Loader v-if="isLoading"/>
     <div class="cart-space">
       <CartCard v-for="cart in carts" :key="cart.id" :cart="cart"/>
     </div>
@@ -18,6 +19,7 @@
 <script>
 import Navbar from '../components/Navbar.vue'
 import CartCard from '../components/CartCard.vue'
+import Loader from '../components/Loader'
 export default {
   name: 'CartPage',
   methods: {
@@ -29,7 +31,8 @@ export default {
   },
   components: {
     Navbar,
-    CartCard
+    CartCard,
+    Loader
   },
   created () {
     this.$store.dispatch('fetchCarts')
@@ -44,6 +47,9 @@ export default {
         totalPrice += +this.carts[i].product_qty * +this.carts[i].Product.price
       }
       return totalPrice
+    },
+    isLoading () {
+      return this.$store.state.isLoading
     }
   }
 }

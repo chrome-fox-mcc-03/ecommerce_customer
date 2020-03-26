@@ -31,6 +31,7 @@ export default {
   props: ['cart'],
   methods: {
     increase (cartId) {
+      this.$store.commit('SET_ISLOADING', true)
       this.$store.dispatch('increase', cartId)
         .then(({ data }) => {
           console.log(data)
@@ -41,8 +42,12 @@ export default {
         .catch(err => {
           console.log(err.response.data)
         })
+        .finally(_ => {
+          this.$store.commit('SET_ISLOADING', false)
+        })
     },
     decrease (cartId) {
+      this.$store.commit('SET_ISLOADING', true)
       this.$store.dispatch('decrease', cartId)
         .then(({ data }) => {
           console.log(data)
@@ -53,6 +58,9 @@ export default {
         .catch(err => {
           console.log(err.response.data)
         })
+        .finally(_ => {
+          this.$store.commit('SET_ISLOADING', false)
+        })
     },
     deleteCart (cartId) {
       this.$toasted.show(`Are you sure you want to remove ${this.cart.Product.name} from your cart?`, {
@@ -60,6 +68,7 @@ export default {
           {
             text: 'Yes',
             onClick: (e, toastObject) => {
+              this.$store.commit('SET_ISLOADING', true)
               this.$store.dispatch('deleteCart', cartId)
                 .then(({ data }) => {
                   console.log(data)
@@ -70,6 +79,9 @@ export default {
                 })
                 .catch(err => {
                   console.log(err.response.data)
+                })
+                .finally(_ => {
+                  this.$store.commit('SET_ISLOADING', false)
                 })
             }
           },
