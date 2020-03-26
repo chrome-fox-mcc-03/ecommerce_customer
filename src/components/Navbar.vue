@@ -65,7 +65,7 @@ export default {
       this.$router.push({ name: 'Profile' })
     },
     toLogout () {
-      this.$store.commit('userLogout')
+      this.$store.dispatch('logout')
     }
   }
 }

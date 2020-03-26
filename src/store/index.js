@@ -46,8 +46,6 @@ export default new Vuex.Store({
       state.cred.name = payload.name
       state.cred.avaurl = payload.avaurl
       state.userLogin = true
-      localStorage.setItem(state.appName, JSON.stringify({ token: state.cred.token }))
-      router.push({ name: 'Profile' })
     },
     userLogout (state, payload) {
       state.cred.id = 0
@@ -56,7 +54,6 @@ export default new Vuex.Store({
       state.cred.name = ''
       state.cred.avaurl = ''
       state.userLogin = false
-      localStorage.removeItem(state.appName)
       router.push({ name: 'Login' })
     },
     showError (state, message) {
@@ -128,6 +125,9 @@ export default new Vuex.Store({
       })
         .then(result => {
           commit('userLogin', result.data.user)
+          localStorage.setItem(state.appName, JSON.stringify({ token: state.cred.token }))
+          router.push({ name: 'Profile' })
+          dispatch('notifSuccess', 'Welcome!')
         })
         .catch(err => {
           dispatch('notifError', err.response.data.errors[0])
@@ -145,6 +145,9 @@ export default new Vuex.Store({
       })
         .then(result => {
           commit('userLogin', result.data.user)
+          localStorage.setItem(state.appName, JSON.stringify({ token: state.cred.token }))
+          router.push({ name: 'Profile' })
+          dispatch('notifSuccess', 'Welcome!')
         })
         .catch(err => {
           dispatch('notifError', err.response.data.error)
@@ -152,6 +155,12 @@ export default new Vuex.Store({
         .finally(_ => {
           commit('stopLoading')
         })
+    },
+    logout ({ state, commit, dispatch }) {
+      commit('userLogout')
+      localStorage.removeItem(state.appName)
+      router.push({ name: 'Login' })
+      dispatch('notifSuccess', 'Logout success')
     },
     fetchFromShop ({ state, commit }) {
       commit('startLoading')

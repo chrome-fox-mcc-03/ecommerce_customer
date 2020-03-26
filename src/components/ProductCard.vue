@@ -13,9 +13,6 @@
       Stock: {{ item.stock }}
     </b-card-text>
     <b-card-text>
-      Seller: {{ item.seller }}
-    </b-card-text>
-    <b-card-text>
       On Cart: {{ onCart }}
     </b-card-text>
     <b-card-body>

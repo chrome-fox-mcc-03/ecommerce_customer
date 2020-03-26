@@ -71,8 +71,8 @@ import { mapActions } from 'vuex'
 export default {
   data () {
     return {
-      fields: ['id', 'image', 'name', 'quantity', 'price', 'total_price', 'actions'],
-      toggleQty: true
+      fields: ['image', 'name', 'quantity', 'price', 'total_price', 'actions'],
+      toggleQty: false
     }
   },
   methods: {
@@ -95,7 +95,6 @@ export default {
       }
     },
     attemptDelete (id) {
-      // console.log('delete cart', id)
       this.deleteCartItem({ cartItemId: id })
     },
     clearCart () {
