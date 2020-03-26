@@ -13,6 +13,12 @@
               <h5 class="card-title">{{ item.Product.name }}</h5>
               <p class="card-text">Amount: {{ item.quantity }}</p>
               <p class="card-text">Price: Rp {{ price(item.quantity, item.Product.price) }}</p>
+              <div class="d-flex flex-row justify-content-lg-around">
+                <a @click="deleteCartProduct(item.id)">Delete</a>
+                <a @click="getUpdateCartProduct(item.id)" data-toggle="modal" data-target="#updateCartProduct">
+                  Update
+                </a>
+              </div>
               <p class="card-text"><small class="text-muted">Last updated {{ minutes(item.updatedAt) }} ago</small></p>
             </div>
           </div>
@@ -22,14 +28,19 @@
     <div id="container-checkout">
       <h3>Summary</h3>
       <p>Total Price {{ totalPrice() }}</p>
-      <button class="btn btn-primary">Checkout</button>
+      <button v-if="!cartProduct[0].Cart.isPaid" @click="updateCartStatus" class="btn btn-primary">Checkout</button>
     </div>
   </div>
+  <update-cart-product/>
 </div>
 </template>
 
 <script>
+import UpdateCartProduct from './../components/UpdateCartProduct.vue'
 export default {
+  components: {
+    UpdateCartProduct
+  },
   computed: {
     cartProduct () {
       return this.$store.state.cartProduct
@@ -66,6 +77,38 @@ export default {
         totalPrice += price
       })
       return totalPrice
+    },
+    deleteCartProduct (id) {
+      let cartId
+      this.$store.dispatch('deleteCartProduct', id)
+        .then(result => {
+          cartId = result.data.CartId
+          return this.$store.dispatch('cartDetail', cartId)
+        })
+        .then(result => {
+          const allCartProducts = result.data
+          const cartProducts = allCartProducts.filter(el => {
+            return el.CartId === cartId
+          })
+          this.$store.commit('SET_CARTPRODUCT', cartProducts)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    getUpdateCartProduct (id) {
+      this.$store.dispatch('getUpdateCartProduct', id)
+    },
+    updateCartStatus () {
+      const id = this.cartProduct[0].CartId
+      console.log(id)
+      this.$store.dispatch('editCartStatus', id)
+        .then(result => {
+          this.$router.push({ name: 'Cart' })
+        })
+        .catch(err => {
+          console.log(err.response.data)
+        })
     }
   }
 }

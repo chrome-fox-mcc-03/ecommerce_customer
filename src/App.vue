@@ -4,14 +4,19 @@
       <navbar/>
     </div>
     <router-view id="main"/>
+    <div id="footer">
+      <Footer/>
+    </div>
   </div>
 </template>
 
 <script>
-import Navbar from './components/Navbar'
+import Navbar from './components/Navbar.vue'
+import Footer from './components/Footer.vue'
 export default {
   components: {
-    Navbar
+    Navbar,
+    Footer
   },
   mounted () {
     const token = localStorage.getItem('token')
@@ -29,22 +34,33 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
 }
 
 #nav {
-  height: 10vh
+  height: 10vh;
+  padding: 0px;
+  margin: 0px;
+}
+
+#footer {
+  height: 10vh;
+  padding: 0px;
+  margin: 0px;
 }
 
 #main {
-  height: 90vh
+  height: 80vh
 }
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #faf4f4;
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #ffa41b;
 }
 </style>

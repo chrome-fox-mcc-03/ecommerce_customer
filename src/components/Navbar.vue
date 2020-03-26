@@ -1,5 +1,5 @@
 <template>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -15,13 +15,13 @@
       <li class="nav-item">
         <router-link to="/carts" class="nav-link" >Cart</router-link>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" >Profile</a>
-      </li>
-      <li class="nav-item">
+      </li> -->
+      <li v-if="!isLogin" class="nav-item">
         <router-link class="nav-link" to="/login">Login</router-link>
       </li>
-      <li class="nav-item">
+      <li v-else class="nav-item">
         <a class="nav-link" @click="logout">Logout</a>
       </li>
     </ul>
@@ -37,10 +37,19 @@ export default {
       this.$store.commit('SET_ISLOGIN', false)
       this.$router.push({ name: 'Home' })
     }
+  },
+  computed: {
+    isLogin () {
+      return this.$store.state.isLogin
+    }
   }
 }
 </script>
 
 <style>
-
+#navbar {
+  background-color: #005082 !important;
+  height: 100%;
+  widht: 100%;
+}
 </style>

@@ -8,11 +8,13 @@ export default new Vuex.Store({
   state: {
     isLogin: false,
     products: [],
+    filteredProducts: [],
     productDetail: {},
     productBuy: {},
     cart: {},
     carts: [],
-    cartProduct: []
+    cartProduct: [],
+    cartProductUpdate: {}
   },
   mutations: {
     SET_ISLOGIN (state, value) {
@@ -20,6 +22,9 @@ export default new Vuex.Store({
     },
     SET_PRODUCTS (state, value) {
       state.products = value
+    },
+    SET_FILTEREDPRODUCTS (state, value) {
+      state.filteredProducts = value
     },
     SET_PRODUCTDETAIL (state, value) {
       state.productDetail = value
@@ -35,6 +40,9 @@ export default new Vuex.Store({
     },
     SET_CARTPRODUCT (state, value) {
       state.cartProduct = value
+    },
+    SET_CARTPRODUCTUPDATE (state, value) {
+      state.cartProductUpdate = value
     }
   },
   actions: {
@@ -59,6 +67,7 @@ export default new Vuex.Store({
       })
         .then(result => {
           context.commit('SET_PRODUCTS', result.data)
+          context.commit('SET_FILTEREDPRODUCTS', result.data)
           console.log(result.data)
         })
         .catch(err => {
@@ -123,9 +132,13 @@ export default new Vuex.Store({
           }
         })
         .then(result => {
-          const newCart = result.data
-          console.log(result.data)
-          context.commit('SET_CART', newCart)
+          console.log('>>>><<<<<<')
+          console.log(result)
+          console.log('>>>><<<<<<')
+          if (result) {
+            const newCart = result.data
+            context.commit('SET_CART', newCart)
+          }
         })
         .catch(err => {
           console.log(err)
@@ -177,12 +190,70 @@ export default new Vuex.Store({
     },
     cartDetail (context, payload) {
       const token = localStorage.getItem('token')
-      // const cartId = payload
       return axios({
         method: 'GET',
         url: 'http://localhost:3000/cartproducts',
         headers: {
           token
+        }
+      })
+    },
+    deleteCartProduct (context, payload) {
+      const id = payload
+      const token = localStorage.getItem('token')
+      return axios({
+        method: 'DELETE',
+        url: `http://localhost:3000/cartproducts/${id}`,
+        headers: {
+          token
+        }
+      })
+    },
+    getUpdateCartProduct (context, payload) {
+      const id = payload
+      const token = localStorage.getItem('token')
+      axios({
+        method: 'GET',
+        url: `http://localhost:3000/cartproducts/${id}`,
+        headers: {
+          token
+        }
+      })
+        .then(result => {
+          console.log(result.data)
+          context.commit('SET_CARTPRODUCTUPDATE', result.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    updateCartProduct (context, payload) {
+      const id = payload.id
+      const token = localStorage.getItem('token')
+      const quantity = payload.quantity
+      return axios({
+        method: 'PATCH',
+        url: `http://localhost:3000/cartproducts/${id}`,
+        headers: {
+          token
+        },
+        data: {
+          quantity
+        }
+      })
+    },
+    editCartStatus (context, payload) {
+      const id = payload
+      const status = true
+      const token = localStorage.getItem('token')
+      return axios({
+        method: 'PATCH',
+        url: `http://localhost:3000/carts/${id}`,
+        headers: {
+          token
+        },
+        data: {
+          isPaid: status
         }
       })
     }

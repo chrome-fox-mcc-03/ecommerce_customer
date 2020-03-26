@@ -50,5 +50,7 @@ export default {
 </script>
 
 <style>
-
+.modal-header {
+  background-color: #000839;
+}
 </style>

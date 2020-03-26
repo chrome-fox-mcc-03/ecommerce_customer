@@ -5,8 +5,10 @@
       <h5 class="card-title">Cart ID: {{cart.id}} </h5>
       <p class="card-text">Last Updated: {{cartDate(cart.updatedAt)}}</p>
       <p>Status: {{ status(cart.isPaid) }} </p>
-      <a @click="cartDetail(cart.id)" class="btn btn-primary">Details</a>
-      <a @click="deleteCart(cart.id)">Delete Cart</a>
+      <div class="d-flex flex-row justify-content-lg-around align-items-center">
+        <a @click="cartDetail(cart.id)" class="btn btn-primary">Details</a>
+        <a @click="deleteCart(cart.id)">Delete</a>
+      </div>
     </div>
   </div>
 </div>
@@ -46,17 +48,21 @@ export default {
     },
     cartDetail (id) {
       const cartId = id
-      this.$store.dispatch('cartDetail', cartId)
+      this.$store.dispatch('cartDetail')
         .then(result => {
           const allCartProducts = result.data
           const cartProducts = allCartProducts.filter(el => {
             return el.CartId === cartId
           })
-          this.$store.commit('SET_CARTPRODUCT', cartProducts)
+          if (cartProducts.length > 0) {
+            this.$store.commit('SET_CARTPRODUCT', cartProducts)
+          } else {
+            this.$store.commit('SET_CARTPRODUCT', [])
+          }
           this.$router.push({ name: 'CartDetail', params: { id: cartId } })
         })
         .catch(err => {
-          console.log(err)
+          console.log(err.response.data)
         })
     }
   }
