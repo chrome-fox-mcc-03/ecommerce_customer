@@ -12,7 +12,8 @@ export default new Vuex.Store({
     isLogin: false,
     product: {},
     products: [],
-    cart: []
+    cart: [],
+    reviews: []
   },
   mutations: {
     SET_ISLOADING (state, payload) {
@@ -29,6 +30,9 @@ export default new Vuex.Store({
     },
     SET_PRODUCT (state, payload) {
       state.product = payload
+    },
+    SET_REVIEWS (state, payload) {
+      state.reviews = payload
     },
     SET_CART (state, payload) {
       state.cart = payload
@@ -271,6 +275,7 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
+          dispatch('fetchReviews', id)
           commit('SET_PRODUCT', data.data)
         })
         .catch(({ response }) => {
@@ -316,6 +321,58 @@ export default new Vuex.Store({
         })
         .finally((_) => {
           commit('SET_ISLOADINGCHECKOUT', false)
+        })
+    },
+    fetchReviews ({ commit }, payload) {
+      commit('SET_ISLOADING', true)
+      const id = payload
+      axios({
+        method: 'get',
+        url: `https://still-plains-85177.herokuapp.com/reviews/${id}`,
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+        .then(({ data }) => {
+          commit('SET_REVIEWS', data.data)
+        })
+        .catch(({ response }) => {
+          response.data.errors.forEach((el) => {
+            Vue.notify({
+              group: 'foo',
+              type: 'error',
+              title: el
+            })
+          })
+        })
+        .finally((_) => {
+          commit('SET_ISLOADING', false)
+        })
+    },
+    submitReview ({ commit, dispatch }, payload) {
+      commit('SET_ISLOADING', true)
+      axios({
+        method: 'post',
+        url: 'https://still-plains-85177.herokuapp.com/reviews',
+        headers: {
+          token: localStorage.getItem('token')
+        },
+        data: payload
+      })
+        .then(({ data }) => {
+          dispatch('fetchReviews', payload.ProductId)
+        })
+        .catch(({ response }) => {
+          response.data.errors.forEach((el) => {
+            Vue.notify({
+              group: 'foo',
+              type: 'error',
+              title: el
+            })
+          })
+        })
+        .finally((_) => {
+          commit('SET_ISLOADING', false)
         })
     }
   },

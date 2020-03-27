@@ -29,6 +29,8 @@
 * Sequelize transaction is used for Checkout
 * Category column has been added into Products table
 * User can filter by category in the Products section
+* Reviews table has been added to database
+* User can read and create review inside detail product
 
 ## More Additional Features from Awesome-Vue:
 * vue-currency-filter ( CMS & Customer )
