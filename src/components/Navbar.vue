@@ -29,8 +29,8 @@
             <i class="fas fa-user-alt"></i>
             User
           </template>
-          <b-dropdown-item class="nav-link">
-            <router-link to="/checkout">
+          <b-dropdown-item>
+            <router-link to="/checkout" class="nav-link">
             <i class="fas fa-shopping-cart"></i> Cart
             </router-link>
           </b-dropdown-item>
@@ -54,14 +54,30 @@ export default {
   name: 'Navbar',
   data() {
     return {
-      access_token: localStorage.getItem('access_token'),
+      access_token: '',
     };
   },
   methods: {
     logout() {
       localStorage.clear();
+      this.getAccessToken();
+      this.$notify({
+        group: 'foo',
+        title: 'Success',
+        text: 'Logged Out',
+        type: 'success',
+      });
       this.$router.push('/');
     },
+    getAccessToken() {
+      this.access_token = localStorage.access_token;
+    },
+  },
+  updated() {
+    this.access_token = localStorage.access_token;
+  },
+  created() {
+    this.access_token = localStorage.access_token;
   },
 };
 </script>

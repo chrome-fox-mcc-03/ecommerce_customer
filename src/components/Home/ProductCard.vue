@@ -3,7 +3,7 @@
       :title="product.name"
       :img-src="product.image_url"
       img-alt="Image"
-      img-height="220"
+      img-height="200"
       img-top
       tag="article"
       style="width: 16rem; height: 26rem;"
@@ -11,7 +11,8 @@
       align="left"
     >
       <b-card-text style="font-size: 75%">
-        {{ product.description }}
+        {{ product.description }}<br>
+        stock: {{ product.stock }}
       </b-card-text>
 
       <b-card-text class="price">
@@ -24,7 +25,7 @@
           Add
         </b-button>
 
-        <input type="number" v-model="quantity"
+        <input type="number" :max="product.stock" v-model="quantity"
           style="width: 20%; margin-left: 10%">
       </div>
   </b-card>
@@ -49,6 +50,12 @@ export default {
       });
     },
     addToCart(productId) {
+      const loader = this.$loading.show({
+        // Optional parameters
+        container: null,
+        canCancel: true,
+        onCancel: this.onCancel,
+      });
       axios({
         method: 'POST',
         url: '/cart',
@@ -60,11 +67,23 @@ export default {
           quantity: this.quantity,
         },
       })
-        .then((result) => {
-          console.log(result.data);
+        .then(() => {
+          loader.hide();
+          this.$notify({
+            group: 'foo',
+            title: 'Success',
+            text: 'Item added',
+            type: 'success',
+          });
         })
         .catch((err) => {
-          console.log(err.response);
+          loader.hide();
+          this.$notify({
+            group: 'foo',
+            title: 'Error',
+            text: err.response.data.errors[0],
+            type: 'error',
+          });
         });
     },
   },

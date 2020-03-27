@@ -9,6 +9,8 @@ export default new Vuex.Store({
     categories: [],
     products: [],
     carts: [],
+    history: [],
+    access_token: '',
   },
   mutations: {
     SET_CATEGORIES(state, payload) {
@@ -20,18 +22,34 @@ export default new Vuex.Store({
     SET_CARTS(state, payload) {
       state.carts = payload;
     },
+    SET_ACCESS_TOKEN(state, payload) {
+      state.access_token = payload;
+    },
   },
   actions: {
     getCategories({ commit }) {
+      const loader = Vue.prototype.$loading.show({
+        // Optional parameters
+        container: null,
+        canCancel: true,
+        onCancel: this.onCancel,
+      });
       axios({
         url: '/category',
         method: 'GET',
       })
         .then((result) => {
+          loader.hide();
           commit('SET_CATEGORIES', result.data);
         })
         .catch((err) => {
-          console.log(err.response);
+          loader.hide();
+          Vue.prototype.$notify({
+            group: 'foo',
+            title: 'Error',
+            text: err.response.data.errors[0],
+            type: 'error',
+          });
         });
     },
     login(context, userData) {
@@ -56,18 +74,37 @@ export default new Vuex.Store({
       });
     },
     getProducts({ commit }) {
+      const loader = Vue.prototype.$loading.show({
+        // Optional parameters
+        container: null,
+        canCancel: true,
+        onCancel: this.onCancel,
+      });
       axios({
         url: '/product',
         method: 'GET',
       })
         .then((result) => {
+          loader.hide();
           commit('SET_PRODUCTS', result.data);
         })
         .catch((err) => {
-          console.log(err.response);
+          loader.hide();
+          Vue.prototype.$notify({
+            group: 'foo',
+            title: 'Error',
+            text: err.response.data.errors[0],
+            type: 'error',
+          });
         });
     },
     getCarts({ commit }) {
+      const loader = Vue.prototype.$loading.show({
+        // Optional parameters
+        container: null,
+        canCancel: true,
+        onCancel: this.onCancel,
+      });
       axios({
         url: '/cart',
         method: 'GET',
@@ -76,11 +113,24 @@ export default new Vuex.Store({
         },
       })
         .then((result) => {
+          loader.hide();
           commit('SET_CARTS', result.data);
         })
         .catch((err) => {
-          console.log(err.response);
+          Vue.prototype.$notify({
+            group: 'foo',
+            title: 'Error',
+            text: err.response.data.errors[0],
+            type: 'error',
+          });
+          loader.hide();
         });
+    },
+    getAllProducts() {
+      return axios({
+        method: 'GET',
+        url: '/product',
+      });
     },
   },
   modules: {
@@ -92,6 +142,17 @@ export default new Vuex.Store({
         name.push({ name: el.name, id: el.id });
       });
       return name;
+    },
+    orderList(state) {
+      return state.carts.filter((cart) => cart.status === false)[0];
+    },
+    orderHistory(state) {
+      const orders = [];
+      state.carts.forEach((el) => {
+        if (el.status) {
+          orders.push(el);
+        }
+      });
     },
   },
 });

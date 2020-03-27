@@ -34,11 +34,23 @@ export default {
     login() {
       this.$store.dispatch('login', this.userData)
         .then((result) => {
+          this.$notify({
+            group: 'foo',
+            title: 'Success',
+            text: 'Logged In',
+            type: 'success',
+          });
           localStorage.setItem('access_token', result.data.access_token);
+          this.$store.commit('SET_ACCESS_TOKEN', result.data.access_token);
           this.$router.push('/');
         })
         .catch((err) => {
-          console.log(err.response);
+          this.$notify({
+            group: 'foo',
+            title: 'Error',
+            text: err.response.data.errors[0],
+            type: 'error',
+          });
         });
     },
   },

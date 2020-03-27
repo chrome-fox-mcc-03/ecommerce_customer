@@ -31,6 +31,9 @@ const routes = [
     path: '/checkout',
     name: 'Checkout',
     component: () => import('../views/Checkout.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
 ];
 
@@ -49,7 +52,7 @@ router.beforeEach((to, from, next) => {
       next();
     } else {
       next({
-        path: '/login',
+        path: '/user/login',
       });
     }
   } else {

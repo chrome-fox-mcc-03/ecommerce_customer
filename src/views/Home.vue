@@ -43,6 +43,28 @@ export default {
         this.products = this.allProducts;
       }
     },
+    showAll() {
+      const loader = this.$loading.show({
+        // Optional parameters
+        container: null,
+        canCancel: true,
+        onCancel: this.onCancel,
+      });
+      this.$store.dispatch('getAllProducts')
+        .then((result) => {
+          loader.hide();
+          this.products = result.data;
+        })
+        .catch((err) => {
+          loader.hide();
+          this.$notify({
+            group: 'foo',
+            title: 'Error',
+            text: err.response.data.errors[0],
+            type: 'error',
+          });
+        });
+    },
   },
   computed: {
     categoryName() {
@@ -55,6 +77,7 @@ export default {
   created() {
     this.$store.dispatch('getCategories');
     this.$store.dispatch('getProducts');
+    this.showAll();
   },
 };
 </script>

@@ -13,10 +13,6 @@
         <label for="password">Password</label>
         <input class="form-control" v-model="userData.password" type="password" id="password" />
       </div>
-      <div class="form-group text-left">
-        <label for="password">Confirm Password</label>
-        <input class="form-control" type="password" id="password" />
-      </div>
         <button class="btn btn-primary btn-block mt-4" type="submit">Register</button>
       <router-link class="mt-4 nav-link" to="/user/login">
         <p> Already have an account? </p>
@@ -40,10 +36,21 @@ export default {
     register() {
       this.$store.dispatch('register', this.userData)
         .then(() => {
+          this.$notify({
+            group: 'foo',
+            title: 'Success',
+            text: 'Register success, please login now',
+            type: 'success',
+          });
           this.$router.push('/user/login');
         })
         .catch((err) => {
-          console.log(err.response.data);
+          this.$notify({
+            group: 'foo',
+            title: 'Error',
+            text: err.response.data.errors[0],
+            type: 'error',
+          });
         });
     },
   },
