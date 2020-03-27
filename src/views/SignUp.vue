@@ -43,21 +43,28 @@
         </div>
       </div>
     </div>
+    <loading :active.sync="isLoading" :can-cancel="false" :is-full-page="fullPage"></loading>
   </section>
 </template>
 
 <script>
+import Loading from 'vue-loading-overlay'
 export default {
   name: 'SignUp',
   data () {
     return {
+      isLoading: false,
       name: '',
       email: '',
       password: ''
     }
   },
+  components: {
+    Loading
+  },
   methods: {
     submitSignUp () {
+      this.isLoading = true
       const data = {
         name: this.name,
         email: this.email,
@@ -65,9 +72,11 @@ export default {
       }
       this.$store.dispatch('submitSignUp', data)
         .then(result => {
+          this.isLoading = false
           this.$router.push(result)
         })
         .catch(_ => {
+          this.isLoading = false
         })
     }
   }

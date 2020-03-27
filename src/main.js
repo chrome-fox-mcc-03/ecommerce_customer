@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 Vue.use(Buefy)
 

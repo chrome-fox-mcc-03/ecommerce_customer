@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 const ecommerceAPI = axios.create({
-  baseURL: 'http://localhost:3000'
-  // baseURL: 'https://pacific-harbor-70520.herokuapp.com'
+  // baseURL: 'http://localhost:3000'
+  baseURL: 'https://pacific-harbor-70520.herokuapp.com'
 })
 Vue.use(Vuex)
 
