@@ -52,9 +52,25 @@ export default {
       this.$store.dispatch('changeQuantity', data)
         .then(_ => {
           this.isLoading = false
+          const status = {
+            title: 'Success change quantity!',
+            body: 'Successfully change quantity.',
+            type: 'success',
+            canTimeout: true,
+            duration: 2000
+          }
+          this.$vToastify.success(status)
         })
-        .catch(_ => {
+        .catch(err => {
           this.isLoading = false
+          const status = {
+            title: 'Error change quantity.',
+            body: err.response.data.errors[0],
+            type: 'error',
+            canTimeout: true,
+            duration: 2000
+          }
+          this.$vToastify.error(status)
         })
     },
     minQuantity () {
@@ -68,9 +84,25 @@ export default {
       this.$store.dispatch('changeQuantity', data)
         .then(_ => {
           this.isLoading = false
+          const status = {
+            title: 'Success change quantity!',
+            body: 'Successfully change quantity.',
+            type: 'success',
+            canTimeout: true,
+            duration: 2000
+          }
+          this.$vToastify.success(status)
         })
-        .catch(_ => {
+        .catch(err => {
           this.isLoading = false
+          const status = {
+            title: 'Error change quantity.',
+            body: err.response.data.errors[0],
+            type: 'error',
+            canTimeout: true,
+            duration: 2000
+          }
+          this.$vToastify.error(status)
         })
     },
     deleteItem () {
@@ -78,9 +110,25 @@ export default {
       this.$store.dispatch('deleteCartItem', this.item.id)
         .then(_ => {
           this.isLoading = false
+          const status = {
+            title: 'Success delete item!',
+            body: 'Successfully delete item.',
+            type: 'success',
+            canTimeout: true,
+            duration: 2000
+          }
+          this.$vToastify.success(status)
         })
-        .catch(_ => {
+        .catch(err => {
           this.isLoading = false
+          const status = {
+            title: 'Error delete cart item.',
+            body: err.response.data.errors[0],
+            type: 'error',
+            canTimeout: true,
+            duration: 2000
+          }
+          this.$vToastify.error(status)
         })
     }
   }

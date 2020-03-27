@@ -67,8 +67,16 @@ export default {
           this.isLoading = false
           this.$router.push(result)
         })
-        .catch(_ => {
+        .catch(err => {
           this.isLoading = false
+          const status = {
+            title: 'Login error!',
+            body: err.response.data.error,
+            type: 'error',
+            canTimeout: true,
+            duration: 2000
+          }
+          this.$vToastify.error(status)
         })
     }
   }

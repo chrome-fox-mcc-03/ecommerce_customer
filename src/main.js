@@ -5,6 +5,8 @@ import store from './store'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import 'vue-loading-overlay/dist/vue-loading.css'
+import VueToastify from 'vue-toastify'
+Vue.use(VueToastify)
 
 Vue.use(Buefy)
 
