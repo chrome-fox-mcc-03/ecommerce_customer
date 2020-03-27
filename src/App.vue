@@ -62,7 +62,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   position: relative;
-  min-height: 100vh;
+  min-height: 150vh;
 }
 
 #nav {

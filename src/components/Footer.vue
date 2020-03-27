@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid footer p-3" id="footer">
+    <div class="container-fluid footer p-3">
       <div class="container">
           <div class="row mt-4">
               <div class="col-md-8">
@@ -28,7 +28,7 @@ a {
 .container-fluid.footer > *:last-child {
   position: absolute;
   bottom: 0;
-  width: 100%;
+  width: 90%;
   height: 5rem;
 }
 </style>
