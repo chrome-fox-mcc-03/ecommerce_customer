@@ -28,7 +28,7 @@
                                 </div>
                             </div>
                             <div class="field">
-                                <button class="button is-primary" type="submit">
+                                <button class="button is-danger" type="submit">
                                     Login
                                 </button>
                             </div>
@@ -59,8 +59,7 @@ export default {
         .then(result => {
           this.$router.push(result)
         })
-        .catch(err => {
-          console.log(err)
+        .catch(_ => {
         })
     }
   }

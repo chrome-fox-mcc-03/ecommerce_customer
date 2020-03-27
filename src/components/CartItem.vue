@@ -14,7 +14,9 @@
         <button class="button is-outlined is-danger" @click="plusQuantity">+</button>
       </div>
       <div class="column">
-          <button class="button is-danger" @click="deleteItem">Delete</button>
+          <button class="button is-danger is-outlined" @click="deleteItem">
+                    <i class="fas fa-trash-alt"></i>
+          </button>
       </div>
     </div>
   </div>

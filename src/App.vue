@@ -8,7 +8,8 @@
       </template>
       <template slot="start">
         <router-link tag="b-navbar-item" to="/">Home</router-link>
-        <router-link tag="b-navbar-item" v-if="isLogin" to="/cart">Cart</router-link>
+        <router-link tag="b-navbar-item" v-if="isLogin" to="/cart"><i class="fas fa-shopping-cart"></i>
+        </router-link>
       </template>
 
       <template slot="end">
@@ -18,7 +19,7 @@
               <strong>Sign up</strong>
             </router-link>
             <router-link v-if="!isLogin" tag="a" class="button is-light" to="/login">Log in</router-link>
-            <button v-if="isLogin" class="button is-light" @click="logout">Logout</button>
+            <button v-if="isLogin" class="button is-danger" @click="logout">Logout</button>
           </div>
         </b-navbar-item>
       </template>

@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 const ecommerceAPI = axios.create({
   baseURL: 'http://localhost:3000'
+  // baseURL: 'https://pacific-harbor-70520.herokuapp.com'
 })
 Vue.use(Vuex)
 
@@ -55,7 +56,6 @@ export default new Vuex.Store({
             resolve('/')
           })
           .catch(err => {
-            console.log(err)
             reject(err)
           })
       })
@@ -68,7 +68,6 @@ export default new Vuex.Store({
             resolve('/')
           })
           .catch(err => {
-            console.log(err)
             reject(err)
           })
       })
@@ -78,22 +77,18 @@ export default new Vuex.Store({
         .then(({ data }) => {
           commit('SET_PRODUCTS', data.products)
         })
-        .catch(err => {
-          console.log(err)
+        .catch(_ => {
         })
     },
     getProduct ({ commit }, id) {
       ecommerceAPI.get(`/products/${id}`)
         .then(({ data }) => {
-          console.log(data.product)
           commit('SET_PRODUCT', data.product)
         })
-        .catch(err => {
-          console.log(err)
+        .catch(_ => {
         })
     },
     addToCart ({ commit, state }, id) {
-      console.log(state.cartitems)
       if (state.cartitems.some(item => item.Product.id === id)) {
         const filter = state.cartitems.filter(item => {
           return item.Product.id === id
@@ -112,8 +107,7 @@ export default new Vuex.Store({
           .then(({ data }) => {
             commit('UPDATE_CART_ITEM', data.cartitem)
           })
-          .catch(err => {
-            console.log(err)
+          .catch(_ => {
           })
       } else {
         const data = {
@@ -128,8 +122,7 @@ export default new Vuex.Store({
           .then(({ data }) => {
             commit('ADD_TO_CART', data.cartitem)
           })
-          .catch(err => {
-            console.log(err)
+          .catch(_ => {
           })
       }
     },
@@ -142,8 +135,7 @@ export default new Vuex.Store({
         .then(({ data }) => {
           commit('SET_CART', data.cartitems)
         })
-        .catch(err => {
-          console.log(err)
+        .catch(_ => {
         })
     },
     changeQuantity ({ commit, state }, data) {
@@ -155,8 +147,7 @@ export default new Vuex.Store({
         .then(({ data }) => {
           commit('UPDATE_CART_ITEM', data.cartitem)
         })
-        .catch(err => {
-          console.log(err)
+        .catch(_ => {
         })
     },
     deleteCartItem ({ commit, state }, id) {
@@ -168,8 +159,7 @@ export default new Vuex.Store({
         .then(_ => {
           commit('DELETE_CART_ITEM', id)
         })
-        .catch(err => {
-          console.log(err)
+        .catch(_ => {
         })
     },
     checkout ({ commit, state }) {
@@ -181,8 +171,7 @@ export default new Vuex.Store({
         .then(_ => {
           commit('CHECKOUT')
         })
-        .catch(err => {
-          console.log(err)
+        .catch(_ => {
         })
     }
   },

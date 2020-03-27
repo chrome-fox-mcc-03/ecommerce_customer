@@ -16,16 +16,15 @@
         <div class="content">
           <div class="buttons">
             <button
-              class="button is-danger"
+              class="button is-danger is-outlined"
               @click="details(product.id)"
             >
               Show
             </button>
             <button
-              class="button is-danger"
+              class="button is-danger is-outlined"
               @click="addToCart(product.id)"
-            >
-              Add to Cart
+            ><i class="fas fa-shopping-cart"></i>
             </button>
           </div>
         </div>

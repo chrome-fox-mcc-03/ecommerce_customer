@@ -36,7 +36,7 @@
                 </div>
               </div>
               <div class="field">
-                <button class="button is-primary" type="submit">Sign Up</button>
+                <button class="button is-danger" type="submit">Sign Up</button>
               </div>
             </form>
           </div>
@@ -67,8 +67,7 @@ export default {
         .then(result => {
           this.$router.push(result)
         })
-        .catch(err => {
-          console.log(err)
+        .catch(_ => {
         })
     }
   }
