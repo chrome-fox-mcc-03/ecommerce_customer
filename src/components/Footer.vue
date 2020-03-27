@@ -29,6 +29,6 @@ a {
   position: absolute;
   bottom: 0;
   width: 90%;
-  height: 5rem;
+  height: 2.5rem
 }
 </style>

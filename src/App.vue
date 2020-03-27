@@ -54,7 +54,6 @@ export default {
 </script>
 
 <style>
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -62,7 +61,14 @@ export default {
   text-align: center;
   color: #2c3e50;
   position: relative;
-  min-height: 150vh;
+  min-height:95vh;
+}
+
+@media only screen and (max-device-width: 480px) {
+/* styles for mobile browsers smaller than 480px; (iPhone) */
+   #app {
+    min-height:110vh;
+  }
 }
 
 #nav {

@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <div class="justify-content-center row">
+    <div class="row justify-content-center">
         <div class="card">
-          <article class="card-body">
-            <h4 class="card-title text-center mb-4 mt-1">{{ action }}</h4>
+          <article class="card-body bg-dark">
+            <h4 class="card-title text-center mb-4 mt-1 text-light">{{ action }}</h4>
             <hr>
               <form @submit.prevent="submitForm">
                 <div class="form-group">
@@ -28,7 +28,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <button type="submit" class="btn btn-primary btn-block" :value="action"> {{ action }} </button>
+                  <button type="submit" class="btn btn-outline-secondary active btn-block" :value="action"> {{ action }} </button>
                 </div>
               </form>
           </article>
@@ -94,10 +94,18 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
 
 .card {
   height: 300px;
-  width: 350px;
+  width: 330px;
 }
 
 </style>

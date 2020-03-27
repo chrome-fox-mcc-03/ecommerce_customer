@@ -1,30 +1,27 @@
 <template>
-  <nav class="navbar navbar-expand-lg" role="navigation">
-    <div class="container">
-      <div class="collapse navbar-collapse" id="exCollapsingNavbar">
-        <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
-          <li class="dropdown order-1">
-            <button type="button" class="btn b-nav">
-              <router-link to="/" class="nav-link buten">
-                Home
-              </router-link>
-            </button>
-            <button type="button" class="btn b-nav" v-if="!isLogin" @click="login">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav mx-auto">
+            <a type="button" class="nav-item nav-link" @click="home">
+              Home
+            </a>
+            <a type="button" class="nav-item nav-link" v-if="!isLogin" @click="login">
               Login
-            </button>
-             <button type="button" class="btn b-nav" v-if="isLogin" @click="history">
+            </a>
+             <a type="button" class="nav-item nav-link" v-if="isLogin" @click="history">
               Transaction
-            </button>
-            <button type="button" class="btn b-nav" v-if="!isLogin" @click="register">
+            </a>
+            <a type="button" class="nav-item nav-link" v-if="!isLogin" @click="register">
               Register
-            </button>
-            <button type="button" class="btn b-log" @click.prevent="logout" v-if="isLogin">
+            </a>
+            <a type="button" class="nav-item nav-link" @click.prevent="logout" v-if="isLogin">
               Logout
-            </button>
-          </li>
-        </ul>
-      </div>
-    </div>
+            </a>
+          </div>
+       </div>
   </nav>
 </template>
 
@@ -50,6 +47,10 @@ export default {
     },
     history () {
       this.$router.push('history')
+      this.SHOW_ERROR('')
+    },
+    home () {
+      this.$router.push('/')
       this.SHOW_ERROR('')
     }
   },
