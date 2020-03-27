@@ -3,6 +3,7 @@
     <Navbar></Navbar>
     <div v-if="!isLoading" class="dashboard">
       <h2>MY SHOPPING CART</h2>
+      <b-button @click.prevent="bulkCheckout()" variant="danger">BULK CHECKOUT</b-button>
       <div class="row">
         <CartCard
          v-for="cart in carts"
@@ -26,6 +27,32 @@ export default {
     Navbar,
     CartCard,
     Loading
+  },
+  methods: {
+
+    bulkCheckout () {
+      console.log("LET'S CHECKOUT ALL CARTS, EN MASSE")
+
+      this.$store.dispatch('checkoutEnMasse')
+        .then(_ => {
+          // this.$store.commit('SET_IS_PAID', true)
+          this.$router.push('/txnlog')
+          this.$store.dispatch('getCarts')
+        })
+        .catch(err => {
+          console.log('ERROR CATCHED:')
+          // console.log('ERR RESPONSE IS')
+          const errArr = err.response.data.errors
+          console.log(err.response.data.errors)
+          errArr.forEach(el => {
+            this.$toasted.error(el)
+          })
+        })
+        .finally(_ => {
+          this.$store.commit('SET_LOADING', false)
+        })
+    }
+
   },
   created () {
     this.$store.dispatch('getCarts')

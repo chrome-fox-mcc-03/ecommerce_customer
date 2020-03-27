@@ -28,8 +28,8 @@ export default new Vuex.Store({
     token: '',
     isLogin: false,
     isLoading: false,
-    total: 0,
-    is_paid: false
+    total: 0
+    // is_paid: false
   },
   mutations: {
     SET_CARTS (state, payload) {
@@ -78,10 +78,11 @@ export default new Vuex.Store({
     },
     SET_LOADING (state, payload) {
       state.isLoading = payload
-    },
-    SET_IS_PAID (state, payload) {
-      state.is_paid = payload
     }
+    // ,
+    // SET_IS_PAID (state, payload) {
+    //   state.is_paid = payload
+    // }
   },
   actions: {
     login (context, payload) {
@@ -218,36 +219,48 @@ export default new Vuex.Store({
       })
     },
 
-    reduceQty (context, cartId) {
+    reduceQty (context, payload) {
       return axios({
         method: 'patch',
-        url: `${URL}/carts/remove/${cartId}`,
+        url: `${URL}/carts/remove/${payload}`,
         headers: {
           token: localStorage.getItem('token')
         }
       })
     },
 
-    deleteCart (context, cartId) {
+    deleteCart (context, payload) {
       return axios({
         method: 'delete',
-        url: `${URL}/carts/${cartId}`,
+        url: `${URL}/carts/${payload}`,
         headers: {
           token: localStorage.getItem('token')
         }
       })
     },
 
-    checkout (context, cartId) {
+    checkout (context, payload) {
       console.log('CHECKING OUT')
       return axios({
         method: 'patch',
-        url: `${URL}/carts/checkout/${cartId}`,
+        url: `${URL}/carts/checkout/${payload}`,
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+    },
+
+    checkoutEnMasse (context, payload) {
+      console.log('FINAL SETP BEFORE SENDING TO SERVER: CHECKOUT EN MASSE')
+      return axios({
+        method: 'patch',
+        url: `${URL}/carts/bulkcheckout`,
         headers: {
           token: localStorage.getItem('token')
         }
       })
     }
+
   },
   modules: {}
 })

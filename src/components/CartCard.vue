@@ -13,8 +13,8 @@
         <h5 v-if="cart.checked_out">PAID: {{ cart.updatedAt }} </h5>
       </b-card-text>
       <div class="option-btns" v-if="!cart.checked_out">
-        <b-icon @click.prevent="addQty(cart.id)" icon="chevron-up" variant="info"></b-icon>
-        <b-icon @click.prevent="reduceQty(cart.id)" icon="chevron-down" variant="info"></b-icon>
+        <b-icon font-scale="2" @click.prevent="addQty(cart.id)" icon="chevron-up" variant="info"></b-icon>
+        <b-icon font-scale="2" @click.prevent="reduceQty(cart.id)" icon="chevron-down" variant="info"></b-icon>
         <b-button @click.prevent="checkout(cart.id)" variant="success">CHECKOUT</b-button>
         <b-button @click.prevent="deleteCart(cart.id)" variant="danger">DELETE CART</b-button>
       </div>
@@ -115,7 +115,7 @@ export default {
       console.log('CHECKOUT CART')
       this.$store.dispatch('checkout', id)
         .then(_ => {
-          this.$store.commit('SET_IS_PAID', true)
+          // this.$store.commit('SET_IS_PAID', true)
           this.$router.push('/txnlog')
           this.$store.dispatch('getCarts')
         })

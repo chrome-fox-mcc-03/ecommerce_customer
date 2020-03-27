@@ -16,7 +16,7 @@
       <h6> {{ product.category }} </h6>
       <h6> IDR {{ product.price }} </h6>
     </b-card-text>
-    <b-icon  class="btn" @click.prevent="add2Cart(product.id)" icon="plus-circle-fill" variant="primary"></b-icon>
+    <b-icon font-scale="5" class="btn" @click.prevent="add2Cart(product.id)" icon="plus-circle-fill" variant="primary"></b-icon>
   </b-card>
 </div>
 </template>
