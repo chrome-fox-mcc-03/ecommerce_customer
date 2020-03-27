@@ -19,10 +19,12 @@
           </button>
       </div>
     </div>
+    <loading :active.sync="isLoading" :can-cancel="false" :is-full-page="fullPage"></loading>
   </div>
 </template>
 
 <script>
+import Loading from 'vue-loading-overlay'
 export default {
   name: 'Card',
   props: ['item'],
@@ -31,8 +33,12 @@ export default {
   },
   data () {
     return {
-      quantity: 0
+      quantity: 0,
+      isLoading: false
     }
+  },
+  components: {
+    Loading
   },
   methods: {
     plusQuantity () {
@@ -42,7 +48,14 @@ export default {
         ProductId: this.item.Product.id,
         id: this.item.id
       }
+      this.isLoading = true
       this.$store.dispatch('changeQuantity', data)
+        .then(_ => {
+          this.isLoading = false
+        })
+        .catch(_ => {
+          this.isLoading = false
+        })
     },
     minQuantity () {
       this.quantity -= 1
@@ -51,10 +64,24 @@ export default {
         ProductId: this.item.Product.id,
         id: this.item.id
       }
+      this.isLoading = true
       this.$store.dispatch('changeQuantity', data)
+        .then(_ => {
+          this.isLoading = false
+        })
+        .catch(_ => {
+          this.isLoading = false
+        })
     },
     deleteItem () {
+      this.isLoading = true
       this.$store.dispatch('deleteCartItem', this.item.id)
+        .then(_ => {
+          this.isLoading = false
+        })
+        .catch(_ => {
+          this.isLoading = false
+        })
     }
   }
 }

@@ -89,42 +89,47 @@ export default new Vuex.Store({
         })
     },
     addToCart ({ commit, state }, id) {
-      if (state.cartitems.some(item => item.Product.id === id)) {
-        const filter = state.cartitems.filter(item => {
-          return item.Product.id === id
-        })
-        const cartitem = filter[0]
-        const data = {
-          quantity: cartitem.quantity + 1,
-          ProductId: cartitem.Product.id
-        }
-
-        ecommerceAPI.put(`/cartitems/${cartitem.id}`, data, {
-          headers: {
-            access_token: state.access_token
+      return new Promise((resolve, reject) => {
+        if (state.cartitems.some(item => item.Product.id === id)) {
+          const filter = state.cartitems.filter(item => {
+            return item.Product.id === id
+          })
+          const cartitem = filter[0]
+          const data = {
+            quantity: cartitem.quantity + 1,
+            ProductId: cartitem.Product.id
           }
-        })
-          .then(({ data }) => {
-            commit('UPDATE_CART_ITEM', data.cartitem)
+          ecommerceAPI.put(`/cartitems/${cartitem.id}`, data, {
+            headers: {
+              access_token: state.access_token
+            }
           })
-          .catch(_ => {
-          })
-      } else {
-        const data = {
-          quantity: 1,
-          ProductId: id
-        }
-        ecommerceAPI.post('/cartitems', data, {
-          headers: {
-            access_token: state.access_token
+            .then(({ data }) => {
+              commit('UPDATE_CART_ITEM', data.cartitem)
+              resolve(data)
+            })
+            .catch(err => {
+              reject(err)
+            })
+        } else {
+          const data = {
+            quantity: 1,
+            ProductId: id
           }
-        })
-          .then(({ data }) => {
-            commit('ADD_TO_CART', data.cartitem)
+          ecommerceAPI.post('/cartitems', data, {
+            headers: {
+              access_token: state.access_token
+            }
           })
-          .catch(_ => {
-          })
-      }
+            .then(({ data }) => {
+              commit('ADD_TO_CART', data.cartitem)
+              resolve(data)
+            })
+            .catch(err => {
+              reject(err)
+            })
+        }
+      })
     },
     getCart ({ commit, state }) {
       ecommerceAPI.get('/cartitems', {
@@ -139,40 +144,52 @@ export default new Vuex.Store({
         })
     },
     changeQuantity ({ commit, state }, data) {
-      ecommerceAPI.put(`/cartitems/${data.id}`, data, {
-        headers: {
-          access_token: state.access_token
-        }
+      return new Promise((resolve, reject) => {
+        ecommerceAPI.put(`/cartitems/${data.id}`, data, {
+          headers: {
+            access_token: state.access_token
+          }
+        })
+          .then(({ data }) => {
+            commit('UPDATE_CART_ITEM', data.cartitem)
+            resolve(data)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
-        .then(({ data }) => {
-          commit('UPDATE_CART_ITEM', data.cartitem)
-        })
-        .catch(_ => {
-        })
     },
     deleteCartItem ({ commit, state }, id) {
-      ecommerceAPI.delete(`/cartitems/${id}`, {
-        headers: {
-          access_token: state.access_token
-        }
+      return new Promise((resolve, reject) => {
+        ecommerceAPI.delete(`/cartitems/${id}`, {
+          headers: {
+            access_token: state.access_token
+          }
+        })
+          .then(({ data }) => {
+            commit('DELETE_CART_ITEM', id)
+            resolve(data)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
-        .then(_ => {
-          commit('DELETE_CART_ITEM', id)
-        })
-        .catch(_ => {
-        })
     },
     checkout ({ commit, state }) {
-      ecommerceAPI.get('/cartitems/checkout', {
-        headers: {
-          access_token: state.access_token
-        }
+      return new Promise((resolve, reject) => {
+        ecommerceAPI.get('/cartitems/checkout', {
+          headers: {
+            access_token: state.access_token
+          }
+        })
+          .then(({ data }) => {
+            commit('CHECKOUT')
+            resolve(data)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
-        .then(_ => {
-          commit('CHECKOUT')
-        })
-        .catch(_ => {
-        })
     }
   },
   getters: {

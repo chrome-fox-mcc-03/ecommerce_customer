@@ -16,22 +16,37 @@
         </div>
       </div>
     </div>
+    <loading :active.sync="isLoading" :can-cancel="false" :is-full-page="fullPage"></loading>
   </div>
 </template>
 
 <script>
+import Loading from 'vue-loading-overlay'
 import CartItem from '../components/CartItem'
 export default {
   name: 'Cart',
   components: {
-    CartItem
+    CartItem,
+    Loading
   },
   created () {
     this.$store.dispatch('getCart')
   },
+  data () {
+    return {
+      isLoading: false
+    }
+  },
   methods: {
     checkout () {
+      this.isLoading = true
       this.$store.dispatch('checkout')
+        .then(_ => {
+          this.isLoading = false
+        })
+        .catch(_ => {
+          this.isLoading = false
+        })
     }
   },
   computed: {

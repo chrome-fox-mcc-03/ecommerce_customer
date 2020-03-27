@@ -30,22 +30,43 @@
         </div>
       </div>
     </div>
+    <loading :active.sync="isLoading" :can-cancel="false" :is-full-page="fullPage"></loading>
   </div>
 </template>
 
 <script>
+import Loading from 'vue-loading-overlay'
 export default {
   name: 'Home',
+  data () {
+    return {
+      isLoading: false
+    }
+  },
   created () {
     this.$store.dispatch('getProducts')
     this.$store.dispatch('getCart')
+  },
+  components: {
+    Loading
   },
   methods: {
     details (id) {
       this.$router.push(`/product/${id}`)
     },
     addToCart (id) {
-      this.$store.dispatch('addToCart', id)
+      if (this.$store.state.access_token) {
+        this.isLoading = true
+        this.$store.dispatch('addToCart', id)
+          .then(_ => {
+            this.isLoading = false
+          })
+          .catch(_ => {
+            this.isLoading = false
+          })
+      } else {
+        this.$router.push('/login')
+      }
     }
   },
   computed: {
