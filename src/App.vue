@@ -67,7 +67,7 @@ export default {
 @media only screen and (max-device-width: 480px) {
 /* styles for mobile browsers smaller than 480px; (iPhone) */
    #app {
-    min-height:110vh;
+    min-height:120vh;
   }
 }
 
