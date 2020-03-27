@@ -91,9 +91,9 @@ export default {
           })
         })
         .catch(err => {
-          console.log(err)
+          const errors = err.response.data.message
           UIkit.notification({
-            message: err,
+            message: errors,
             status: 'danger',
             pos: 'top-center',
             timeout: 1000
