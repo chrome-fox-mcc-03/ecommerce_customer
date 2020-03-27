@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Axios from 'axios'
+import axios from 'axios'
 import router from '../router'
 
 Vue.use(Vuex)
@@ -52,7 +52,7 @@ export default new Vuex.Store({
   },
   actions: {
     onFetchProduct ({ commit }) {
-      Axios({
+      axios({
         method: 'GET',
         url: 'https://whispering-cliffs-09196.herokuapp.com/product'
       })
@@ -69,7 +69,7 @@ export default new Vuex.Store({
     },
 
     onRegisterUser ({ commit }, { email, password }) {
-      Axios({
+      axios({
         method: 'POST',
         url: `https://whispering-cliffs-09196.herokuapp.com/register/${email}`,
         data: {
@@ -95,7 +95,7 @@ export default new Vuex.Store({
     },
 
     onLoginUser ({ dispatch, commit }, { email, password }) {
-      Axios({
+      axios({
         method: 'POST',
         url: `https://whispering-cliffs-09196.herokuapp.com/login/${email}`,
         data: {
@@ -130,7 +130,7 @@ export default new Vuex.Store({
       if (accessToken) {
         if (quantity) {
           commit('ADD_TO_CART', { product, quantity })
-          Axios({
+          axios({
             method: 'POST',
             url: 'https://whispering-cliffs-09196.herokuapp.com/addtocart',
             headers: {
@@ -176,7 +176,7 @@ export default new Vuex.Store({
     },
 
     createCart ({ commit }) {
-      Axios({
+      axios({
         method: 'POST',
         url: 'https://whispering-cliffs-09196.herokuapp.com/cart',
         headers: {
@@ -196,7 +196,7 @@ export default new Vuex.Store({
     },
 
     fetchCart ({ commit }) {
-      Axios({
+      axios({
         method: 'GET',
         url: 'https://whispering-cliffs-09196.herokuapp.com/cartitem',
         headers: {
@@ -218,7 +218,7 @@ export default new Vuex.Store({
 
     removeProduct ({ commit }, { product }) {
       commit('REMOVE_PRODUCT_IN_CART', { product })
-      Axios({
+      axios({
         method: 'DELETE',
         url: `https://whispering-cliffs-09196.herokuapp.com/cartitem/${product.id}`,
         headers: {
@@ -245,7 +245,7 @@ export default new Vuex.Store({
 
     removeAllProduct ({ commit }) {
       commit('REMOVE_ALL_PRODUCT_IN_CART')
-      Axios({
+      axios({
         method: 'DELETE',
         url: 'https://whispering-cliffs-09196.herokuapp.com/cartitem/',
         headers: {
@@ -271,7 +271,7 @@ export default new Vuex.Store({
     },
 
     removeCart ({ commit }) {
-      Axios({
+      axios({
         method: 'DELETE',
         url: 'https://whispering-cliffs-09196.herokuapp.com/cart',
         headers: {
@@ -308,7 +308,7 @@ export default new Vuex.Store({
     },
 
     showDetail ({ dispatch, commit }, { name, productId }) {
-      Axios({
+      axios({
         method: 'GET',
         url: `https://whispering-cliffs-09196.herokuapp.com/product/${productId}`,
         headers: {
