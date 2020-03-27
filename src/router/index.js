@@ -32,6 +32,11 @@ const routes = [
         path: ':id',
         component: DetailProduct,
         props: true
+      },
+      {
+        path: 'search/:name',
+        component: Products,
+        props: true
       }
     ]
   },

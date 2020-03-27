@@ -18,9 +18,9 @@ import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 
 export default {
+  props: ['name'],
   data () {
     return {
-      category: ''
     }
   },
   components: {
@@ -29,18 +29,24 @@ export default {
   },
   computed: {
     products () {
-      if (this.category) {
+      if (this.name) {
         return this.$store.state.products.filter(product => {
-          return product.genre === this.category
+          return product.name.toLowerCase().includes(this.name.toLowerCase())
         })
       } else {
-        return this.$store.state.products
+        if (this.$store.state.category) {
+          return this.$store.state.products.filter(product => {
+            return product.genre === this.$store.state.category
+          })
+        } else {
+          return this.$store.state.products
+        }
       }
     }
   },
   methods: {
     changeCategory (category) {
-      this.category = category
+      this.$store.state.category = category
     }
   }
 }

@@ -27,6 +27,7 @@ export default {
   },
   created () {
     this.$store.dispatch('getProducts')
+    this.$store.commit('CHECK_LOGIN')
   },
   computed: {
     products () {

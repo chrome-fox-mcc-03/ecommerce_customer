@@ -31,10 +31,12 @@
           <div class="ml-5">
             <h2><span style="font-size:13px;">Available Stock</span></h2>
             <NumberInputSpinner
-              :min="0"
+              :min="1"
               :max="product.stock"
               v-model="cart.quantity"
+              v-if="product.stock"
             />
+            <p v-else><b>Out of Stock</b></p>
           </div>
         </div>
         <div class="d-flex">
@@ -63,7 +65,7 @@
         </div>
       </div>
       <div class="ml-5">
-        <button @click.prevent="addCart" class="btn btn-secondary">add to cart</button>
+        <button @click.prevent="addCart(product.stock)" class="btn btn-secondary">add to cart</button>
       </div>
     </div>
   </div>
@@ -80,9 +82,9 @@ export default {
     return {
       product: {},
       cart: {
-        UserId: '',
-        ProductId: '',
-        quantity: ''
+        UserId: 0,
+        ProductId: 0,
+        quantity: 1
       }
     }
   },
@@ -91,9 +93,11 @@ export default {
     Loading
   },
   methods: {
-    addCart () {
-      this.cart.ProductId = this.product.id
-      this.$store.dispatch('addCart', this.cart)
+    addCart (stock) {
+      if (stock) {
+        this.cart.ProductId = this.product.id
+        this.$store.dispatch('addCart', this.cart)
+      }
     }
   },
   beforeMount () {

@@ -13,8 +13,8 @@
             <form class="form-inline">
               <br>
               <br>
-                <input v-model="search" name="search" style="width:600px" class="form-control form-control-sm mr-2" type="search" placeholder="Search" aria-label="Search">
-                <router-link :to="`/product/search/${search}`" class=" my-2 my-sm-0" type="submit"><img style="width:30px" src="../assets/search.png" alt=""></router-link>
+                <input v-model="search" name="search" style="width:600px" class="form-control form-control-sm mr-2" type="text" placeholder="Search (Please do not click enter, use icon search instead)">
+                <a @click.prevent="goToSearch" href="#" class=" my-2 my-sm-0" type="submit"><img style="width:30px" src="../assets/search.png" alt=""></a>
             </form>
           </li>
         </ul>
@@ -32,24 +32,24 @@
       <div style="margin-left:190px" class="collapse" id="category">
         <div class="d-flex">
           <div class="mr-5">
-            <router-link style="text-decoration: none; color: black" to="/product/adventure">adventure</router-link><br>
-            <router-link style="text-decoration: none; color: black" to="/product/action">action</router-link>
+            <router-link style="text-decoration: none; color: black" to="/product">adventure</router-link><br>
+            <router-link style="text-decoration: none; color: black" to="/product">action</router-link>
           </div>
           <div class="mr-5">
-            <router-link style="text-decoration: none; color: black" to="/product/comedy">comedy</router-link><br>
-            <router-link style="text-decoration: none; color: black" to="/product/romcom">romcom</router-link>
+            <router-link style="text-decoration: none; color: black" to="/product">comedy</router-link><br>
+            <router-link style="text-decoration: none; color: black" to="/product">romcom</router-link>
           </div>
           <div class="mr-5">
-            <router-link style="text-decoration: none; color: black" to="/product/horror">horror</router-link><br>
-            <router-link style="text-decoration: none; color: black" to="/product/sport">sport</router-link>
+            <router-link style="text-decoration: none; color: black" to="/product">horror</router-link><br>
+            <router-link style="text-decoration: none; color: black" to="/product">sport</router-link>
           </div>
           <div class="mr-5">
-            <router-link style="text-decoration: none; color: black" to="/product/sliceoflife">slice of life</router-link><br>
-            <router-link style="text-decoration: none; color: black" to="/product/fantasy">fantasy</router-link>
+            <router-link style="text-decoration: none; color: black" to="/product">slice of life</router-link><br>
+            <router-link style="text-decoration: none; color: black" to="/product">fantasy</router-link>
           </div>
           <div class="mr-5">
-            <router-link style="text-decoration: none; color: black" to="/product/isekai">isekai</router-link><br>
-            <router-link style="text-decoration: none; color: black" to="/product/mystery">mystery</router-link>
+            <router-link style="text-decoration: none; color: black" to="/product">isekai</router-link><br>
+            <router-link style="text-decoration: none; color: black" to="/product">mystery</router-link>
           </div>
         </div>
       </div>
@@ -67,7 +67,10 @@
             <loading :active.sync="$store.state.isLoading"
               :is-full-page="true"></loading>
             <h3 v-if="$store.state.error">password or email is wrong</h3>
-            <form>
+            <div v-if="$store.state.isLogin">
+              <h2>Successfully Login</h2>
+            </div>
+            <form v-else>
               <div class="form-group">
                 <label for="email">Email address</label>
                 <input v-model="user.email" type="email" class="form-control" id="email" placeholder="Enter email">
@@ -112,6 +115,9 @@ export default {
     },
     logout () {
       this.$store.commit('LOGOUT')
+    },
+    goToSearch () {
+      this.$router.push(`/product/search/${this.search}`)
     }
   }
 }

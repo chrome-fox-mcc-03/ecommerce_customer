@@ -7,13 +7,13 @@
     </ul>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img class="img" src="../assets/onepiece.jpg" alt="Los Angeles" width="1190" height="400">
+        <img class="img" src="../assets/onepiece.jpg" alt="Los Angeles" width="1215" height="400">
       </div>
       <div class="carousel-item">
-        <img class="img" src="../assets/naruto.jpg" alt="Chicago" width="1190" height="400">
+        <img class="img" src="../assets/naruto.jpg" alt="Chicago" width="1215" height="400">
       </div>
       <div class="carousel-item">
-        <img class="img" src="../assets/bleach.jpg" alt="New York" width="1190" height="400">
+        <img class="img" src="../assets/bleach.jpg" alt="New York" width="1215" height="400">
       </div>
     </div>
     <a style="margin-left:200px" class="carousel-control-prev" href="#demo" data-slide="prev">

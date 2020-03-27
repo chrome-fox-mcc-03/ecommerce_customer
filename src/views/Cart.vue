@@ -3,10 +3,10 @@
     <loading :active.sync="$store.state.isLoading"
       :is-full-page="true"></loading>
     <div id='example-3'>
-      <div v-for="(cart, i) in $store.state.carts" :key="i" class="card mb-3" style="max-width: 700px;">
+      <div v-for="(cart, i) in carts" :key="i" class="card mb-3" style="max-width: 700px;">
         <div class="d-flex item-align-center">
           <div class="card-body">
-            <input type="checkbox" @change="addTotal(cart.quantity, cart.Product.price)" :id="cart.id" :value="cart.id" v-model="checkedCarts">
+            <input type="checkbox" @change="addTotal" :id="cart.id" :value="{ total: (cart.quantity * cart.Product.price), id: cart.id, quantity: cart.quantity}" v-model="checkedCarts">
           </div>
           <div class="">
             <img style="height: 100px; width:70px" :src="cart.Product.image_url" class="card-img" alt="...">
@@ -18,11 +18,15 @@
             </div>
           </div>
           <div class="card-body">
-            <input v-if="changeQtt === cart.id"
-            v-model="quantity"
-            type="text" placeholder="Quantity">
+            <NumberInputSpinner
+              v-if="changeQtt === cart.id"
+              :min="1"
+              :max="(cart.Product.stock + cart.quantity)"
+              v-model="quantity"
+            />
             <p v-else>Quantity:  {{ cart.quantity }}</p>
             <div v-if="changeQtt === cart.id" >
+              <br>
               <br>
               <button @click.prevent="editQtt(cart.id)" class="btn btn-secondary btn-sm mr-3">Save</button>
             </div>
@@ -42,7 +46,7 @@
           <p style="color:grey">Total Price</p>
           <p><b>Rp {{ totalPrice }}</b></p>
         </div>
-        <button style="width: 260px" class="btn btn-secondary">Purchase</button>
+        <button @click.prevent="purchase" style="width: 260px" class="btn btn-secondary">Purchase</button>
       </div>
     </div>
   </div>
@@ -51,22 +55,27 @@
 <script>
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
+import NumberInputSpinner from 'vue-number-input-spinner'
 
 export default {
   data () {
     return {
       checkedCarts: [],
-      totalPrice: 1,
+      totalPrice: 0,
       changeQtt: '',
-      quantity: 0
+      quantity: 1
     }
   },
   components: {
-    Loading
+    Loading,
+    NumberInputSpinner
   },
   methods: {
     addTotal (qtt, price) {
-      this.totalPrice += (Number(qtt) * Number(price))
+      this.totalPrice = 0
+      this.checkedCarts.forEach(el => {
+        this.totalPrice += el.total
+      })
     },
     change (id, qtt) {
       this.changeQtt = id
@@ -78,10 +87,21 @@ export default {
     },
     deleteCart (id) {
       this.$store.dispatch('deleteCart', id)
+    },
+    purchase () {
+      for (let i = 0; i < this.checkedCarts.length; i++) {
+        this.$store.dispatch('editQtt', { quantity: this.checkedCarts[i].quantity, id: this.checkedCarts[i].id, purchase: true })
+        this.totalPrice = 0
+      }
     }
   },
   created () {
     this.$store.dispatch('getCart')
+  },
+  computed: {
+    carts () {
+      return this.$store.getters.getCartNotPurchase
+    }
   }
 }
 </script>

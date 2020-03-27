@@ -5,10 +5,10 @@
         <h2 style="text-align:left;">Popular category</h2>
         <br>
         <div>
-          <router-link to="/product/adventure" class="btn btn-secondary btn-sm mr-3"><b>Adventure</b></router-link>
-          <router-link to="/product/isekai" class="btn btn-secondary btn-sm mr-3"><b>Isekai</b></router-link>
-          <router-link to="/product/comedy" class="btn btn-secondary btn-sm mr-3"><b>Comedy</b></router-link>
-          <router-link to="/product/sport" class="btn btn-secondary btn-sm mr-3"><b>Sport</b></router-link>
+          <router-link to="/product" class="btn btn-secondary btn-sm mr-3"><b>Adventure</b></router-link>
+          <router-link to="/product" class="btn btn-secondary btn-sm mr-3"><b>Isekai</b></router-link>
+          <router-link to="/product" class="btn btn-secondary btn-sm mr-3"><b>Comedy</b></router-link>
+          <router-link to="/product" class="btn btn-secondary btn-sm mr-3"><b>Sport</b></router-link>
         </div>
       </div>
     </div>
@@ -20,30 +20,30 @@
           <div class="container carousel-inner no-padding">
             <div class="carousel-item active">
               <div class="col-xs-3 col-sm-3 col-md-3">
-                <img id="top-product" src="../assets/top/attactontitan.png">
+                <router-link to="/product/search/attact"><img id="top-product" src="../assets/top/attactontitan.png"></router-link>
               </div>
               <div class="col-xs-3 col-sm-3 col-md-3">
-                <img id="top-product" src="../assets/top/bleach.png">
+                <router-link to="/product/search/bleach"><img id="top-product" src="../assets/top/bleach.png"></router-link>
               </div>
               <div class="col-xs-3 col-sm-3 col-md-3">
-                <img id="top-product" src="../assets/top/conan.png">
+                <router-link to="/product/search/conan"><img id="top-product" src="../assets/top/conan.png"></router-link>
               </div>
               <div class="col-xs-3 col-sm-3 col-md-3">
-                <img id="top-product" src="../assets/top/dragonball.jpg">
+                <router-link to="/product/search/dragon"><img id="top-product" src="../assets/top/dragonball.jpg"></router-link>
               </div>
             </div>
             <div class="carousel-item">
               <div class="col-xs-3 col-sm-3 col-md-3">
-                <img id="top-product" src="../assets/top/fairytail.png">
+                <router-link to="/product/search/fairy"><img id="top-product" src="../assets/top/fairytail.png"></router-link>
               </div>
               <div class="col-xs-3 col-sm-3 col-md-3">
-                <img id="top-product" src="../assets/top/naruto.jpg">
+                <router-link to="/product/search/naruto"><img id="top-product" src="../assets/top/naruto.jpg"></router-link>
               </div>
               <div class="col-xs-3 col-sm-3 col-md-3">
-                <img id="top-product" src="../assets/top/onepiece.gif">
+                <router-link to="/product/search/piece"><img id="top-product" src="../assets/top/onepiece.gif"></router-link>
               </div>
               <div class="col-xs-3 col-sm-3 col-md-3">
-                <img id="top-product" src="../assets/top/tokyoghoul.jpg">
+                <router-link to="/product/search/tokyo"><img id="top-product" src="../assets/top/tokyoghoul.jpg"></router-link>
               </div>
             </div>
           </div>

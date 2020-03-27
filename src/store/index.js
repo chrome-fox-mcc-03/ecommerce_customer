@@ -14,7 +14,8 @@ export default new Vuex.Store({
     name: '',
     products: [],
     error: '',
-    carts: []
+    carts: [],
+    category: ''
   },
   mutations: {
     CHANGE_FORM (state) {
@@ -50,6 +51,13 @@ export default new Vuex.Store({
     },
     SET_CART (state, data) {
       state.carts = data
+    },
+    CHECK_LOGIN (state) {
+      if (localStorage.token) {
+        state.isLogin = true
+      } else {
+        state.isLogin = false
+      }
     }
   },
   actions: {
@@ -173,26 +181,51 @@ export default new Vuex.Store({
         })
     },
     editQtt ({ commit, dispatch }, data) {
-      commit('SET_LOADING')
-      axios({
-        method: 'patch',
-        url: `https://agile-beyond-79709.herokuapp.com/cart/${data.id}`,
-        headers: {
-          token: localStorage.token
-        },
-        data: {
-          quantity: data.quantity
-        }
-      })
-        .then(_ => {
-          dispatch('getCart')
+      if (data.purchase) {
+        commit('SET_LOADING')
+        axios({
+          method: 'patch',
+          url: `https://agile-beyond-79709.herokuapp.com/cart/${data.id}`,
+          headers: {
+            token: localStorage.token
+          },
+          data: {
+            quantity: data.quantity,
+            purchase: true
+          }
         })
-        .catch(err => {
-          commit('SET_ERROR', err)
+          .then(_ => {
+            dispatch('getCart')
+          })
+          .catch(err => {
+            commit('SET_ERROR', err)
+          })
+          .finally(_ => {
+            commit('SET_LOADING')
+          })
+      } else {
+        commit('SET_LOADING')
+        axios({
+          method: 'patch',
+          url: `https://agile-beyond-79709.herokuapp.com/cart/${data.id}`,
+          headers: {
+            token: localStorage.token
+          },
+          data: {
+            quantity: data.quantity,
+            purchase: false
+          }
         })
-        .finally(_ => {
-          commit('SET_LOADING')
-        })
+          .then(_ => {
+            dispatch('getCart')
+          })
+          .catch(err => {
+            commit('SET_ERROR', err)
+          })
+          .finally(_ => {
+            commit('SET_LOADING')
+          })
+      }
     },
     deleteCart ({ commit, dispatch }, id) {
       commit('SET_LOADING')
@@ -220,6 +253,11 @@ export default new Vuex.Store({
     },
     getTwentyProduct: (state) => {
       return state.products.slice(0, 20)
+    },
+    getCartNotPurchase: (state) => {
+      return state.carts.filter(el => {
+        return el.purchase === false
+      })
     }
   }
 })
