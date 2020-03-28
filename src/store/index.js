@@ -4,7 +4,8 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-const url = 'https://shrouded-meadow-59142.herokuapp.com'
+// const url = 'https://shrouded-meadow-59142.herokuapp.com'
+const url = 'http://localhost:3000'
 
 export default new Vuex.Store({
   state: {
@@ -139,7 +140,10 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          commit('SET_PRODUCTS', data.data)
+          const products = data.data.filter(el => {
+            return el.stock > 0
+          })
+          commit('SET_PRODUCTS', products)
         })
         .catch(err => {
           commit('SET_MESSAGE', {
