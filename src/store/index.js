@@ -4,8 +4,7 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-// const url = 'https://shrouded-meadow-59142.herokuapp.com'
-const url = 'http://localhost:3000'
+const url = 'https://shrouded-meadow-59142.herokuapp.com'
 
 export default new Vuex.Store({
   state: {
