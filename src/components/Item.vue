@@ -76,7 +76,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .card-img-top {
   height: 20rem;
   max-width: 20rem;
