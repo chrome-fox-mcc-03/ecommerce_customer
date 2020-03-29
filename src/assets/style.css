@@ -1,0 +1,109 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url('https://wallpapercave.com/wp/wp1868551.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+}
+
+a {
+  outline: none;
+}
+
+.ui.one.cards {
+  margin: 1vh 1vw;
+  justify-content: center;
+}
+
+.ui.cards {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.ui.one.cards > .card {
+  margin: 5vh 5vw;
+  width: 20vw;
+}
+
+.login {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login .container {
+  width: 30vw;
+  background-color: white;
+  padding: 5vh 0;
+  border-radius: 2vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.login .container .form {
+  width: 25vw;
+}
+
+.login .container #message {
+  width: 85%;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.home #message {
+  width: 25%;
+}
+
+.ui.card > .image, .ui.cards > .card > .image {
+  min-height: 40vh;
+  max-height: 40vh;
+}
+
+.ui.modal {
+  width: 40vw;
+}
+
+.btn-group-delete {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#modal-delete h2, #modal-delete p{
+  display: flex;
+  justify-content: center;
+}
+
+#modal-delete .ui.standard.modal.transition.visible.active {
+  width: 25vw;
+}
+
+.cart {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  margin-top: 10vh;
+  margin-bottom: 5vh;
+}
+
+.ui.table {
+  background-color: white;
+  width: 75%;
+}
+
+.table img {
+  width: 10vw;
+  height: 20vh;
+}
