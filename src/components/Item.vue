@@ -1,12 +1,12 @@
 <template>
-   <div class="col-md-2 mb-5">
-    <div class="card h-100">
+   <div class="col-md-4 mb-5">
+    <div class="card h-100 mx-auto">
       <img :src='image' :alt="name" class="card-img-top img-fluid">
-      <div class="card-body p-2 d-flex flex-column align-items-center justify-content-center">
+      <div class="card-body p-2 d-flex flex-column">
         <h6 class="card-title">{{ name.split(':')[0] }} </h6>
         <div class="card-text">Price: {{ price | rupiah}}</div>
         <div class="card-text">Stock: {{ stock }}</div>
-        <b-spinner small label="Small Spinner" v-if="loading" class="mt-auto"></b-spinner>
+        <b-spinner small label="Small Spinner" v-if="loading" class="mt-auto mx-auto"></b-spinner>
         <b-alert
           :show="dismissCountDown"
           variant="success"
@@ -15,7 +15,7 @@
         >
         Added to cart <i class="fa fa-check"></i>
         </b-alert>
-        <button class="btn btn-block btn-primary active mt-auto" @click="addToCart(invId, price)">Add to cart <i class="fa fa-shopping-cart"></i></button>
+        <button class="btn btn-primary active mt-auto" @click="addToCart(invId, price)">Add to cart <i class="fa fa-shopping-cart"></i></button>
       </div>
     </div>
   </div>
@@ -77,5 +77,13 @@ export default {
 </script>
 
 <style>
+.card-img-top {
+  height: 20rem;
+  max-width: 20rem;
+}
+
+.card {
+  max-width: 15rem;
+}
 
 </style>

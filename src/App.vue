@@ -61,14 +61,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   position: relative;
-  min-height:95vh;
-}
-
-@media only screen and (max-device-width: 480px) {
-/* styles for mobile browsers smaller than 480px; (iPhone) */
-   #app {
-    min-height:120vh;
-  }
+  min-height:110vh;
 }
 
 #nav {

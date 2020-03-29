@@ -105,7 +105,7 @@ export default {
 
 .card {
   height: 300px;
-  width: 330px;
+  width: 350px;
 }
 
 </style>
