@@ -135,7 +135,7 @@ export default new Vuex.Store({
           }, 500)
         })
         .catch(err => {
-          console.log(err)
+          app.$toasted.show(err)
           app.$Progress.finish()
           app.$toasted.show('Insufficient Stock')
         })
