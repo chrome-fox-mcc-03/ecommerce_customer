@@ -87,6 +87,5 @@ td {
   border-width: 10px;
   border-color: royalblue;
 }
-#CheckoutButton {
-}
+
 </style>
