@@ -20,7 +20,7 @@ export default {
   name: 'Error',
   data () {
     return {
-      dismissCountDown: 5
+      dismissCountDown: 1
     }
   },
   computed: {

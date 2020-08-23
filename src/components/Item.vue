@@ -8,9 +8,8 @@
         <div class="card-text">Stock: {{ stock }}</div>
         <b-spinner small label="Small Spinner" v-if="loading" class="mt-auto mx-auto"></b-spinner>
         <b-alert
-          :show="dismissCountDown"
+          :show="dismissSecs"
           variant="success"
-          @dismiss-count-down="countDownChanged"
           v-if="success"
         >
         Added to cart <i class="fa fa-check"></i>
@@ -29,8 +28,7 @@ export default {
   name: 'Item',
   data () {
     return {
-      dismissSecs: 3,
-      dismissCountDown: 3,
+      dismissSecs: 1,
       success: false,
       loading: false
     }
@@ -41,9 +39,6 @@ export default {
   props: ['invId', 'name', 'image', 'price', 'stock'],
   methods: {
     ...mapActions(['fetchCart']),
-    countDownChanged (dismissCountDown) {
-      this.dismissCountDown = dismissCountDown
-    },
     addToCart (invId, price) {
       this.loading = true
       const data = {
@@ -56,7 +51,6 @@ export default {
             this.fetchCart()
             this.loading = false
             this.success = true
-            this.dismissCountDown = this.dismissSecs
           })
           .catch(err => {
             this.$store.state.error = err

@@ -7,7 +7,6 @@
       </div>
 
   <div class="container my-5">
-    <Error></Error>
     <div class="row mb-3">
       <div class="col-md-9">
       </div>
@@ -37,14 +36,12 @@
 import { mapActions } from 'vuex'
 import Item from './Item.vue'
 import ShoppingCart from './ShoppingCart.vue'
-import Error from './Error'
 
 export default {
   name: 'HomePage',
   components: {
     Item,
-    ShoppingCart,
-    Error
+    ShoppingCart
   },
   data () {
     return {

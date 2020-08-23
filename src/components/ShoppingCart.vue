@@ -24,26 +24,31 @@
           <div>
             <b-spinner small label="Small Spinner" v-if="loading"></b-spinner>
         </div>
-          <div class="modal-body">
-            <table class="table">
+          <div class="modal-xs">
+            <table class="table-xs responsive">
               <thead>
                   <th>Name</th>
                   <th>Price</th>
                   <th>Amount</th>
                   <th>Total Price</th>
-                  <th>Edit/Remove</th>
+                  <th></th>
               </thead>
               <tbody>
                 <tr v-for="item in totalCart" :key='item.id'>
                   <td>{{ item.name.split(':')[0] }}</td>
                   <td>{{ item.price | rupiah }}</td>
-                  <td><input type="number" class="form-control-sm"
-                           style="width:5em"
-                           :value="item.quantity"
-                           v-on:input="handleQuantityChange($event, item.stock)"/></td>
-                  <td>{{ item.totalPrice | rupiah }}</td>
                   <td>
-                    <button class="btn btn-sm btn-success mr-3" @click="updateQuantity(item.id)"><i class="fa fa-check"></i></button>
+                    <input type="number"
+                           class="form-control-sm"
+                           style="width:4em"
+                           @change="updateQuantity(item.id)"
+                           :value="item.quantity"
+                           v-on:input="handleQuantityChange($event, item.stock)"/>
+                           </td>
+                  <td>
+                    {{ item.totalPrice | rupiah }}
+                  </td>
+                  <td>
                     <button class="btn btn-sm btn-danger" @click="removeFromCart(item.id)">&times;</button>
                   </td>
                 </tr>
@@ -159,22 +164,21 @@ export default {
           this.loading = false
         })
       this.message = false
-      this.dismissCountDown = 2
+      this.dismissCountDown = 1
     },
     handleQuantityChange (e, stock) {
+      this.error = ''
       this.message = false
       if (e.target.value > 0) {
         if (e.target.value > stock) {
           this.error = 'stock has reached maximum'
-          e.target.value = stock
-        } else {
+        } else if (e.target.value <= stock && e.target.value > 0) {
           this.quantity = e.target.value
         }
-      } else {
+      } else if (e.target.value === 0 || e.target.value === '') {
         this.quantity = 1
-        e.target.value = this.quantity
       }
-      this.dismissCountDown = 4
+      this.dismissCountDown = 1
     },
     updateQuantity (id) {
       this.error = ''
@@ -194,7 +198,7 @@ export default {
           this.loading = false
         })
       this.message = false
-      this.dismissCountDown = 2
+      this.dismissCountDown = 1
     },
     onSubmit (evt) {
       evt.preventDefault()

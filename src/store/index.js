@@ -90,8 +90,7 @@ export default new Vuex.Store({
           context.commit('SET_LOADING', false)
         })
         .catch(err => {
-          console.log(err.response.data.error, '------errrr')
-
+          // console.log(err.response.data.error, '------errrr')
           context.commit('SHOW_ERROR', err.response.data.error)
           context.commit('SET_LOADING', false)
         })
