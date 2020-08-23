@@ -12,7 +12,6 @@
       loop autoplay
       class="mx-auto">
       </lottie-player>
-      <p class="font-weight-light mt-0 h4">Loading....</p>
   </div>
   <Footer></Footer>
   </div>
