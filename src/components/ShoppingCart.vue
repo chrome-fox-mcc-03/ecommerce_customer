@@ -24,8 +24,8 @@
           <div>
             <b-spinner small label="Small Spinner" v-if="loading"></b-spinner>
         </div>
-          <div class="modal-xs">
-            <table class="table-xs responsive">
+          <div class="modal-body">
+            <table class="table">
               <thead>
                   <th>Name</th>
                   <th>Price</th>
